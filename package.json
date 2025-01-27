@@ -1,0 +1,25 @@
+{
+    "name": "prototype",
+    "version": "1.0.0",
+    "description": "### Installation",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@inertiajs/react": "^2.0.3",
+        "@vitejs/plugin-react": "^4.3.4",
+        "laravel-vite-plugin": "^1.2.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "vite": "^6.0.11"
+    },
+    "dependencies": {
+        "react-toastify": "^11.0.3",
+        "ziggy-js": "^2.5.0"
+    }
+}
