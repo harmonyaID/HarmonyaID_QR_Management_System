@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client"
 const appName = import.meta.env.VITE_APP_NAME || 'QR Code'
 createInertiaApp({
     title   : title => `${title} - ${appName}`,
-    resolve : (name) => resolvePageComponent(`./Pages/${name}.js`, import.meta.glob('./Pages/**/*.js')),
+    resolve : (name) => resolvePageComponent(`./pages/${name}.js`, import.meta.glob('./pages/**/*.js')),
     setup   : ({element, App, props}) => {
         const root = createRoot(element)
         root.render(<App {...props} />)
