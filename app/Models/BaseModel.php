@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Ramsey\Uuid\Uuid;
 
 class BaseModel extends Model
 {
+    use HasUuids;
     use SoftDeletes;
     use GetOrPaginate;
 
@@ -41,5 +44,5 @@ class BaseModel extends Model
     {
         return $request->has('search') && strlen($request->search) >= 3;
     }
-
+    
 }
