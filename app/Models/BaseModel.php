@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Ramsey\Uuid\Uuid;
 
 class BaseModel extends Model
 {
@@ -22,6 +21,8 @@ class BaseModel extends Model
 
     // Var for generate number
     public $numberPrefix = 'GX';
+
+    public static $snakeAttribute = false;
 
 
     /** --- SCOPES --- */
