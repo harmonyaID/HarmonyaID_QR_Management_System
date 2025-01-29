@@ -2,34 +2,14 @@
 
 ### Installation
 
+Make sure make, php 8, composer, npm, python, and pip are installed on your machine
+
+This project uses Python for generating the QR Code because the PHP library generates weird rounded eyeballs
+
 ```shell
-composer create-project yusologia/lara-backend-service project
+# Install all dependency (php, npm, & pip)
+make install
+
+# Migrate all migration
+php artisan migrate
 ```
-
-### Configuration system in config/core.php
-
-```php
-return [
-
-    'prefix' => [
-
-        // Base uri for website application
-        'web' => env('BASE_WEB_PREFIX', 'web'),
-
-        // Base uri for mobile application
-        'mobile' => env('BASE_MOBILE_PREFIX', 'mobile'),
-
-    ],
-
-    'namespace' => [
-
-        // Base namespace for website application
-        'web' => env('BASE_WEB_NAMESPACE', 'Web'),
-
-        // Base namespace for mobile application
-        'mobile' => env('BASE_MOBILE_NAMESPACE', 'Mobile'),
-
-    ]
-
-];
-  ```
