@@ -1,0 +1,11 @@
+.btn {
+    line-height: 1.25rem;
+
+    &.btn-sm {
+        line-height: .915rem;
+    }
+
+    &.btn-text {
+        border-color: transparent;
+    }
+}

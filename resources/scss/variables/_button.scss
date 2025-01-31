@@ -1,0 +1,16 @@
+$btn-border-width: 1.5px;
+$btn-border-width-sm: 1px;
+
+$btn-padding-y: calc(.9375rem - $btn-border-width);
+$btn-padding-x: calc(1.875rem - $btn-border-width);
+$btn-font-size: 1rem;
+$btn-font-weight: 600;
+$btn-disabled-opacity: 1;
+
+$btn-padding-y-sm: .625rem;
+$btn-padding-x-sm: 1.25rem;
+$btn-font-size-sm: 1rem;
+
+
+$btn-border-radius      : var(--bs-border-radius-pill);
+$btn-border-radius-sm   : var(--bs-border-radius-pill);
