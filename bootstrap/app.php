@@ -11,19 +11,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $namespace = 'App\\Http\\Controllers';
 
         $version = config('core.version');
-        $service = config('core.service');
 
         Route::match(['get', 'post'], 'testing', "$namespace\\Controller@testing");
 
-        Route::prefix(config('core.prefix.web') . "/$version/$service")
+        Route::prefix(config('core.prefix.web') . "/$version")
             ->middleware(['web'])
-            ->namespace("$namespace\\" . config('core.namespace.web'))
+            ->as('web.')
             ->group(base_path('routes/web.php'));
 
-        Route::prefix(config('core.prefix.mobile') . "/$version/$service")
-            ->middleware(['web'])
-            ->namespace("$namespace\\" . config('core.namespace.mobile'))
-            ->group(base_path('routes/mobile.php'));
+        Route::middleware(['web'])
+            ->as('frontend.')
+            ->group(base_path('routes/frontend.php'));
     })
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
