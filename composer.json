@@ -9,6 +9,7 @@
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "tightenco/ziggy": "^2.5",
         "yusologia/lara-core": "^1.0"
     },
     "require-dev": {
