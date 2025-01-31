@@ -5,12 +5,12 @@ import { createRoot } from "react-dom/client"
 const appName = import.meta.env.VITE_APP_NAME || 'QR Code'
 createInertiaApp({
     title   : title => `${title} - ${appName}`,
-    resolve : (name) => resolvePageComponent(`./pages/${name}.js`, import.meta.glob('./pages/**/*.js')),
-    setup   : ({element, App, props}) => {
-        const root = createRoot(element)
+    resolve : (name) => resolvePageComponent(`./pages/${name}.jsx`, import.meta.glob('./pages/**/*.jsx')),
+    setup   : ({el, App, props}) => {
+        const root = createRoot(el)
         root.render(<App {...props} />)
     },
     progress: {
-        color: '#0056B3',
+        color: '#FFA500',
     }
 })

@@ -11,7 +11,7 @@ export default defineConfig({
                 'resources/scss/main.scss',
 
                 // JS
-                'resources/js/app.js',
+                'resources/js/app.jsx',
 
                 // Pages
             ],
