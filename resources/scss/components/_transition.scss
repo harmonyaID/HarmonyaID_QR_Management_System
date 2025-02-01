@@ -1,0 +1,10 @@
+.transition-transform {
+    transition-property: transform;
+    transition-duration: 300ms;
+}
+
+@each $variant, $value in $duration {
+    .duration-#{$variant} {
+        transition-duration: #{$value};
+    }
+}
