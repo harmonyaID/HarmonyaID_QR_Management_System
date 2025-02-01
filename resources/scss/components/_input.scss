@@ -17,7 +17,7 @@ input[type="number"] {
         border: none;
         cursor: pointer;
         padding: 0 calc(1.875rem - $btn-border-width);
-        
+
         &:hover {
             background-color: var(--bs-primary-600);
             color: var(--bs-white);
@@ -48,6 +48,7 @@ input[type="number"] {
 }
 
 .form-control {
+    resize: none;
     &:focus {
         box-shadow: none !important;
     }
