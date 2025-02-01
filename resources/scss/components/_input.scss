@@ -7,6 +7,46 @@ input[type="number"] {
     }
 }
 
+.input-quantity {
+    border : $btn-border-width solid var(--bs-neutral-200);
+    padding: 0;
+    overflow: hidden;
+
+    button {
+        background: var(--bs-white);
+        border: none;
+        cursor: pointer;
+        padding: 0 calc(1.875rem - $btn-border-width);
+        
+        &:hover {
+            background-color: var(--bs-primary-600);
+            color: var(--bs-white);
+        }
+        
+        &:active {
+            background-color: var(--bs-primary);
+            color: var(--bs-white);
+        }
+    }
+
+    &:has(input:focus), &:has(button:hover), &:has(button:active) {
+        border-color: $input-focus-border-color;
+    }
+
+    input {
+        border  : none;
+        display: inline-block;
+        padding : calc(.9375rem - $btn-border-width);
+        width: 5rem;
+        text-align: center;
+        line-height: 1.25rem;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
 .form-control {
     &:focus {
         box-shadow: none !important;
