@@ -4,50 +4,12 @@
 @import "variables/button";
 @import "variables/colors";
 @import "variables/fonts";
+@import "variables/input";
+@import "variables/spacing";
 
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/variables-dark";
 
-$custom-colors : ();
+@import "variables/colors-merged";
+@import "variables/spacing-merged";
 
-@each $variant, $color in $syn-blue {
-    @if $variant == DEFAULT {
-        $custom-colors: map.set($custom-colors, "primary", $color);
-    } @else {
-        $custom-colors: map.set($custom-colors, "primary-#{$variant}", $color);
-    }
-}
-
-@each $variant, $color in $web-orange {
-    @if $variant == DEFAULT {
-        $custom-colors: map.set($custom-colors, "orange", $color);
-    } @else {
-        $custom-colors: map.set($custom-colors, "orange-#{$variant}", $color);
-    }
-}
-
-@each $variant, $color in $forest-green {
-    @if $variant == DEFAULT {
-        $custom-colors: map.set($custom-colors, "forest", $color);
-    } @else {
-        $custom-colors: map.set($custom-colors, "forest-#{$variant}", $color);
-    }
-}
-
-@each $variant, $color in $crimson-red {
-    @if $variant == DEFAULT {
-        $custom-colors: map.set($custom-colors, "crimson", $color);
-    } @else {
-        $custom-colors: map.set($custom-colors, "crimson-#{$variant}", $color);
-    }
-}
-
-@each $variant, $color in $neutral {
-    @if $variant == DEFAULT {
-        $custom-colors: map.set($custom-colors, "neutral", $color);
-    } @else {
-        $custom-colors: map.set($custom-colors, "neutral-#{$variant}", $color);
-    }
-}
-
-$theme-colors: map.merge($theme-colors, $custom-colors);

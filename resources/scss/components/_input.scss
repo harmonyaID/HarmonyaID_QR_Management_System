@@ -1,0 +1,20 @@
+input[type="number"] {
+    --moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.form-control {
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.invalid-feedback {
+    display: block;
+    justify-self: end;
+    text-align: end;
+}
