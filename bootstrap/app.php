@@ -4,6 +4,7 @@ use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -27,6 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);
+
+        $middleware->redirectUsersTo(fn (Request $request) => route('frontend.app.dashboard.index'));
+        $middleware->redirectGuestsTo(fn (Request $request) => route('frontend.auth.login'));
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
