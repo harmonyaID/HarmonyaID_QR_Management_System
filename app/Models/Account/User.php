@@ -2,11 +2,11 @@
 
 namespace App\Models\Account;
 
-use App\Models\BaseModel;
+use App\Models\BaseAuthenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class User extends BaseModel
+class User extends BaseAuthenticatable
 {
     protected $guarded = ['id'];
 
