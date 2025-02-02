@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
 
-            $table->foreignUuid('roleId')->references('id')->on('roles');
+            $table->foreignUuid('roleId')->nullable()->references('id')->on('roles');
             $table->foreignUuid('planId')->nullable()->references('id')->on('plans');
             $table->foreignUuid('usageCategoryId')->nullable()->references('id')->on('usage_categories');
 
