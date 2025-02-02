@@ -1,0 +1,1 @@
+export const LoginRoute = 'frontend.auth.login'
