@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     <title inertia>{{ config('app.name', 'QR Code') }}</title>
-    <link href="/images/logo.png" rel="icon"/>
+    <link href="/images/logo/logo.png" rel="icon"/>
     <meta name="robots" content="noindex"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
