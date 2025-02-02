@@ -1,3 +1,4 @@
+import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
 import { useLayoutEffect, useRef } from "react"
 
 export const MessageBox = ({
@@ -12,14 +13,7 @@ export const MessageBox = ({
     const inputId = `${id}-${name}`
     const inputRef = useRef(null)
 
-    const handleChange = (event) => {
-        const target    = event.target
-        const newValue  = target.value
-
-        if (typeof onChange == 'function') {
-            onChange({name: name, value: newValue})
-        }
-    }
+    const handleChange = changeHandlerGenerator(onChange)
 
     useLayoutEffect(() => {
         const input = inputRef.current

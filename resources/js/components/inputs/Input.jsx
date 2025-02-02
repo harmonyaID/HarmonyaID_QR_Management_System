@@ -1,3 +1,5 @@
+import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
+
 export const Input = ({
     id      = '',
     name    = '',
@@ -14,14 +16,7 @@ export const Input = ({
 }) => {
     const inputId   = `${id}-${name}`
 
-    const handleChange = (event) => {
-        const target    = event.target
-        const newValue  = target.value
-
-        if (typeof onChange == 'function') {
-            onChange({name: name, value: newValue})
-        }
-    }
+    const handleChange = changeHandlerGenerator(onChange)
 
     return (
         <div 
