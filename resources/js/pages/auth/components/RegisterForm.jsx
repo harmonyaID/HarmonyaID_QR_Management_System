@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
 import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
+import { validatePassword, validatePasswordConfirm } from "@/helpers/validation"
 import { LoginRoute } from "@/routes/auth"
 import { authRegister } from "@/services/api/auth"
 import { useState } from "react"
@@ -38,30 +39,6 @@ export const RegisterForm = () => {
     })
     const [isLoading, setIsLoading] = useState(false)
 
-    const validatePassword = (value) => {
-        if (value.length < 8) {
-            return 'Minimum 8 characters'
-        }
-
-        if (!/[a-z]/.test(value)) {
-            return 'Needs at least one lowercase character'
-        }
-
-        if (!/[A-Z]/.test(value)) {
-            return 'Needs at least one uppercase character'
-        }
-
-        if (!/[0-9]/.test(value)) {
-            return 'Needs at least one number'
-        }
-
-        if (!/[-_!@#$%^&*(),.?":;{}|<>/+=\[\]\\]/.test(value)) {
-            return 'Needs at least one special character'
-        }
-
-        return ''
-    }
-
     const handleChange = ({name, value}) => {
         let error = ''
         if (name == 'password') {
@@ -69,9 +46,7 @@ export const RegisterForm = () => {
         }
 
         if (name == 'passwordConfirmation') {
-            if (value != formRequest.password.value) {
-                error = 'Does not match the password'
-            }
+            error = validatePasswordConfirm(formRequest.password.value, value)
         }
 
         setFormRequest((prevState) => ({
@@ -88,7 +63,7 @@ export const RegisterForm = () => {
             return
         }
 
-        let passwordError = validatePassword(formRequest.password.value)
+        const passwordError = validatePassword(formRequest.password.value)
         if (passwordError) {
             setFormRequest((prevState) => ({
                 ...prevState,
@@ -100,12 +75,13 @@ export const RegisterForm = () => {
             return
         }
 
-        if (formRequest.password.value != formRequest.passwordConfirmation.value) {
+        const confirmError = validatePasswordConfirm(formRequest.password.value, formRequest.passwordConfirmation.value) 
+        if (confirmError) {
             setFormRequest((prevState) => ({
                 ...prevState,
                 passwordConfirmation: {
                     ...prevState.passwordConfirmation,
-                    error: 'Does not match the password',
+                    error: confirmError,
                 }
             }))
             return
