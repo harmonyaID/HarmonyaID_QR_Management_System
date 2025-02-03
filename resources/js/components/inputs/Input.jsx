@@ -35,7 +35,7 @@ export const Input = ({
             >
                 <label 
                     className={`${
-                        !horizontal ? 'grid-span-4' : ''
+                        !horizontal ? 'grid-span-3' : ''
                     }`}
                     htmlFor={inputId}
                     title={ errorMsg ? `Error: ${errorMsg}` : '' }
@@ -48,7 +48,7 @@ export const Input = ({
                 { !horizontal && errorMsg ? (
                     <div 
                         id={`${inputId}-feedback`}
-                        className="invalid-feedback align-self-end text-end overflow-hidden text-truncate"
+                        className="invalid-feedback grid-span-2 align-self-end text-end overflow-hidden text-truncate"
                         title={errorMsg}
                     >
                         { errorMsg }
