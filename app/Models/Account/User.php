@@ -6,10 +6,12 @@ use App\Models\Account\Traits\HasActivityUserProperty;
 use App\Models\BaseAuthenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\Notifiable;
 
 class User extends BaseAuthenticatable
 {
     use HasActivityUserProperty;
+    use Notifiable;
 
     protected $guarded = ['id'];
 
