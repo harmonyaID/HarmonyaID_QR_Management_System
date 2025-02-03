@@ -4,7 +4,6 @@ import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
 import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
-import { DashboardRoute } from "@/routes/app"
 import { LoginRoute } from "@/routes/auth"
 import { authRegister } from "@/services/api/auth"
 import { useState } from "react"
@@ -133,7 +132,9 @@ export const RegisterForm = () => {
 
                 notifySuccess(response.status?.message)
 
-                window.open(route(DashboardRoute), '_self')
+                setTimeout(() => {
+                    window.open(route(LoginRoute), '_self')
+                }, 1000);
             })
             .finally(() => {
                 setIsLoading(false)
