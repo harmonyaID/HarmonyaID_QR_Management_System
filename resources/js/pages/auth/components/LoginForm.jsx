@@ -5,7 +5,9 @@ import { Input } from "@/components/inputs/Input"
 import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
 import { DashboardRoute } from "@/routes/app"
+import { ForgotPasswordRoute, RegisterRoute } from "@/routes/auth"
 import { authLogin } from "@/services/api/auth"
+import { Link } from "@inertiajs/react"
 import { useState } from "react"
 import { route } from "ziggy-js"
 
@@ -82,12 +84,12 @@ export const LoginForm = () => {
                     checked={formRequest.remember}
                     onChange={handleChange}
                 />
-                {/* <Link
-                    to={ForgotRoute}
+                <Link
+                    href={route(ForgotPasswordRoute)}
                     className="text-grey-300 text-decoration-none text-end pb-1"
                 >
                     Forgot password?
-                </Link> */}
+                </Link>
             </div>
             <div className="d-grid">
                 <Button disabled={isLoading}>
@@ -95,6 +97,13 @@ export const LoginForm = () => {
                         <Loader small className="me-2"/>
                     ) : (<></>) }
                     <span>Sign In</span>
+                </Button>
+                <Button
+                    link
+                    href={route(RegisterRoute)}
+                    type="button"
+                >
+                    Sign Up
                 </Button>
             </div>
         </Form>

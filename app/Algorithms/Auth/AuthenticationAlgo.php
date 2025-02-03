@@ -2,10 +2,13 @@
 
 namespace App\Algorithms\Auth;
 
+use App\Models\Account\User;
+use App\Services\Constant\Activity\ActivityAction;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
@@ -68,6 +71,40 @@ class AuthenticationAlgo
 
         } catch (\Throwable $exception) {
             exception($exception);
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed|void
+     */
+    public function register(Request $request)
+    {
+        try {
+            
+            DB::transaction(function () use ($request) {
+
+                $emailUsed = User::where('email', $request->email)->exists();
+                if ($emailUsed) {
+                    errInvalid('This email is being used by another user');
+                }
+
+                /** @var User */
+                $user = User::create([
+                    ...$request->validated(),
+                    'password'  => Hash::make($request->password),
+                ]);
+
+                $user->setActivityPropertyAttributes(ActivityAction::CREATE)
+                    ->saveActivity('New user registered: ' . $user->fullname . '[' . $user->id . ']');
+
+            });
+
+            return success(message: 'Successfully registered, please sign in using your credentials');
+            
+        } catch (\Throwable $th) {
+            exception($th);
         }
     }
 

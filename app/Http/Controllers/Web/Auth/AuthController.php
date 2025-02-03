@@ -6,6 +6,7 @@ use App\Algorithms\Auth\AuthenticationAlgo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,15 @@ class AuthController extends Controller
     {
         $algo = new AuthenticationAlgo();
         return $algo->logout();
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse|mixed|null
+     */
+    public function register(RegisterRequest $request)
+    {
+        $algo = new AuthenticationAlgo();
+        return $algo->register($request);
     }
 
     /**
