@@ -1,5 +1,9 @@
 .auth {
     display: flex;
+
+    &.inverted {
+        flex-direction: row-reverse;
+    }
     
     .form-panel {
         width: 100vw;

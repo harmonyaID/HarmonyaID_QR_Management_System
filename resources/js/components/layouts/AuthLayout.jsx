@@ -1,13 +1,20 @@
 import { Logo } from "../brandings/Logo"
 
 export const AuthLayout = ({
+    inverted = false,
     children
 }) => (
-    <main className="auth">
+    <main 
+        className={`${
+            "auth"
+        } ${
+            inverted ? "inverted" : ""
+        }`}
+    >
         <FormSection>
             { children }
         </FormSection>
-        <BackdropSection/>
+        <BackdropSection inverted={inverted}/>
     </main>
 )
 
@@ -41,10 +48,12 @@ const FormSection = ({
     </section>
 )
 
-export const BackdropSection = () => (
+export const BackdropSection = ({
+    inverted = false
+}) => (
     <section className="image-panel">
         <div className="img-wrapper">
-            <img src="/images/splash-screen/bg-login.svg"/>
+            <img src={ inverted ? "/images/splash-screen/bg-auth-dark.svg" : "/images/splash-screen/bg-auth-light.svg" }/>
         </div>
         {/* <div className="quote">
             <p className="mb-3">- Gordon B. Hinckley</p>
