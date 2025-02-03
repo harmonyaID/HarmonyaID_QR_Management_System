@@ -2,12 +2,15 @@
 
 namespace App\Models\Account;
 
+use App\Models\Account\Traits\HasActivityUserProperty;
 use App\Models\BaseAuthenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends BaseAuthenticatable
 {
+    use HasActivityUserProperty;
+
     protected $guarded = ['id'];
 
     protected $casts = [
@@ -18,7 +21,7 @@ class User extends BaseAuthenticatable
     ];
 
     protected $appends = [
-        'fullName',
+        'fullname',
     ];
 
 
@@ -41,11 +44,11 @@ class User extends BaseAuthenticatable
 
     // Accessors
 
-    protected function fullName() : Attribute
+    protected function fullname() : Attribute
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                return ucwords($attributes['firstName'] . ' ' . $attributes['lastName']);
+                return ucwords($attributes['firstname'] . ' ' . $attributes['lastname']);
             }
         );
     }
