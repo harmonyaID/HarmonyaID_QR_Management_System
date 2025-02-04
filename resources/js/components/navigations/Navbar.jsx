@@ -11,6 +11,7 @@ import { Upload } from "@/icons/Upload"
 import { Fold } from "@/icons/Fold"
 import { Expand } from "@/icons/Expand"
 import { toggleModal } from "@/helpers/toggleModal"
+import { usePage } from "@inertiajs/react"
 
 export const Navbar = ({
     title
@@ -82,7 +83,9 @@ export const Navbar = ({
 }
 
 const ProfileDropdown = () => {
-    // const username = useGetUsername()
+    
+    const { user } = usePage().props
+
     const username = 'Test'
     const photoUrl = useMemo(() => {
         return document.querySelector('meta[name="user-photo"]')?.getAttribute('content') || ''
@@ -116,7 +119,7 @@ const ProfileDropdown = () => {
             >
                 <div className="navbar-photo rounded-circle overflow-hidden">
                     <img 
-                        src={ photoUrl || `https://ui-avatars.com/api/?name=${username}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                        src={ photoUrl || `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
                         alt="Profile"
                         className="object-fit-cover w-100 h-100"
                     />

@@ -37,6 +37,9 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+            'user'          => $request->user(),
+            'csrf_token'    => csrf_token(),
+            'current_route' => $request->route()->getName(),
         ];
     }
 }
