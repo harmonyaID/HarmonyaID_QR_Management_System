@@ -4,6 +4,7 @@ namespace App\Models\Account;
 
 use App\Models\Account\Traits\HasActivityUserProperty;
 use App\Models\BaseAuthenticatable;
+use App\Notifications\Auth\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
@@ -44,6 +45,7 @@ class User extends BaseAuthenticatable
         return $this->belongsTo(UsageCategory::class, 'usageCategoryId');
     }
 
+    
     // Accessors
 
     protected function fullname() : Attribute
@@ -53,5 +55,13 @@ class User extends BaseAuthenticatable
                 return ucwords($attributes['firstname'] . ' ' . $attributes['lastname']);
             }
         );
+    }
+
+
+    // Overrides
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token, $this->email));
     }
 }

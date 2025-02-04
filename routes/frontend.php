@@ -7,7 +7,7 @@ $base = base_path("routes/features/frontend/");
 require($base . "auth.php");
 
 Route::get('/', function () {
-    return response()->redirectToRoute('web.auth.login');
+    return response()->redirectToRoute('frontend.auth.login');
 });
 
 Route::prefix('app')
