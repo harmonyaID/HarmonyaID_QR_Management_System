@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email');
             $table->string('password');
+            $table->string('rememberToken', 100)->nullable();
 
             $table->foreignUuid('roleId')->nullable()->references('id')->on('roles');
             $table->foreignUuid('planId')->nullable()->references('id')->on('plans');
