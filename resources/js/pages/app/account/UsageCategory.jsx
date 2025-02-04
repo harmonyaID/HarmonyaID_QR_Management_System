@@ -1,10 +1,10 @@
 import { AppLayout } from "@/components/layouts/AppLayout"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
 
-const DashboardPage = () => {
+const UsageCategoryPage = () => {
     return (
         <AppLayout
-            title="Dashboard"
+            title="Usage Category"
         >
             <ErrorMsg
                 message="Working In Progress"
@@ -13,4 +13,4 @@ const DashboardPage = () => {
     )
 }
 
-export default DashboardPage
+export default UsageCategoryPage

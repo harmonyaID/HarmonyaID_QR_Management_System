@@ -14,5 +14,6 @@ Route::prefix('app')
     ->as('app.')
     ->middleware('auth')
     ->group(function () use ($base) {
+        require($base . "account.php");
         require($base . "dashboard.php");
     });

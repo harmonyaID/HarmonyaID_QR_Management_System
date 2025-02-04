@@ -1,8 +1,11 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { DashboardRoute } from "@/routes/app"
+import { AccountRoute, DashboardRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
+import { Guide } from "@/icons/Guide"
+import { User } from "@/icons/User"
+import { Link } from "@inertiajs/react"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -35,21 +38,27 @@ export const Sidebar = () => {
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="logo-container">
-                    <a href={route(DashboardRoute)}>
+                    <Link href={route(DashboardRoute)}>
                         <Logo 
                             variant="icon-only" 
                             size={ open || hover ? 64 : 32}
                         />
-                    </a>
+                    </Link>
                 </div>
 
                 <section className="menu-section">
-                    <SidebarHeader>
-                        Booking Management
-                    </SidebarHeader>
                     <SidebarList
                         items={[
                             { href: route(DashboardRoute), label: 'Dashboard', icon: House },
+                        ]}
+                    />
+                    <SidebarHeader>
+                        Account Management
+                    </SidebarHeader>
+                    <SidebarList
+                        items={[
+                            { href: route(AccountRoute), label: 'Account', icon: User },
+                            { href: route(UsageCategoryRoute), label: 'Usage Category', icon: Guide },
                         ]}
                     />
                 </section>
@@ -104,7 +113,7 @@ const SidebarItem = ({
     // if (!Array.isArray(subItems) || !subItems.length) {
         return (
             <li className={isActive ? 'active' : ''}>
-                <a 
+                <Link 
                     href={href}
                     className="stretched-link"
                     title={label}
@@ -113,7 +122,7 @@ const SidebarItem = ({
                     <span className="menu-label">
                         { label }
                     </span>
-                </a>
+                </Link>
             </li>
         )
     // }
@@ -173,7 +182,7 @@ const SidebarSubItem  = ({
         <li 
             // className={pathname.startsWith(href) ? 'active' : ''}
         >
-            <a
+            <Link
                 href={href}
                 className="stretched-link"
                 title={label}
@@ -182,7 +191,7 @@ const SidebarSubItem  = ({
                 <span className="menu-label">
                     { label }
                 </span>
-            </a>
+            </Link>
         </li>
     )
 }
