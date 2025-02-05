@@ -43,7 +43,7 @@ class BaseModel extends Model
 
     public function hasSearch($request)
     {
-        return $request->has('search') && strlen($request->search) >= 3;
+        return $request->has('search') && !empty($request->search);
     }
     
 }
