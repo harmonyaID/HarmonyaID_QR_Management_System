@@ -33,7 +33,7 @@ class UploadAlgo
         $generatedName .= '.' . $clientExtension;
         $file->storeAs($directory . '/' . $generatedName);
 
-        return success($directory . '/' . $generatedName);
+        return success(['file' => $directory . '/' . $generatedName]);
     }
 
 

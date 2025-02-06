@@ -1,6 +1,11 @@
 import { Upload } from "@/icons/Upload"
 import { Button } from "../buttons/Button"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { fileUpload } from "@/services/api/file"
+import { Loader } from "../misc/Loader"
+import { Plus } from "@/icons/Plus"
+import { route } from "ziggy-js"
+import { GetFileRoute } from "@/routes/file"
 
 const DropOverlay = ({
     active      = false,
@@ -46,23 +51,154 @@ const EmptyDropBanner = ({
     </div>
 )
 
-export const Dropbox = ({
+const ImageDisplay = ({
     images      = [],
-    onDropped   = (dropped = []) => {},
     multiple    = false,
+    onAdd       = () => {},
+    onRemove    = (index) => {},
+}) => (
+    <section 
+        className={`${
+            "d-grid gap-2 grid-cols-md-2 grid-cols-lg-4 grid-cols-xl-6"
+        }`}
+    >
+        { images.map((image, index) => (
+            <div 
+                key={`upload-img-${index}`}
+                className={`${
+                    "position-relative"
+                } ${
+                    "d-flex justify-content-center align-items-center"
+                } ${
+                    "display-container"
+                } ${
+                    "border border-neutral-100 rounded"
+                } ${
+                    "overflow-hidden"
+                }`}
+            >
+                { image.loading ? (
+                    <Loader
+                        small
+                    />
+                ) : (
+                    <img
+                        src={`${route(GetFileRoute, '')}/${image.url}`}
+                        alt="Uploaded image"
+                        className="w-100 h-100 image-cover"
+                    />
+                ) }
+                { typeof onRemove == 'function' ? (
+                    <div 
+                        className={`${
+                            "bg-crimson text-white"
+                        } ${
+                            "position-absolute top-0 end-0 p-1"
+                        } ${
+                            "border border-crimson rounded-circle"
+                        } ${
+                            "cursor-pointer"
+                        }`}
+                        onClick={() => onRemove(index)}
+                    >
+                        <Plus size={24} className="transform rotate-45"/>
+                    </div>
+                ) : (<></>) }
+            </div>
+        )) }
+        { multiple ? (
+            <div 
+                className={`${
+                    "d-flex d-flex justify-content-center align-items-center flex-column"
+                } ${
+                    "border border-neutral-200 rounded"
+                } ${
+                    "cursor-pointer"
+                }`}
+                onClick={onAdd}
+            >
+                <Plus size={24}/>
+                Add new image
+            </div>
+        ) : (<></>) }
+    </section>
+)
+
+export const Dropbox = ({
+    files       = [],
+    onChange    = (images = []) => {},
+    multiple    = false,
+    webp        = false,
+    group       = 'random',
 }) => {
+    const [images, setImages] = useState([])
     const [isDragOver, setIsDragOver] = useState(false)
-    const dragOverTimeoutRef = useRef(null)
+    const dragOverTimeoutRef    = useRef(null)
+    const changeTimeoutRef      = useRef(null)
 
     const inputRef = useRef(null)
 
-    const handleDrop = (event) => {
-        event.preventDefault()
-        event.stopPropagation()
+    const handleUpload = (file, index) => {
+        const formData = new FormData
+        formData.append('group', group)
+        formData.append('file', file)
+        formData.append('toWebp', webp ? 1 : 0)
 
-        if (typeof onDropped == 'function') {
-            onDropped([...event.dataTransfer.files])
-        }
+        fileUpload(formData).then(response => {
+            if (!response?.result?.file) {
+                return
+            }
+
+            setImages((prevState) => {
+                const newImages     = [...prevState]
+                newImages[index]    = {
+                    ...newImages[index],
+                    url: response.result.file
+                }
+
+                return newImages
+            })
+        })
+        .finally(() => {
+            setImages((prevState) => {
+                const newImages     = [...prevState]
+                newImages[index]    = {
+                    ...newImages[index],
+                    loading: false,
+                }
+
+                return newImages
+            })
+        })
+    }
+
+    const handleFile = (file) => {
+        setImages((prevState) => {
+            const newImages = [...prevState]
+            const index = newImages.length
+
+            if (!multiple && index > 0) {
+                return newImages
+            }
+
+            newImages.push({
+                loading : true,
+                url     : ''
+            });
+
+            handleUpload(file, index)
+
+            return newImages
+        })
+    }
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        [...event.dataTransfer.files].forEach((file) => {
+            handleFile(file)
+        })
     }
 
     const handleDragOver = (event) => {
@@ -82,14 +218,36 @@ export const Dropbox = ({
     }
 
     const handleChange = (event) => {
-        const target = event.target
+        const target = event.target;
 
-        console.log(target.files)
-
-        if (typeof onDropped == 'function') {
-            onDropped([...target.files])
-        }
+        [...target.files].forEach(file => {
+            handleFile(file)
+        })
     }
+
+    const handleRemove = (index) => {
+        setImages((prevState) => {
+            const newImage = [...prevState]
+            newImage.splice(index, 1)
+
+            return newImage
+        })
+    }
+
+    useEffect(() => {
+        if (typeof onChange != 'function') {
+            return
+        }
+
+        clearTimeout(changeTimeoutRef.current)
+        changeTimeoutRef.current = setTimeout(() => {
+            onChange(images)
+        }, 500)
+
+        return () => {
+            clearTimeout(changeTimeoutRef.current)
+        }
+    }, [images])
 
     return (
         <div 
@@ -97,6 +255,8 @@ export const Dropbox = ({
                 "dropbox"
             } ${
                 "overflow-hidden position-relative"
+            } ${
+                images.length ? 'filled' : ''
             }`}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -109,10 +269,19 @@ export const Dropbox = ({
                 onChange={handleChange}
                 hidden
             />
-            <EmptyDropBanner
-                multiple={multiple}
-                onClick={handleClick}
-            />
+            { files.length ? (
+                <ImageDisplay 
+                    images={files}
+                    multiple={multiple}
+                    onAdd={handleClick}
+                    onRemove={handleRemove}
+                />
+            ) : (
+                <EmptyDropBanner
+                    multiple={multiple}
+                    onClick={handleClick}
+                />
+            ) }
             <DropOverlay
                 multiple={multiple}
                 active={isDragOver}
