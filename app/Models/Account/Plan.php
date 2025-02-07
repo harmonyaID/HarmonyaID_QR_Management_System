@@ -2,12 +2,16 @@
 
 namespace App\Models\Account;
 
+use App\Models\Account\Traits\HasActivityPlanProperty;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class Plan extends BaseModel
 {
+    use HasActivityPlanProperty;
+
     // protected $table = '';
     protected $guarded = ['id'];
 
@@ -19,6 +23,18 @@ class Plan extends BaseModel
         'dynamicQuota'      => 'integer',
         'price'             => 'decimal:2',
     ];
+
+
+    // Scopes
+
+    public function scopeFilter ($query, Request $request)
+    {
+        if ($this->hasSearch($request)) {
+            $query->where('name', 'ILIKE', "%{$request->search}%");
+        }
+
+        return $query;
+    }
 
 
     // Relationships

@@ -11,6 +11,7 @@ class ActivityType extends BaseCodeName
     const ACCOUNT = 'account';
     const USER = 'user';
     const USAGE_CATEGORY = 'usage category';
+    const PLAN = 'plan';
 
     const OPTION = [
         self::GENERAL,
@@ -19,6 +20,7 @@ class ActivityType extends BaseCodeName
         self::ACCOUNT,
         self::USER,
         self::USAGE_CATEGORY,
+        self::PLAN,
     ];
 
 }

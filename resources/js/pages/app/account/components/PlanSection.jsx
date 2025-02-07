@@ -1,27 +1,27 @@
 import { Card } from "@/components/cards/Card"
-import { UsageCategoryForm, UsageCategoryFormContext } from "./UsageCategoryForm"
+import { PlanForm, PlanFormContext } from "./PlanForm"
 import { Button } from "@/components/buttons/Button"
 import { useContext, useState } from "react"
 import { SearchForm, SearchFormContext } from "@/components/forms/SearchForm"
-import { useGetCategoryUsage } from "@/services/swr/account"
+import { useGetPlans } from "@/services/swr/account"
 import { Loader } from "@/components/misc/Loader"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
-import { DataCard, DataCardPicture } from "@/components/cards/DataCard"
-import { storage_url } from "@/helpers/url"
-import { MDUsageCategoryDelete } from "@/configs/modalId"
+import { DataCard } from "@/components/cards/DataCard"
+import { MDPlanDelete } from "@/configs/modalId"
 import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
-import { usageCategoryDelete } from "@/services/api/account"
+import { planDelete } from "@/services/api/account"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
+import { formatPrice } from "@/helpers/formatter"
 
-export const UsageCategorySection = () => {
+export const PlanSection = () => {
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
     
     const { committedFilter }   = useContext(SearchFormContext)
-    const { setForm, setOpen }  = useContext(UsageCategoryFormContext)
+    const { setForm, setOpen }  = useContext(PlanFormContext)
 
-    const {data, isLoading, mutate} = useGetCategoryUsage(committedFilter)
+    const {data, isLoading, mutate} = useGetPlans(committedFilter)
 
     const handleEdit = (selected) => {
         setForm((prevState) => ({
@@ -36,12 +36,12 @@ export const UsageCategorySection = () => {
 
     const handleDelete = (selected) => {
         setSelectedId(selected.id)
-        toggleModal(MDUsageCategoryDelete, true)
+        toggleModal(MDPlanDelete, true)
     }
 
     const handleConfirmDelete = () => {
         if (!selectedId) {
-            notifyError('No usage category is selected')
+            notifyError('No plan is selected')
             return
         }
 
@@ -51,7 +51,7 @@ export const UsageCategorySection = () => {
 
         setSendLoading(true)
 
-        usageCategoryDelete(selectedId)
+        planDelete(selectedId)
             .then((response) => {
                 if (!response) {
                     return
@@ -67,7 +67,7 @@ export const UsageCategorySection = () => {
     }
 
     const handleCloseDelete = () => {
-        toggleModal(MDUsageCategoryDelete, false)
+        toggleModal(MDPlanDelete, false)
         setSelectedId(0)
     }
 
@@ -76,7 +76,7 @@ export const UsageCategorySection = () => {
             <Card noBorder>
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
                     <h3 className="flex-shrink-0 fs-5 mb-0">
-                        Manage Usage Category
+                        Manage Plans
                     </h3>
                     <div className="text-end">
                         <Button onClick={() => setOpen(true)}>
@@ -92,42 +92,36 @@ export const UsageCategorySection = () => {
                         <Loader/> Loading...
                     </div>
                 ) : !data?.result?.data?.length ? (
-                    <ErrorMsg message="No usage category found"/>
+                    <ErrorMsg message="No plan found"/>
                 ) : (
                     <>
                         <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                            { data.result.data.map((category) => (
+                            { data.result.data.map((plan) => (
                                 <DataCard
-                                    key={`category-${category.id}`}
-                                    onEdit={() => handleEdit(category)}
-                                    onDelete={() => handleDelete(category)}
+                                    key={`plan-${plan.id}`}
+                                    onEdit={() => handleEdit(plan)}
+                                    onDelete={() => handleDelete(plan)}
                                 >
-                                    <div className="d-flex gap-3 justify-content-center align-items-center">
-                                        <div className="flex-shrink-0">
-                                            <DataCardPicture
-                                                src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
-                                            />
-                                        </div>
-                                        <div className="flex-grow-1">
-                                            <p className="fw-semibold mb-0">
-                                                { category.name }
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <p className="fw-semibold mb-3">
+                                        { plan.name }
+                                    </p>
+                                    <p className="mb-0">
+                                        { formatPrice(plan.price) }
+                                    </p>
                                 </DataCard>
                             )) }
                         </div>
                     </>
                 ) }
             </Card>
-            <UsageCategoryForm
+            <PlanForm
                 id={selectedId}
                 onSuccess={() => { mutate() }}
             />
             <ConfirmModal
-                id={MDUsageCategoryDelete}
-                title="Delete usage category"
-                message="Are you sure you want to delete this usage category?"
+                id={MDPlanDelete}
+                title="Delete plan"
+                message="Are you sure you want to delete this plan?"
                 negativeFlow
                 loading={sendLoading}
                 onCancel={handleCloseDelete}

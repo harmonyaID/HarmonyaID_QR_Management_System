@@ -1,5 +1,5 @@
 import { DELETE, POST, PUT } from "@/helpers/api"
-import { CreateUsageCategoryRoute, DeleteUsageCategoryRoute, UpdateUsageCategoryRoute } from "@/routes/account"
+import { CreatePlanRoute, CreateUsageCategoryRoute, DeletePlanRoute, DeleteUsageCategoryRoute, UpdatePlanRoute, UpdateUsageCategoryRoute } from "@/routes/account"
 import { route } from "ziggy-js"
 
 export const usageCategoryCreate = (formRequest = {}) => {
@@ -12,4 +12,16 @@ export const usageCategoryUpdate = (id, formRequest = {}) => {
 
 export const usageCategoryDelete = (id) => {
     return DELETE(route(DeleteUsageCategoryRoute, id))
+}
+
+export const planCreate = (formRequest = {}) => {
+    return POST(route(CreatePlanRoute), formRequest)
+}
+
+export const planUpdate = (id, formRequest = {}) => {
+    return PUT(route(UpdatePlanRoute, id), formRequest)
+}
+
+export const planDelete = (id) => {
+    return DELETE(route(DeletePlanRoute, id))
 }
