@@ -1,4 +1,3 @@
-import { Card } from "@/components/cards/Card"
 import { UsageCategoryForm, UsageCategoryFormContext } from "./UsageCategoryForm"
 import { Button } from "@/components/buttons/Button"
 import { useContext, useState } from "react"
@@ -17,7 +16,7 @@ import { ConfirmModal } from "@/components/modals/ConfirmModal"
 export const UsageCategorySection = () => {
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
-    
+
     const { committedFilter }   = useContext(SearchFormContext)
     const { setForm, setOpen }  = useContext(UsageCategoryFormContext)
 
@@ -73,7 +72,11 @@ export const UsageCategorySection = () => {
 
     return (
         <>
-            <Card noBorder>
+            <section
+                className={`${
+                    "tab-pane fade show active"
+                }`}
+            >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         Manage Usage Category
@@ -119,7 +122,7 @@ export const UsageCategorySection = () => {
                         </div>
                     </>
                 ) }
-            </Card>
+            </section>
             <UsageCategoryForm
                 id={selectedId}
                 onSuccess={() => { mutate() }}

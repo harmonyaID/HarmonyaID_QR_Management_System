@@ -1,12 +1,13 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { AccountRoute, DashboardRoute, PlanRoute, UsageCategoryRoute } from "@/routes/app"
+import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
 import { Guide } from "@/icons/Guide"
 import { User } from "@/icons/User"
 import { Link } from "@inertiajs/react"
 import { Star } from "@/icons/Star"
+import { Setting } from "@/icons/Setting"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -59,8 +60,8 @@ export const Sidebar = () => {
                     <SidebarList
                         items={[
                             { href: route(AccountRoute), label: 'Account', icon: User },
-                            { href: route(UsageCategoryRoute), label: 'Usage Category', icon: Guide },
-                            { href: route(PlanRoute), label: 'Plan', icon: Star },
+                            { href: route(AccountSettingRoute), label: 'Setting', icon: Setting },
+                            // { href: route(PlanRoute), label: 'Plan', icon: Star },
                         ]}
                     />
                 </section>

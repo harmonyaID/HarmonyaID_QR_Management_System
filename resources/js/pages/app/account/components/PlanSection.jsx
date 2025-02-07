@@ -1,4 +1,3 @@
-import { Card } from "@/components/cards/Card"
 import { PlanForm, PlanFormContext } from "./PlanForm"
 import { Button } from "@/components/buttons/Button"
 import { useContext, useState } from "react"
@@ -73,7 +72,11 @@ export const PlanSection = () => {
 
     return (
         <>
-            <Card noBorder>
+            <section
+                className={`${
+                    "tab-pane fade show active"
+                }`}
+            >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         Manage Plans
@@ -113,7 +116,7 @@ export const PlanSection = () => {
                         </div>
                     </>
                 ) }
-            </Card>
+            </section>
             <PlanForm
                 id={selectedId}
                 onSuccess={() => { mutate() }}

@@ -12,3 +12,7 @@ export const formatPrice = (number = 0) => {
 
     return formatter.format(number)
 }
+
+export const upperCaseFirst = (value = '') => {
+    return value[0].toUpperCase() + value.slice(1)
+}

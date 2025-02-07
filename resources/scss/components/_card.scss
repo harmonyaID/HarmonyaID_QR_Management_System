@@ -1,3 +1,77 @@
+.card {
+    &.clickable {
+        &:hover {
+            border-color: var(--bs-neutral-400);
+        }
+    }
+
+    &.border-0 {
+        & > .card-body {
+            padding: 1.5rem 1.25rem 1.25rem;
+        }
+    }
+
+    .card-nav {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+
+        .nav {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+
+            .nav-item {
+                flex-shrink: 0;
+                scroll-snap-align: end;
+            }
+
+            &::-webkit-scrollbar {
+                height: .125rem;
+            }
+
+            
+            &::-webkit-scrollbar-track {
+                background-color: white;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: white;
+            }
+            
+            &:hover {
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--bs-primary);
+                }
+            }
+        }
+
+        .card-nav-btn-container {
+            padding-bottom: .125rem;
+        }
+
+        .card-nav-btn {
+            flex-shrink: 0;
+            flex-grow: 0;
+            min-width: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bs-white);
+            border: 0;
+            border-bottom: $nav-underline-border-width solid transparent;
+            padding: $nav-link-padding-y $nav-link-padding-x;
+            height: 100%;
+
+            &:not(:disabled):hover {
+                border-bottom-color: var(--bs-primary);
+                color: var(--bs-primary);
+            }
+        }
+    }
+}
+
 .data-card-picture {
     position: relative;
     width: 3rem;
