@@ -1,11 +1,27 @@
 import { Upload } from "@/icons/Upload"
 import { Button } from "../buttons/Button"
-import { useEffect, useRef, useState } from "react"
+import { createContext, useContext, useLayoutEffect, useRef, useState } from "react"
 import { fileUpload } from "@/services/api/file"
 import { Loader } from "../misc/Loader"
 import { Plus } from "@/icons/Plus"
 import { route } from "ziggy-js"
 import { GetFileRoute } from "@/routes/file"
+import { storage_url } from "@/helpers/url"
+
+export const DropboxContext = createContext(null)
+
+export const DropboxProvider = ({children}) => {
+    const [files, setFiles] = useState([])
+    const resetDropbox = () => {
+        setFiles((prevState) => [])
+    }
+
+    return (
+        <DropboxContext value={{files, setFiles, resetDropbox}}>
+            { children }
+        </DropboxContext>
+    )
+}
 
 const DropOverlay = ({
     active      = false,
@@ -47,91 +63,129 @@ const EmptyDropBanner = ({
     >
         <p><strong>DROP YOUR {multiple ? 'FILES' : 'FILE'} HERE</strong></p>
         <p className="fw-light mb-3">Drop your WEBP, JPG, PNG, or JPEG {multiple ? 'files' : 'file'} here</p>
-        <Button onClick={onClick}>BROWSE</Button>
+        <Button type="button" onClick={onClick}>BROWSE</Button>
     </div>
 )
 
 const ImageDisplay = ({
-    images      = [],
     multiple    = false,
     onAdd       = () => {},
     onRemove    = (index) => {},
-}) => (
-    <section 
-        className={`${
-            "d-grid gap-2 grid-cols-md-2 grid-cols-lg-4 grid-cols-xl-6"
-        }`}
-    >
-        { images.map((image, index) => (
-            <div 
-                key={`upload-img-${index}`}
-                className={`${
-                    "position-relative"
-                } ${
-                    "d-flex justify-content-center align-items-center"
-                } ${
-                    "display-container"
-                } ${
-                    "border border-neutral-100 rounded"
-                } ${
-                    "overflow-hidden"
-                }`}
-            >
-                { image.loading ? (
-                    <Loader
-                        small
-                    />
-                ) : (
-                    <img
-                        src={`${route(GetFileRoute, '')}/${image.url}`}
-                        alt="Uploaded image"
-                        className="w-100 h-100 image-cover"
-                    />
-                ) }
-                { typeof onRemove == 'function' ? (
-                    <div 
-                        className={`${
-                            "bg-crimson text-white"
-                        } ${
-                            "position-absolute top-0 end-0 p-1"
-                        } ${
-                            "border border-crimson rounded-circle"
-                        } ${
-                            "cursor-pointer"
-                        }`}
-                        onClick={() => onRemove(index)}
-                    >
-                        <Plus size={24} className="transform rotate-45"/>
-                    </div>
-                ) : (<></>) }
-            </div>
-        )) }
-        { multiple ? (
-            <div 
-                className={`${
-                    "d-flex d-flex justify-content-center align-items-center flex-column"
-                } ${
-                    "border border-neutral-200 rounded"
-                } ${
-                    "cursor-pointer"
-                }`}
-                onClick={onAdd}
-            >
-                <Plus size={24}/>
-                Add new image
-            </div>
-        ) : (<></>) }
-    </section>
-)
+}) => {
+    const { files } = useContext(DropboxContext)
+    const containerRef = useRef(null)
+    const lastWidthRef = useRef(0)
+    const [cols, setCols] = useState('')
+
+    useLayoutEffect(() => {
+        const width = containerRef.current.offsetWidth
+        if (lastWidthRef == width) {
+            return
+        }
+
+        console.count('Dropbox recols')
+
+        lastWidthRef.current = width
+        setCols((prevState) => {
+            if (width >= 1400) {
+                return 'grid-cols-6'
+            }
+
+            if (width >= 1200) {
+                return 'grid-cols-4'
+            }
+
+            if (width >= 992) {
+                return 'grid-cols-3'
+            }
+
+            if (width >= 768) {
+                return 'grid-cols-2'
+            }
+
+            return ''
+        })
+    })
+
+
+    return (
+        <section 
+            ref={containerRef}
+            className={`${
+                "d-grid gap-2"
+            } ${
+                cols
+            }`}
+        >
+            { files.map((image, index) => (
+                <div 
+                    key={`upload-img-${index}`}
+                    className={`${
+                        "position-relative"
+                    } ${
+                        "d-flex justify-content-center align-items-center"
+                    } ${
+                        "display-container"
+                    } ${
+                        "border border-neutral-100 rounded"
+                    } ${
+                        "overflow-hidden"
+                    }`}
+                >
+                    { image.loading ? (
+                        <Loader
+                            small
+                        />
+                    ) : (
+                        <img
+                            src={image.storageRoute ? storage_url(image.url) : `${route(GetFileRoute, '')}/${image.url}`}
+                            alt="Uploaded image"
+                            className="w-100 h-100 image-cover"
+                        />
+                    ) }
+                    { typeof onRemove == 'function' ? (
+                        <div 
+                            className={`${
+                                "bg-crimson text-white"
+                            } ${
+                                "position-absolute top-0 end-0 p-1"
+                            } ${
+                                "border border-crimson rounded-circle"
+                            } ${
+                                "cursor-pointer"
+                            }`}
+                            onClick={() => onRemove(index)}
+                        >
+                            <Plus size={24} className="transform rotate-45"/>
+                        </div>
+                    ) : (<></>) }
+                </div>
+            )) }
+            { multiple ? (
+                <div 
+                    className={`${
+                        "d-flex d-flex justify-content-center align-items-center flex-column"
+                    } ${
+                        "border border-neutral-200 rounded"
+                    } ${
+                        "cursor-pointer"
+                    }`}
+                    onClick={onAdd}
+                >
+                    <Plus size={24}/>
+                    Add new image
+                </div>
+            ) : (<></>) }
+        </section>
+    )
+}
 
 export const Dropbox = ({
-    files       = [],
-    onChange    = (images = []) => {},
     multiple    = false,
     webp        = false,
     group       = 'random',
 }) => {
-    const [images, setImages] = useState([])
+    const { files, setFiles } = useContext(DropboxContext)
     const [isDragOver, setIsDragOver] = useState(false)
     const dragOverTimeoutRef    = useRef(null)
     const changeTimeoutRef      = useRef(null)
@@ -149,7 +203,7 @@ export const Dropbox = ({
                 return
             }
 
-            setImages((prevState) => {
+            setFiles((prevState) => {
                 const newImages     = [...prevState]
                 newImages[index]    = {
                     ...newImages[index],
@@ -160,7 +214,7 @@ export const Dropbox = ({
             })
         })
         .finally(() => {
-            setImages((prevState) => {
+            setFiles((prevState) => {
                 const newImages     = [...prevState]
                 newImages[index]    = {
                     ...newImages[index],
@@ -173,7 +227,7 @@ export const Dropbox = ({
     }
 
     const handleFile = (file) => {
-        setImages((prevState) => {
+        setFiles((prevState) => {
             const newImages = [...prevState]
             const index = newImages.length
 
@@ -226,28 +280,13 @@ export const Dropbox = ({
     }
 
     const handleRemove = (index) => {
-        setImages((prevState) => {
+        setFiles((prevState) => {
             const newImage = [...prevState]
             newImage.splice(index, 1)
 
             return newImage
         })
     }
-
-    useEffect(() => {
-        if (typeof onChange != 'function') {
-            return
-        }
-
-        clearTimeout(changeTimeoutRef.current)
-        changeTimeoutRef.current = setTimeout(() => {
-            onChange(images)
-        }, 500)
-
-        return () => {
-            clearTimeout(changeTimeoutRef.current)
-        }
-    }, [images])
 
     return (
         <div 
@@ -256,7 +295,7 @@ export const Dropbox = ({
             } ${
                 "overflow-hidden position-relative"
             } ${
-                images.length ? 'filled' : ''
+                files.length ? 'filled' : ''
             }`}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
@@ -270,8 +309,7 @@ export const Dropbox = ({
                 hidden
             />
             { files.length ? (
-                <ImageDisplay 
-                    images={files}
+                <ImageDisplay
                     multiple={multiple}
                     onAdd={handleClick}
                     onRemove={handleRemove}
