@@ -12,6 +12,9 @@ Route::prefix('accounts')
     ->group(function () {
         Route::get('/', [AccountController::class, 'index'])->name('index');
         Route::get('settings', [SettingController::class, 'index'])->name('settings');
+
         Route::get('usage-category', [UsageCategoryController::class, 'index'])->name('usage-category');
+        Route::get('usage-category/select', [UsageCategoryController::class, 'select'])->name('usage-category.select');
+        
         Route::get('plans', [PlanController::class, 'index'])->name('plans');
     });

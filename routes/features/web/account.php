@@ -23,10 +23,14 @@ Route::prefix('accounts')
             ->as('usage-categories.')
             ->group(function () {
 
+                Route::get('my-category', [UsageCategoryController::class, 'getCurrent'])->name('my-category');
+
                 Route::get('/', [UsageCategoryController::class, 'get'])->name('get');
                 Route::post('/', [UsageCategoryController::class, 'create'])->name('create');
                 Route::put('{id}', [UsageCategoryController::class, 'update'])->name('update');
                 Route::delete('{id}', [UsageCategoryController::class, 'delete'])->name('delete');
+                
+                Route::post('{id}/select', [UsageCategoryController::class, 'select'])->name('select');
 
             });
 

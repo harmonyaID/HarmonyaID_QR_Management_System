@@ -1,7 +1,9 @@
 export const GetUsageCategoryRoute = 'web.accounts.usage-categories.get'
+export const GetMyUsageCategoryRoute = 'web.accounts.usage-categories.my-category'
 export const CreateUsageCategoryRoute = 'web.accounts.usage-categories.create'
 export const UpdateUsageCategoryRoute = 'web.accounts.usage-categories.update'
 export const DeleteUsageCategoryRoute = 'web.accounts.usage-categories.delete'
+export const SelectUsageCategoryRoute = 'web.accounts.usage-categories.select'
 
 export const GetPlanRoute = 'web.accounts.plans.get'
 export const CreatePlanRoute = 'web.accounts.plans.create'

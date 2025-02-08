@@ -8,7 +8,7 @@ export const RoleSection = () => {
             }`}
         >
             <ErrorMsg
-                message="Working In Progress"
+                message="Work In Progress"
             />
         </section>
     )

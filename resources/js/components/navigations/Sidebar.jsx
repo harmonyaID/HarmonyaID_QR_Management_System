@@ -60,7 +60,7 @@ export const Sidebar = () => {
                     <SidebarList
                         items={[
                             { href: route(AccountRoute), label: 'Account', icon: User },
-                            { href: route(AccountSettingRoute), label: 'Setting', icon: Setting },
+                            { href: route(AccountSettingRoute), label: 'Account Setting', icon: Setting },
                             // { href: route(PlanRoute), label: 'Plan', icon: Star },
                         ]}
                     />

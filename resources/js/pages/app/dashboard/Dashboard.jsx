@@ -7,7 +7,7 @@ const DashboardPage = () => {
             title="Dashboard"
         >
             <ErrorMsg
-                message="Working In Progress"
+                message="Work In Progress"
             />
         </AppLayout>
     )

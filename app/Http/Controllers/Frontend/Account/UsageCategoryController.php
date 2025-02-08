@@ -12,4 +12,9 @@ class UsageCategoryController extends Controller
     {
         return Inertia::render('app/account/UsageCategory');
     }
+    
+    public function select()
+    {
+        return Inertia::render('app/account/SelectUsageCategory');
+    }
 }

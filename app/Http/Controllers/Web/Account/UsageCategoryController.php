@@ -8,6 +8,7 @@ use App\Http\Requests\Account\CreateUsageCategoryRequest;
 use App\Http\Requests\Account\UpdateUsageCategoryRequest;
 use App\Models\Account\UsageCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsageCategoryController extends Controller
 {
@@ -16,6 +17,13 @@ class UsageCategoryController extends Controller
         $usageCategories = UsageCategory::filter($request)->getOrPaginate($request, true);
 
         return success($usageCategories->toArray());
+    }
+
+    public function getCurrent()
+    {
+        $category = Auth::user()->usageCategory;
+
+        return success($category?->toArray());
     }
 
     public function create(CreateUsageCategoryRequest $request)
@@ -44,5 +52,16 @@ class UsageCategoryController extends Controller
 
         $algo = new UsageCategoryAlgo($usageCategory);
         return $algo->delete();
+    }
+
+    public function select($id)
+    {
+        $usageCategory = UsageCategory::find($id);
+        if (empty($usageCategory)) {
+            errNotFound(UsageCategory::class);
+        }
+
+        $algo = new UsageCategoryAlgo($usageCategory);
+        return $algo->select();
     }
 }

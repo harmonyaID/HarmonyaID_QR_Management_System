@@ -47,7 +47,7 @@ class UsageCategoryAlgo
                 ]);
 
                 $this->usageCategory->setActivityPropertyAttributes(ActivityAction::CREATE)
-                    ->saveActivity('Create new usage category: ' . $this->usageCategory->name . '[' . $this->usageCategory->id . ']');
+                    ->saveActivity('Create new usage category: ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
             });
 
             return success($this->usageCategory->toArray());
@@ -93,7 +93,7 @@ class UsageCategoryAlgo
                 ]);
 
                 $this->usageCategory->setActivityPropertyAttributes(ActivityAction::UPDATE)
-                    ->saveActivity('Update usage category: ' . $this->usageCategory->name . '[' . $this->usageCategory->id . ']');
+                    ->saveActivity('Update usage category: ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
 
                 if ($oldFileName != $fileName) {
                     Storage::delete('public/' . $oldFileName);
@@ -118,11 +118,36 @@ class UsageCategoryAlgo
                 $this->usageCategory->delete();
 
                 $this->usageCategory->setActivityPropertyAttributes(ActivityAction::DELETE)
-                    ->saveActivity('Delete usage category: ' . $this->usageCategory->name . '[' . $this->usageCategory->id . ']');
+                    ->saveActivity('Delete usage category: ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
             });
 
             return success($this->usageCategory->toArray());
 
+        } catch (\Throwable $th) {
+            exception($th);
+        }
+    }
+
+    public function select()
+    {
+        try {
+            DB::transaction(function () {
+
+                /** @var \App\Models\Account\User */
+                $user = Auth::user();
+
+                $user->setOldActivityPropertyAttributes(ActivityAction::UPDATE);
+                
+                $user->update([
+                    'usageCategoryId' => $this->usageCategory->id,
+                ]);
+
+                $user->setActivityPropertyAttributes(ActivityAction::UPDATE)
+                    ->saveActivity('Update user ' . $user->fullname . ' [' . $user->id . '] usage category to ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
+        
+            });
+            
+            return success();
         } catch (\Throwable $th) {
             exception($th);
         }
