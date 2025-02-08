@@ -1,5 +1,6 @@
 import { AppLayout } from "@/components/layouts/AppLayout"
 import { SelectUsageCategorySection } from "./components/SelectUsageCategorySection"
+import { goBack } from "@/helpers/navigation"
 
 const UsageCategoryPage = () => {
     return (
@@ -8,6 +9,7 @@ const UsageCategoryPage = () => {
         >
             <SelectUsageCategorySection
                 className="h-screen-70"
+                onSuccess={() => goBack()}
             />
         </AppLayout>
     )

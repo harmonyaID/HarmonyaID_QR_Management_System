@@ -10,6 +10,13 @@ Route::get('/', function () {
     return response()->redirectToRoute('frontend.auth.login');
 });
 
+Route::prefix('setup')
+    ->as('setup.')
+    ->middleware('auth')
+    ->group(function () use ($base) {
+        require($base . "setup.php");
+    });
+
 Route::prefix('app')
     ->as('app.')
     ->middleware('auth')

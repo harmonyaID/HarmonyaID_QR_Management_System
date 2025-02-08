@@ -86,7 +86,6 @@ const ProfileDropdown = () => {
     
     const { user } = usePage().props
 
-    const username = 'Test'
     const photoUrl = useMemo(() => {
         return document.querySelector('meta[name="user-photo"]')?.getAttribute('content') || ''
     }, [])

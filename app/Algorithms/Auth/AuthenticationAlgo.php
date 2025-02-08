@@ -99,9 +99,11 @@ class AuthenticationAlgo
                 $user->setActivityPropertyAttributes(ActivityAction::CREATE)
                     ->saveActivity('New user registered: ' . $user->fullname . '[' . $user->id . ']');
 
+                Auth::guard('web')->attempt($request->only('email', 'password'));
+
             });
 
-            return success(message: 'Successfully registered, please sign in using your credentials');
+            return success(message: 'Successfully registered');
             
         } catch (\Throwable $th) {
             exception($th);

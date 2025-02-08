@@ -6,6 +6,7 @@ import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
 import { validatePassword, validatePasswordConfirm } from "@/helpers/validation"
 import { LoginRoute } from "@/routes/auth"
+import { SetupUsageCategory } from "@/routes/setup"
 import { authRegister } from "@/services/api/auth"
 import { useState } from "react"
 import { route } from "ziggy-js"
@@ -109,7 +110,7 @@ export const RegisterForm = () => {
                 notifySuccess(response.status?.message)
 
                 setTimeout(() => {
-                    window.open(route(LoginRoute), '_self')
+                    window.open(route(SetupUsageCategory), '_self')
                 }, 1000);
             })
             .finally(() => {

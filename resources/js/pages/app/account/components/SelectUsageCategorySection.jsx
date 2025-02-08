@@ -2,18 +2,15 @@ import { Button } from "@/components/buttons/Button"
 import { Card } from "@/components/cards/Card"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
 import { Loader } from "@/components/misc/Loader"
-import { goBack } from "@/helpers/navigation"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { storage_url } from "@/helpers/url"
-import { DashboardRoute } from "@/routes/app"
 import { usageCategorySelect } from "@/services/api/account"
 import { useGetCategoryUsage, useGetMyCategoryUsage } from "@/services/swr/account"
 import { useEffect, useState } from "react"
-import { route } from "ziggy-js"
 
 export const SelectUsageCategorySection = ({
-    toDashboard = false,
-    className   = ''
+    className   = '',
+    onSuccess   = () => {}
 }) => {
     const [selectedId, setSelectedId] = useState('')
     const [sendLoading, setSendLoading] = useState()
@@ -57,14 +54,9 @@ export const SelectUsageCategorySection = ({
 
                 notifySuccess(response.status.message)
 
-                setTimeout(() => {
-                    if (toDashboard) {
-                        window.location.href = route(DashboardRoute)
-                        return
-                    }
-                    
-                    goBack()
-                }, 500)
+                if (typeof onSuccess == 'function') {
+                    onSuccess()
+                }
             })
             .finally(() => {
                 setSendLoading(false)
@@ -84,32 +76,27 @@ export const SelectUsageCategorySection = ({
     }, [currentCategory])
 
     return (
-        <section 
-            className={`${
-                "d-flex flex-column justify-content-center w-100"
-            } ${
-                className
-            }`}
-        >
+        <>
             { categoryUsageLoading || currentCategoryLoading ? (
                 <div className="text-center">
                     <Loader/> Loading...
                 </div>
-            ) : !categoryUsage?.result?.data?.length || !currentCategory?.result?.id ? (
+            ) : !categoryUsage?.result?.data?.length ? (
                 <ErrorMsg message="No usage category found"/>
             ) : (
-                <>
-                    <section
-                        className="d-grid grid-cols-md-2 mb-3 gap-3"
-                    >
+                <section
+                    className={className}
+                >
+                    <p className="mb-4 fw-bold">What would you like to use QR Codes for?</p>
+                    <div className="d-grid mb-4 gap-4">
                         { categoryUsage.result.data.map(item => (
                             <Card
                                 key={`select-category-${item.id}`}
                                 className={`${
-                                    !selectedId && item.id == currentCategory.result.id || 
+                                    !selectedId && item.id == currentCategory?.result?.id || 
                                     selectedId == item.id ? 'border-primary' : 'border-neutral-100'
                                 } ${
-                                    "cursor-pointer"
+                                    "cursor-pointer shadow-sm"
                                 }`}
                                 onClick={() => handleSelect(item)}
                             >
@@ -128,7 +115,7 @@ export const SelectUsageCategorySection = ({
                                 </div>
                             </Card>
                         ))  }
-                    </section>
+                    </div>
                     <div className="text-center">
                         <Button 
                             onClick={handleSubmit}
@@ -140,8 +127,8 @@ export const SelectUsageCategorySection = ({
                             <span>Confirm</span>
                         </Button>
                     </div>
-                </>
+                </section>
             )}
-        </section>
+        </>
     )
 }
