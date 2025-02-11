@@ -31,6 +31,8 @@ export const Offcanvas = ({
     useEffect(() => {
         if (open) {
             bsOffCanvasRef.current.show()
+        } else {
+            bsOffCanvasRef.current.hide()
         }
     }, [open])
 

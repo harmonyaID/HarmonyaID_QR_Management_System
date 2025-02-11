@@ -1,7 +1,7 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, UsageCategoryRoute } from "@/routes/app"
+import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
 import { Guide } from "@/icons/Guide"
 import { User } from "@/icons/User"
@@ -52,6 +52,14 @@ export const Sidebar = () => {
                     <SidebarList
                         items={[
                             { href: route(DashboardRoute), label: 'Dashboard', icon: House },
+                        ]}
+                    />
+                    <SidebarHeader>
+                        Qr Management
+                    </SidebarHeader>
+                    <SidebarList
+                        items={[
+                            { href: route(QrSettingRoute), label: 'Qr Setting', icon: Setting },
                         ]}
                     />
                     <SidebarHeader>

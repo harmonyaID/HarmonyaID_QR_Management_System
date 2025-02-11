@@ -1,8 +1,8 @@
 import qrcode
 import qrcode.constants
-from drawers.base import CustomStyledPilImage
-from drawers.eyedrawers import CircleEyeDrawer, BarsEyeDrawer
-from drawers.moduledrawers import GappedCircleModuleDrawer
+from .drawers.base import CustomStyledPilImage
+from .drawers.eyedrawers import CircleEyeDrawer, BarsEyeDrawer
+from .drawers.moduledrawers import GappedCircleModuleDrawer
 from qrcode.image.styles.moduledrawers.pil import SquareModuleDrawer, GappedSquareModuleDrawer, RoundedModuleDrawer, VerticalBarsDrawer, HorizontalBarsDrawer
 
 def generate(content, name, style, image):

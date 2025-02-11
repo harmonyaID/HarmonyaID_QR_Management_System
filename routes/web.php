@@ -13,5 +13,6 @@ Route::middleware(['auth:web'])
 
         require($base . "account.php");
         require($base . "file.php");
+        require($base . "qr.php");
 
     });

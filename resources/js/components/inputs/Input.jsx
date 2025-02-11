@@ -12,6 +12,7 @@ export const Input = ({
     errorMsg        = '',
     required        = false,
     onChange        = ({name, value}) => {},
+    suffix,
     ...props
 }) => {
     const inputId   = `${id}-${name}`
@@ -55,26 +56,33 @@ export const Input = ({
                     </div>
                 ) : (<></>) }
             </div>
-            <input
-                id={inputId}
-                name={name}
-                type={type}
-                value={value}
-                onChange={handleChange}
-                required={required}
-                title={errorMsg ? `Error: ${errorMsg}` : undefined}
-                aria-describedby={`${inputId}-feedback`}
+            <div
                 className={`${
-                    'form-control'
+                    "form-control-container"
                 } ${
                     horizontal ? 'grid-span-4' : ''
-                } ${
-                    errorMsg ? 'is-invalid' : ''
-                } ${
-                    inputClassName
                 }`}
-                {...props}
-            />
+            >
+                <input
+                    id={inputId}
+                    name={name}
+                    type={type}
+                    value={value}
+                    onChange={handleChange}
+                    required={required}
+                    title={errorMsg ? `Error: ${errorMsg}` : undefined}
+                    aria-describedby={`${inputId}-feedback`}
+                    className={`${
+                        'form-control'
+                    } ${
+                        errorMsg ? 'is-invalid' : ''
+                    } ${
+                        inputClassName
+                    }`}
+                    {...props}
+                />
+                { suffix }
+            </div>
         </div>
     )
 }
