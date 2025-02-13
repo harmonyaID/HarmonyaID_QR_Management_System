@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'firstname' => 'Super',
             'lastname'  => 'Admin',
             'email'     => 'superadmin@example.com',
-            'password'  => Hash::make('Admin#12345'),
+            'password'  => Hash::make('QR_Admin@321#'),
         ];
     }
 
