@@ -25,7 +25,9 @@ class QrTypeRequest extends FormRequest
     {
         return [
             'name'          => ['required', 'string'],
+            'icon'          => ['required', 'string'],
             'dataTypeId'    => ['required', 'numeric'],
+            'description'   => ['nullable', 'string'],
             'isDynamic'     => ['nullable', 'boolean'],
         ];
     }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->boolean('isDynamic')->default(false);
+            $table->string('icon');
+            $table->string('description')->default('');
             $table->smallInteger('dataTypeId');
             
             $table->foreignUuid('createdBy')->references('id')->on('users');

@@ -13,7 +13,25 @@ class QrTypeController extends Controller
     public function get(Request $request)
     {
         $types = QrType::filter($request)->getOrPaginate($request, true);
-        return success($types->toArray());
+
+        if (empty($request->groupDynamic)) {
+            return success($types->toArray());
+        }
+
+        $output = [
+            'dynamic'   => [],
+            'static'    => []
+        ];
+        foreach ($types as $type) {
+            $key = 'static';
+            if ($type->isDynamic) {
+                $key = 'dynamic';
+            }
+
+            $output[$key][] = $type->toArray();
+        }
+
+        return success($output);
     }
 
     public function create(QrTypeRequest $request)

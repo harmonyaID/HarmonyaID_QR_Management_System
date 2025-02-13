@@ -3,20 +3,23 @@ import { Form } from "@/components/forms/Form";
 import { Checkbox } from "@/components/inputs/Checkbox";
 import { Dropbox, DropboxContext } from "@/components/inputs/Dropbox";
 import { Input } from "@/components/inputs/Input";
+import { MessageBox } from "@/components/inputs/MessageBox";
 import { SearchableSelect } from "@/components/inputs/SearchableSelect";
 import { Loader } from "@/components/misc/Loader";
 import { Offcanvas } from "@/components/offcanvas/Offcanvas";
 import { AVAILABLE_DATA_TYPES } from "@/configs/qrDataTypes";
 import { notifyError, notifySuccess } from "@/helpers/notification";
-import { usageCategoryCreate, usageCategoryUpdate } from "@/services/api/account";
 import { qrTypeCreate, qrTypeUpdate } from "@/services/api/qr";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 export const QrTypeFormContext = createContext(null)
 export const QrTypeFormProvider = ({children}) => {
     const [form, setForm] = useState({
-        name: '',
-        icon: '',
+        name        : '',
+        isDynamic   : false,
+        dataTypeId  : '',
+        icon        : '',
+        description : '',
     });
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -50,6 +53,8 @@ export const QrTypeForm = ({
             name        : '',
             isDynamic   : false,
             dataTypeId  : '',
+            icon        : '',
+            description : '',
         })
         resetDropbox()
     }
@@ -73,11 +78,20 @@ export const QrTypeForm = ({
 
         setLoading(true)
 
+        if (!id && !files.length) {
+            notifyError('Icon is missing')
+        }
+
+        const request = {
+            ...form,
+            icon: files.length ? files[0].url : form.icon
+        }
+
         let service
         if (id) {
-            service = qrTypeUpdate(id, form)
+            service = qrTypeUpdate(id, request)
         } else {
-            service = qrTypeCreate(form)
+            service = qrTypeCreate(request)
         }
 
         service.then(response => {
@@ -144,6 +158,27 @@ export const QrTypeForm = ({
                             value={form.dataTypeId}
                             onChange={handleChange}
                             items={AVAILABLE_DATA_TYPES}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="form-label">
+                            Icon
+                        </label>
+                        <Dropbox
+                            group="qr-codes"
+                            webp
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="form-label">
+                            Description
+                        </label>
+                        <MessageBox
+                            name="description"
+                            value={form.description}
+                            onChange={handleChange}
+                            placeholder="Short description (up to 250 characters)"
+                            maxLength={250}
                         />
                     </div>
                 </section>

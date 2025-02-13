@@ -4,13 +4,14 @@ import { useContext, useState } from "react"
 import { SearchForm, SearchFormContext } from "@/components/forms/SearchForm"
 import { Loader } from "@/components/misc/Loader"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
-import { DataCard } from "@/components/cards/DataCard"
+import { DataCard, DataCardPicture } from "@/components/cards/DataCard"
 import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
 import { qrTypeDelete } from "@/services/api/qr"
 import { MDQrTypeDelete } from "@/configs/modalId"
 import { useGetQrTypes } from "@/services/swr/qr"
+import { storage_url } from "@/helpers/url"
 
 export const QrTypeSection = () => {
     const [sendLoading, setSendLoading] = useState(false)
@@ -99,15 +100,27 @@ export const QrTypeSection = () => {
                 ) : (
                     <>
                         <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                            { data.result.data.map((category) => (
+                            { data.result.data.map((type) => (
                                 <DataCard
-                                    key={`category-${category.id}`}
-                                    onEdit={() => handleEdit(category)}
-                                    onDelete={() => handleDelete(category)}
+                                    key={`type-${type.id}`}
+                                    onEdit={() => handleEdit(type)}
+                                    onDelete={() => handleDelete(type)}
                                 >
-                                    <p className="fw-semibold mb-0">
-                                        { category.name }
-                                    </p>
+                                    <div className="d-flex gap-3 justify-content-center align-items-center">
+                                        <div className="flex-shrink-0">
+                                            <DataCardPicture
+                                                src={ type.icon ? storage_url(type.icon) : `https://ui-avatars.com/api/?name=${type.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                            />
+                                        </div>
+                                        <div className="flex-grow-1">
+                                            <p className="fw-semibold mb-1">
+                                                { type.name }
+                                            </p>
+                                            <p className="mb-0 text-truncate">
+                                                { type.description }
+                                            </p>
+                                        </div>
+                                    </div>
                                 </DataCard>
                             )) }
                         </div>
