@@ -12,6 +12,7 @@ export const Input = ({
     errorMsg        = '',
     required        = false,
     onChange        = ({name, value}) => {},
+    prefix,
     suffix,
     ...props
 }) => {
@@ -63,6 +64,7 @@ export const Input = ({
                     horizontal ? 'grid-span-4' : ''
                 }`}
             >
+                { prefix }
                 <input
                     id={inputId}
                     name={name}

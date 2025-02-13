@@ -17,18 +17,20 @@ export const SearchableSelect = ({
     label = '',
     required = false,
     component = DefaultItem,
+    className = '',
     value,
     searchKey   = 'name',
     valueKey    = 'id',
+    prefix,
     onChange,
 }) => {
     const [display, setDisplay] = useState('')
     const [search, setSearch]   = useState('')
     const [focused, setFocused] = useState(false)
 
-    const searchRef = useRef(null)
-    const resettingRef = useRef(false)
-    const blurTimeoutRef = useRef(null)
+    const searchRef         = useRef(null)
+    const updateSearchRef   = useRef(false)
+    const blurTimeoutRef    = useRef(null)
 
     const Component = component
 
@@ -53,12 +55,12 @@ export const SearchableSelect = ({
     }, [items, search])
 
     const handleSearch = ({value}) => {
-        resettingRef.current = false
+        updateSearchRef.current = false
         setDisplay((prevState) => value)
     }
 
     const resetSearch = () => {
-        resettingRef.current = true
+        updateSearchRef.current = true
         setSearch('')
         setDisplay((prevState) => {
             if (typeof value == 'undefined') {
@@ -123,7 +125,7 @@ export const SearchableSelect = ({
             onChange({name, value, selected})
             setFocused(false)
         } else {
-            resettingRef.current = true
+            updateSearchRef.current = true
             setDisplay(searchVal)
             setSearch('')
         }
@@ -134,7 +136,7 @@ export const SearchableSelect = ({
     }, [value])
 
     useEffect(() => {
-        if (resettingRef.current) {
+        if (updateSearchRef.current) {
             return
         }
 
@@ -146,7 +148,13 @@ export const SearchableSelect = ({
     }, [display])
 
     return (
-        <div className="searchable-select">
+        <div 
+            className={`${
+                "searchable-select"
+            } ${
+                className
+            }`}
+        >
             <Input
                 name={name}
                 id={id}
@@ -157,6 +165,7 @@ export const SearchableSelect = ({
                 onChange={handleSearch}
                 onFocus={handleFocusSearch}
                 onBlur={handleBlurSearch}
+                prefix={prefix}
                 suffix={
                     <div 
                         className="select-arrow-container"
