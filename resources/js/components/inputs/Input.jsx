@@ -1,4 +1,4 @@
-import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
+import { useChangeHandler } from "@/hooks/useChangeHandler"
 
 export const Input = ({
     id      = '',
@@ -18,7 +18,7 @@ export const Input = ({
 }) => {
     const inputId   = `${id}-${name}`
 
-    const handleChange = changeHandlerGenerator(onChange)
+    const handleChange = useChangeHandler(onChange)
 
     return (
         <div 
@@ -37,7 +37,9 @@ export const Input = ({
             >
                 <label 
                     className={`${
-                        !horizontal ? 'grid-span-3' : ''
+                        horizontal ? '' :
+                        !errorMsg ? 'grid-span-5' :
+                        'grid-span-3'
                     }`}
                     htmlFor={inputId}
                     title={ errorMsg ? `Error: ${errorMsg}` : '' }

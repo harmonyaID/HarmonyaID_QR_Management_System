@@ -1,4 +1,4 @@
-import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
+import { useChangeHandler } from "@/hooks/useChangeHandler"
 
 export const Checkbox = ({
     name,
@@ -11,7 +11,7 @@ export const Checkbox = ({
 }) => {
     const inputId = id || `checkbox-${name}`
 
-    const handleChange = changeHandlerGenerator(onChange)
+    const handleChange = useChangeHandler(onChange)
 
     return (
         <div 

@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Input } from "./Input"
-import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
 import { ArrowUp } from "@/icons/ArrowUp"
 import { ArrowDown } from "@/icons/ArrowDown"
 
@@ -54,12 +53,12 @@ export const SearchableSelect = ({
         })
     }, [items, search])
 
-    const handleSearch = ({value}) => {
+    const handleSearch = useCallback(({value}) => {
         updateSearchRef.current = false
         setDisplay((prevState) => value)
-    }
+    }, [])
 
-    const resetSearch = () => {
+    const resetSearch = useCallback(() => {
         updateSearchRef.current = true
         setSearch('')
         setDisplay((prevState) => {
@@ -85,23 +84,23 @@ export const SearchableSelect = ({
 
             return item[searchKey]
         })
-    }
+    }, [items, value])
 
-    const handleFocus = () => {
+    const handleFocus = useCallback(() => {
         if (!focused) {
             searchRef.current.focus()
         }
-    }
+    }, [])
 
-    const handleFocusSearch = (event) => {
+    const handleFocusSearch = useCallback((event) => {
         if (blurTimeoutRef.current) {
             clearTimeout(blurTimeoutRef.current)
         }
 
         setFocused(true)
-    }
+    }, [])
 
-    const handleBlurSearch = (event) => {
+    const handleBlurSearch = useCallback((event) => {
         if (blurTimeoutRef.current) {
             clearTimeout(blurTimeoutRef.current)
         }
@@ -110,9 +109,9 @@ export const SearchableSelect = ({
             setFocused(false)
             resetSearch()
         }, 300)
-    }
+    }, [resetSearch])
 
-    const handleSelect = (selected) => {
+    const handleSelect = useCallback((selected) => {
         let searchVal   = selected
         let value       = selected
         if (typeof value == 'object') {
@@ -129,9 +128,10 @@ export const SearchableSelect = ({
             setDisplay(searchVal)
             setSearch('')
         }
-    }
+    }, [onChange])
 
     useEffect(() => {
+        console.count('Resetting')
         resetSearch()
     }, [value])
 

@@ -1,15 +1,14 @@
 import { AppLayout } from "@/components/layouts/AppLayout"
-import { QrTypeSelectFormProvider } from "./components/QrTypeSelectForm"
-import { QrCreateForm } from "./components/QrCreateForm"
+import { QrCreateForm, QrCreateProvider } from "./components/QrCreateForm"
 
 const QrCreate = () => {
     return (
         <AppLayout
             title="Create New QR Code"
         >
-            <QrTypeSelectFormProvider>
+            <QrCreateProvider>
                 <QrCreateForm/>
-            </QrTypeSelectFormProvider>
+            </QrCreateProvider>
         </AppLayout>
     )
 }

@@ -28,6 +28,8 @@ export const QrTypeSection = () => {
             ...prevState,
             name        : selected.name,
             dataTypeId  : selected.dataTypeId,
+            icon        : selected.icon,
+            description : selected.description,
         }))
 
         setOpen(true)

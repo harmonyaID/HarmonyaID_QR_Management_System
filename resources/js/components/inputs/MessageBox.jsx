@@ -1,4 +1,4 @@
-import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
+import { useChangeHandler } from "@/hooks/useChangeHandler"
 import { useLayoutEffect, useRef } from "react"
 
 export const MessageBox = ({
@@ -13,7 +13,7 @@ export const MessageBox = ({
     const inputId = `${id}-${name}`
     const inputRef = useRef(null)
 
-    const handleChange = changeHandlerGenerator(onChange)
+    const handleChange = useChangeHandler(onChange)
 
     useLayoutEffect(() => {
         const input = inputRef.current
@@ -21,6 +21,7 @@ export const MessageBox = ({
             return
         }
 
+        console.count('Calculate height')
         input.style.height = 'inherit'
 
         let newHeight = input.scrollHeight + 2
@@ -30,7 +31,7 @@ export const MessageBox = ({
         }
 
         input.style.height = `${newHeight}px`
-    })
+    }, [value])
 
     return (
         <textarea

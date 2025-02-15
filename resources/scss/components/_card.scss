@@ -82,17 +82,15 @@
     overflow: hidden;
 }
 
-.qr-type-select {
-    .card.selectable {
-        cursor: pointer;
-        &:hover {
-            background-color: var(--bs-primary-100);
-            border-color: var(--bs-primary-300);
-        }
+.card.selectable {
+    cursor: pointer;
+    &:hover {
+        background-color: var(--bs-primary-100);
+        border-color: var(--bs-primary-300);
+    }
 
-        &.selected {
-            background-color: var(--bs-primary-50) !important;
-            border-color: var(--bs-primary-200) !important;
-        }
+    &.selected {
+        background-color: var(--bs-primary-50) !important;
+        border-color: var(--bs-primary-200) !important;
     }
 }

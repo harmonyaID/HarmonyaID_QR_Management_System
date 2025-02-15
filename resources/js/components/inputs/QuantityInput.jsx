@@ -1,4 +1,4 @@
-import { changeHandlerGenerator } from "@/helpers/changeHandlerGenerator"
+import { useChangeHandler } from "@/hooks/useChangeHandler"
 import { Minus } from "@/icons/Minus"
 import { Plus } from "@/icons/Plus"
 import { useCallback, useEffect, useRef } from "react"
@@ -18,7 +18,7 @@ export const QuantityInput = ({
     const holdAccumulatorRef    = useRef(0)
     const isHoldingRef          = useRef(false)
 
-    const handleChange = changeHandlerGenerator(onChange)
+    const handleChange = useChangeHandler(onChange)
 
     const handleClick = (addition, shouldFocus = true) => {
         const currentValue = inputRef.current.value ? parseInt(inputRef.current.value) : 0

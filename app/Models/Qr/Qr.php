@@ -4,6 +4,7 @@ namespace App\Models\Qr;
 
 use App\Models\Account\User;
 use App\Models\BaseModel;
+use App\Models\Qr\Traits\CanGenerateQr;
 use App\Models\Qr\Traits\HasActivityQrProperty;
 use App\Services\Constant\Qr\QrDataType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 class Qr extends BaseModel
 {
     use HasActivityQrProperty;
+    use CanGenerateQr;
     
     // protected $table = '';
     protected $guarded = ['id'];
@@ -63,6 +65,11 @@ class Qr extends BaseModel
 
 
     // Accessors
+
+    protected function getDataTypeAttribute()
+    {
+        return QrDataType::idName($this->dataTypeId);
+    }
 
     protected function dataType() : Attribute
     {
