@@ -15,7 +15,7 @@ class CircleEyeDrawer(BaseEyeDrawer):
         draw = ImageDraw.Draw(self.img)
         draw.ellipse(
             position,
-            fill    = True,
+            fill    = "black",
             outline = "black",
             width   = self.factory.box_size,
         )
@@ -54,7 +54,7 @@ class BarsEyeDrawer(BaseEyeDrawer):
         draw = ImageDraw.Draw(self.img)
         draw.rounded_rectangle(
             position,
-            fill    = True,
+            fill    = "black",
             outline = "black",
             radius  = self.factory.box_size,
             corners = corners,
