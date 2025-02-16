@@ -106,9 +106,9 @@ const SidebarItem = ({
     icon
 }) => {
     const Icon = icon
-    const location = window.location.pathname
+    const location = window.location.href
     // const subItemId = `nav-${alias}`
-    const isActive = location.startsWith(href)
+    const isActive = href == location
     // const hasPermissions = useHasAnyPermissions(permissions)
     
     // const [open, setOpen] = useState(isActive)
