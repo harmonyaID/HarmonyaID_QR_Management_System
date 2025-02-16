@@ -1,6 +1,11 @@
 export const DashboardRoute = 'frontend.app.dashboard.index'
 
-export const QrSettingRoute = 'frontend.app.qrs.settings'
+export const QrRoute = 'frontend.app.qr-codes.index';
+export const QrCreateRoute = 'frontend.app.qr-codes.create';
+export const QrEditRoute = 'frontend.app.qr-codes.edit';
+export const QrImageRoute = 'frontend.app.qr-codes.image';
+
+export const QrSettingRoute = 'frontend.app.qr-codes.settings'
 
 export const AccountRoute = 'frontend.app.accounts.index'
 export const AccountSettingRoute = 'frontend.app.accounts.settings'

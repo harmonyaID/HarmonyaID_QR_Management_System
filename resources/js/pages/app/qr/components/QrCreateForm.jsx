@@ -11,6 +11,8 @@ import { Dropbox, DropboxContext, DropboxProvider } from "@/components/inputs/Dr
 import { QrStyleForm, QrStyleFormContext, QrStyleFormProvider } from "./QrStyleForm"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { qrCreate } from "@/services/api/qr"
+import { QrRoute } from "@/routes/app"
+import { route } from "ziggy-js"
 
 export const QrCreateProvider = ({children}) => (
     <QrTypeSelectFormProvider>
@@ -98,6 +100,10 @@ export const QrCreateForm = () => {
             }
 
             notifySuccess('Qr Code successfully created');
+
+            setTimeout(() => {
+                window.open(route(QrRoute), '_self')
+            }, 500)
         })
         .finally(() => {
             setIsLoading(false)

@@ -1,13 +1,13 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
+import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, QrRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
-import { Guide } from "@/icons/Guide"
 import { User } from "@/icons/User"
 import { Link } from "@inertiajs/react"
-import { Star } from "@/icons/Star"
 import { Setting } from "@/icons/Setting"
+import { route } from "ziggy-js"
+import { QrCode } from "@/icons/QrCode"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -59,6 +59,7 @@ export const Sidebar = () => {
                     </SidebarHeader>
                     <SidebarList
                         items={[
+                            { href: route(QrRoute), label: 'Qr Codes', icon: QrCode },
                             { href: route(QrSettingRoute), label: 'Qr Setting', icon: Setting },
                         ]}
                     />

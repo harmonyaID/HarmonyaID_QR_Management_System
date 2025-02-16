@@ -16,3 +16,15 @@ export const formatPrice = (number = 0) => {
 export const upperCaseFirst = (value = '') => {
     return value[0].toUpperCase() + value.slice(1)
 }
+
+export const formatDate = (date, withTime = false) => {
+    const dateObject = new Date(date)
+
+    const format = { day: 'numeric', month: 'long', year: 'numeric' }
+    if (withTime) {
+        format.hour = '2-digit'
+        format.minute = '2-digit'
+    }
+
+    return dateObject.toLocaleDateString('en-GB', format)
+}

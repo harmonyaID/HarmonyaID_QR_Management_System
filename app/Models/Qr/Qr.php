@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Qr extends BaseModel
 {
@@ -38,6 +39,10 @@ class Qr extends BaseModel
 
     public function scopeFilter($query, Request $request)
     {
+        if (Auth::user()) {
+            $query->where('createdBy', Auth::user()->id);
+        }
+
         if ($this->hasSearch($request)) {
             $query->where('name', 'ILIKE', "%{$request->search}%");
         }
@@ -48,7 +53,7 @@ class Qr extends BaseModel
 
     // Relationships
 
-    public function qrType() : BelongsTo
+    public function type() : BelongsTo
     {
         return $this->belongsTo(QrType::class, 'qrTypeId');
     }
