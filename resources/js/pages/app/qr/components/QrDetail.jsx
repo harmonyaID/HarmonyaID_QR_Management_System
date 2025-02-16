@@ -50,17 +50,14 @@ export const QrDetail = () => {
             <div className="d-flex flex-column justify-item-between gap-4">
 
                 <div className="d-grid grid-cols-2 gap-4 h-100">
-                    <DataDisplay
-                        label="Qr Code"
-                        className="grid-span-2"
-                    >
+                    <div className="grid-span-2">
                         <img
                             src={ selected?.id ? route(QrImageRoute, selected.id) : undefined }
                             alt={`${selected?.name} QR Code`}
                             height="auto"
                             className="w-100"
                         />
-                    </DataDisplay>
+                    </div>
                     <DataDisplay
                         label="Name"
                         dataClassName="mb-0"
