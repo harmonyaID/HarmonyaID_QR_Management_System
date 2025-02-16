@@ -1,20 +1,29 @@
 import { Button } from "@/components/buttons/Button"
 import { Card } from "@/components/cards/Card"
-import { DataCard } from "@/components/cards/DataCard"
+import { DataCard, DataCardButton } from "@/components/cards/DataCard"
 import { SearchForm, SearchFormContext } from "@/components/forms/SearchForm"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
 import { Loader } from "@/components/misc/Loader"
 import { formatDate } from "@/helpers/formatter"
 import { Check } from "@/icons/Check"
+import { Download } from "@/icons/Download"
 import { Plus } from "@/icons/Plus"
 import { QrCreateRoute, QrImageRoute } from "@/routes/app"
 import { useGetQrCodes } from "@/services/swr/qr"
 import { useContext } from "react"
 import { route } from "ziggy-js"
+import { QrDetail, QrDetailContext } from "./QrDetail"
+import { Info } from "@/icons/Info"
 
 export const QrSection = () => {
     const { committedFilter }   = useContext(SearchFormContext)
+    const { setSelected, setOpen } = useContext(QrDetailContext)
     const {data, isLoading, mutate} = useGetQrCodes(committedFilter)
+
+    const handleShowDetail = (selected) => {
+        setSelected(selected)
+        setOpen(true)
+    }
 
     return (
         <>
@@ -48,6 +57,24 @@ export const QrSection = () => {
                         { data.result.data.map((qrCode) => (
                             <DataCard
                                 key={`qr-code-${qrCode.id}`}
+                                customButton={(
+                                    <>
+                                        <DataCardButton
+                                            as="download"
+                                            className="btn-small btn-primary-950"
+                                            icon={Download}
+                                            title={`Download ${qrCode.name} QR Code`}
+                                            href={route(QrImageRoute, qrCode.id)}
+                                            download={`${qrCode.name} QR Code`}
+                                        />
+                                        <DataCardButton
+                                            className="btn-small btn-neutral-800"
+                                            icon={Info}
+                                            title="Show detail"
+                                            onClick={() => handleShowDetail(qrCode)}
+                                        />
+                                    </>
+                                )}
                             >
                                 <div className="d-flex gap-3 justify-content-center align-items-center">
                                     <div className="flex-shrink-0">
@@ -102,6 +129,7 @@ export const QrSection = () => {
                     </div>
                 ) }
             </Card>
+            <QrDetail/>
         </>
     )
 }

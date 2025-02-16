@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use libphonenumber\PhoneNumberFormat;
 
 class Qr extends BaseModel
 {
@@ -32,6 +34,7 @@ class Qr extends BaseModel
 
     protected $appends = [
         'dataType',
+        'phone',
     ];
 
 
@@ -81,6 +84,25 @@ class Qr extends BaseModel
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
                 return QrDataType::idName($attributes['dataTypeId']);
+            }
+        );
+    }
+
+    protected function phone() : Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                if ($attributes['dataTypeId'] != QrDataType::WHATSAPP_ID) {
+                    return '';
+                }
+
+                $data = json_decode($attributes['data'], true);
+
+                return format_phone(
+                    $data['phone']['country'], 
+                    $data['phone']['number'], 
+                    PhoneNumberFormat::INTERNATIONAL
+                );
             }
         );
     }

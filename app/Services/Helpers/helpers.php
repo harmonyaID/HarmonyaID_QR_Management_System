@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 if (!function_exists('filename')) {
 
@@ -81,6 +83,23 @@ if (!function_exists("alphabet_from_number")) {
             $defaultNumber++;
         }
         return null;
+    }
+
+}
+
+if (!function_exists("format_phone")) {
+
+    /**
+     * @param float|int|string $number
+     *
+     * @return bool `true` if $long is valid, `false` if not
+     */
+    function format_phone($country, $number, $format = PhoneNumberFormat::E164)
+    {
+        $parser = PhoneNumberUtil::getInstance();
+        $phone  = $parser->parse($number, $country);
+        
+        return $parser->format($phone, $format);
     }
 
 }

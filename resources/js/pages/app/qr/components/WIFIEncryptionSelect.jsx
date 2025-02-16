@@ -1,5 +1,5 @@
 import { SearchableSelect } from "@/components/inputs/SearchableSelect"
-import { useMemo } from "react"
+import { wifiEncryptionTypes } from "@/configs/wifiEncryptionTypes"
 
 export const WIFIEncryptionSelect = ({
     name,
@@ -8,18 +8,10 @@ export const WIFIEncryptionSelect = ({
     onChange,
     ...props
 }) => {
-    const types = useMemo(() => {
-        return [
-            { name: 'None', value: '' },
-            { name: 'WEP', value: 'WEP' },
-            { name: 'WPA/WPA2-Personal', value: 'WPA' },
-        ]
-    }, [])
-
 
     return (
         <SearchableSelect
-            items={types}
+            items={wifiEncryptionTypes}
             name={name}
             label={label}
             searchKey="name"

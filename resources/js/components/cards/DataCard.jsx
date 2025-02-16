@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { Card } from "./Card"
 import { More } from "@/icons/More"
 import { Delete } from "@/icons/Delete"
 import { Edit } from "@/icons/Edit"
 import { Tooltip } from "bootstrap"
+import { Link } from "@inertiajs/react"
 
 export const DataCard = ({
     onClick,
@@ -68,16 +69,43 @@ export const DataCard = ({
     )
 }
 
+const DefaultButton = (props) => (
+    <button {...props}/>
+)
+
+const Anchor = (props) => (
+    <a {...props}/>
+)
+
+const DefaultLink = (props) => (
+    <Link {...props} />
+)
+
 export const DataCardButton = ({
     className = '',
     onClick,
     title,
     icon,
+    as = 'button',
     ...props
 }) => {
     const Icon = icon
     const btnRef = useRef(null)
     const tooltipRef = useRef()
+
+    const Component = useMemo(() => {
+        switch (as.toLowerCase()) {
+            case 'button':
+                return DefaultButton
+        
+            case 'link':
+                return DefaultLink
+        
+            case 'download':
+                return Anchor
+        }
+    }, [as])
+
 
     useEffect(() => {
         if (!title || !btnRef.current) {
@@ -90,10 +118,10 @@ export const DataCardButton = ({
             tooltipRef.current?.dispose()
         }
 
-    }, [title])
+    }, [title, Component])
 
     return (
-        <button
+        <Component
             ref={btnRef}
             className={`${
                 "btn btn-icon"
@@ -108,7 +136,7 @@ export const DataCardButton = ({
             {...props}
         >
             <Icon size="1.5rem"/>
-        </button>
+        </Component>
     )
 }
 

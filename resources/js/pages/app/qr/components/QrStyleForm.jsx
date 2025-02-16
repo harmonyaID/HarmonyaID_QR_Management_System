@@ -1,4 +1,5 @@
 import { Card } from "@/components/cards/Card";
+import { qrStyleTypes } from "@/configs/qrStyleTypes";
 import { base_url } from "@/helpers/url";
 import { createContext, useContext, useState } from "react";
 
@@ -13,15 +14,6 @@ export const QrStyleFormProvider = ({children}) => {
     )
 }
 
-const styles = [
-    { name: 'Square', value: 'square', src: base_url('images/samples/square.png') },
-    { name: 'Rounded', value: 'rounded', src: base_url('images/samples/rounded.png') },
-    { name: 'Pixel', value: 'pixel', src: base_url('images/samples/pixel.png') },
-    { name: 'Circle', value: 'circle', src: base_url('images/samples/circle.png') },
-    { name: 'Vertical Bars', value: 'v-bars', src: base_url('images/samples/vbar.png') },
-    { name: 'Horizontal Bars', value: 'h-bars', src: base_url('images/samples/hbar.png') },
-]
-
 export const QrStyleForm = () => {
     const [selected, setSelected] = useContext(QrStyleFormContext)
 
@@ -35,7 +27,7 @@ export const QrStyleForm = () => {
                 Qr Style
             </label>
             <div className="d-grid grid-cols-sm-2 grid-cols-md-3 grid-cols-lg-2 gap-3">
-                { styles.map(style => (
+                { qrStyleTypes.map(style => (
                     <Card
                         className={`${
                             "selectable"

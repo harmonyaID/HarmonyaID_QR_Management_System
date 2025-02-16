@@ -30,6 +30,20 @@ class QrController extends Controller
         return response()->file(storage_path('app/' . $qr->image));
     }
 
+    public function embeddedImage($id)
+    {
+        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        if (empty($qr?->styles['image'])) {
+            errNotFound('Embedded Image');
+        }
+
+        if (!Storage::exists($qr->styles['image'])) {
+            errNotFound('Embedded Image');
+        }
+
+        return response()->file(storage_path('app/' . $qr->styles['image']));
+    }
+
     public function create()
     {
         return Inertia::render('app/qr/QrCreate');

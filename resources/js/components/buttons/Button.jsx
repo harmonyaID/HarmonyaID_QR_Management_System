@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react"
+import { useMemo } from "react"
 
 const Btn = (props) => (
     <button {...props}/>
@@ -6,6 +7,10 @@ const Btn = (props) => (
 
 const DefaultLink = (props) => (
     <Link {...props}/>
+)
+
+const Anchor = (props) => (
+    <a {...props}/>
 )
 
 export const Button = ({
@@ -17,9 +22,20 @@ export const Button = ({
     link        = false,
     linkAsButton= false,
     children,
+    download,
     ...props
 }) => {
-    const Component = link || linkAsButton ? DefaultLink : Btn
+    const Component = useMemo(() => {
+        if (!link && !linkAsButton) {
+            return Btn
+        }
+
+        if (download) {
+            return Anchor
+        }
+
+        return DefaultLink
+    }, [link, linkAsButton])
 
     return (
         <Component 
@@ -38,6 +54,7 @@ export const Button = ({
             } ${
                 className
             }`}
+            download={download}
             {...props}
         >
             <span className="d-inline-block">

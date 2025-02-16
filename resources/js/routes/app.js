@@ -4,6 +4,7 @@ export const QrRoute = 'frontend.app.qr-codes.index';
 export const QrCreateRoute = 'frontend.app.qr-codes.create';
 export const QrEditRoute = 'frontend.app.qr-codes.edit';
 export const QrImageRoute = 'frontend.app.qr-codes.image';
+export const QrEmbedImageRoute = 'frontend.app.qr-codes.embed-image';
 
 export const QrSettingRoute = 'frontend.app.qr-codes.settings'
 

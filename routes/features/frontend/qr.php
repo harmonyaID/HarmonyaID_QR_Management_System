@@ -14,5 +14,6 @@ Route::prefix('qr-codes')
         Route::get('create', [QrController::class, 'create'])->name('create');
         Route::get('{id}', [QrController::class, 'edit'])->name('edit');
         Route::get('{id}/image', [QrController::class, 'image'])->name('image');
+        Route::get('{id}/embed-image', [QrController::class, 'embeddedImage'])->name('embed-image');
 
     });
