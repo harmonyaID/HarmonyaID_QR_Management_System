@@ -131,7 +131,6 @@ export const SearchableSelect = ({
     }, [onChange])
 
     useEffect(() => {
-        console.count('Resetting')
         resetSearch()
     }, [value])
 

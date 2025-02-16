@@ -23,7 +23,6 @@ export const QrTypeSection = () => {
     const {data, isLoading, mutate} = useGetQrTypes(committedFilter)
 
     const handleEdit = (selected) => {
-        console.log(selected)
         setForm((prevState) => ({
             ...prevState,
             name        : selected.name,

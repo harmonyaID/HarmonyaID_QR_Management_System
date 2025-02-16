@@ -21,7 +21,6 @@ export const MessageBox = ({
             return
         }
 
-        console.count('Calculate height')
         input.style.height = 'inherit'
 
         let newHeight = input.scrollHeight + 2

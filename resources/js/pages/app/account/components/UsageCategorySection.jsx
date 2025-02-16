@@ -97,30 +97,28 @@ export const UsageCategorySection = () => {
                 ) : !data?.result?.data?.length ? (
                     <ErrorMsg message="No usage category found"/>
                 ) : (
-                    <>
-                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                            { data.result.data.map((category) => (
-                                <DataCard
-                                    key={`category-${category.id}`}
-                                    onEdit={() => handleEdit(category)}
-                                    onDelete={() => handleDelete(category)}
-                                >
-                                    <div className="d-flex gap-3 justify-content-center align-items-center">
-                                        <div className="flex-shrink-0">
-                                            <DataCardPicture
-                                                src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
-                                            />
-                                        </div>
-                                        <div className="flex-grow-1">
-                                            <p className="fw-semibold mb-0">
-                                                { category.name }
-                                            </p>
-                                        </div>
+                    <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
+                        { data.result.data.map((category) => (
+                            <DataCard
+                                key={`category-${category.id}`}
+                                onEdit={() => handleEdit(category)}
+                                onDelete={() => handleDelete(category)}
+                            >
+                                <div className="d-flex gap-3 justify-content-center align-items-center">
+                                    <div className="flex-shrink-0">
+                                        <DataCardPicture
+                                            src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                        />
                                     </div>
-                                </DataCard>
-                            )) }
-                        </div>
-                    </>
+                                    <div className="flex-grow-1">
+                                        <p className="fw-semibold mb-0">
+                                            { category.name }
+                                        </p>
+                                    </div>
+                                </div>
+                            </DataCard>
+                        )) }
+                    </div>
                 ) }
             </section>
             <UsageCategoryForm

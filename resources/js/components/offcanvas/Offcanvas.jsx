@@ -15,8 +15,6 @@ export const Offcanvas = ({
             return
         }
 
-        console.count('Reattach onhide');
-
         offcanvasRef.current?.addEventListener('hide.bs.offcanvas', onHide)
 
         return () => {

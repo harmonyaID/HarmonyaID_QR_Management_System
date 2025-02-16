@@ -83,8 +83,6 @@ const ImageDisplay = ({
             return
         }
 
-        console.count('Dropbox recols')
-
         lastWidthRef.current = width
         setCols((prevState) => {
             if (width >= 1400) {
