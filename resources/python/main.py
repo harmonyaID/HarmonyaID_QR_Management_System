@@ -29,8 +29,8 @@ def generate(content, name, style, image):
     qr = qrcode.QRCode(
         version             = None,
         error_correction    = qrcode.constants.ERROR_CORRECT_H,
-        box_size            = 100,
-        border              = 5
+        box_size            = 32,
+        border              = 2
     )
 
     qr.add_data(content)
