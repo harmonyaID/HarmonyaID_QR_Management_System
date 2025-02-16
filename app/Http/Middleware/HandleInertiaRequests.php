@@ -35,9 +35,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+        if (!empty($user)) {
+            $user = [
+                'fullname'  => $user->fullname,
+                'email'     => $user->email,
+            ];
+        }
+
         return [
             ...parent::share($request),
-            'user'          => $request->user(),
+            'user'          => $user,
             'csrf_token'    => csrf_token(),
             'current_route' => $request->route()->getName(),
         ];
