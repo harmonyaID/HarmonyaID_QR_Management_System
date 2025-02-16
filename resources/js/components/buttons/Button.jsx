@@ -15,10 +15,11 @@ export const Button = ({
     className   = '',
     text        = false,
     link        = false,
+    linkAsButton= false,
     children,
     ...props
 }) => {
-    const Component = link ? DefaultLink : Btn
+    const Component = link || linkAsButton ? DefaultLink : Btn
 
     return (
         <Component 
