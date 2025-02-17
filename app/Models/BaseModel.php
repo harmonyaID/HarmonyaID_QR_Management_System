@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Parser\MainParser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,8 @@ class BaseModel extends Model
     use HasUuids;
     use SoftDeletes;
     use GetOrPaginate;
+
+    public $parserClass = MainParser::class;
 
     // Custom date times column
     const CREATED_AT = 'createdAt';

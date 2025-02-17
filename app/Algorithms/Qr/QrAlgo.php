@@ -58,8 +58,30 @@ class QrAlgo
 
             });
 
-            return success($this->qr->toArray());
+            return success($this->qr);
 
+        } catch (\Throwable $th) {
+            exception($th);
+        }
+    }
+
+    public function delete()
+    {
+        try {
+            
+            DB::transaction(function () {
+
+                $this->qr->setOldActivityPropertyAttributes(ActivityAction::DELETE);
+
+                $this->qr->delete();
+
+                $this->qr->setActivityPropertyAttributes(ActivityAction::DELETE)
+                    ->saveActivity('Delete QR Code ' . $this->qr->name . '[' . $this->qr->id . ']' . ' by ' . Auth::user()->fullname);
+
+            });
+
+            return success();
+            
         } catch (\Throwable $th) {
             exception($th);
         }
