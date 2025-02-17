@@ -35,6 +35,7 @@ class Qr extends BaseModel
     protected $appends = [
         'dataType',
         'phone',
+        'version'
     ];
 
 
@@ -103,6 +104,15 @@ class Qr extends BaseModel
                     $data['phone']['number'], 
                     PhoneNumberFormat::INTERNATIONAL
                 );
+            }
+        );
+    }
+
+    protected function version() : Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                return strtotime($attributes['updatedAt']);
             }
         );
     }

@@ -8,7 +8,7 @@ import { wifiEncryptionTypes } from "@/configs/wifiEncryptionTypes"
 import { storage_url } from "@/helpers/url"
 import { Download } from "@/icons/Download"
 import { Edit } from "@/icons/Edit"
-import { QrEmbedImageRoute, QrImageRoute } from "@/routes/app"
+import { QrEditRoute, QrEmbedImageRoute, QrImageRoute } from "@/routes/app"
 import { createContext, useContext, useMemo, useState } from "react"
 import { route } from "ziggy-js"
 
@@ -41,6 +41,11 @@ export const QrDetail = () => {
         setSelected(null)
     }
 
+    const handleEdit = (event) => {
+        event.preventDefault()
+        window.open(route(QrEditRoute, selected?.id), '_self')
+    }
+
     return (
         <Offcanvas
             title={`QR Code Detail`}
@@ -52,7 +57,7 @@ export const QrDetail = () => {
                 <div className="d-grid grid-cols-2 gap-4 h-100">
                     <div className="grid-span-2">
                         <img
-                            src={ selected?.id ? route(QrImageRoute, selected.id) : undefined }
+                            src={ selected?.id ? `${route(QrImageRoute, selected.id)}?v=${selected.version}` : undefined }
                             alt={`${selected?.name} QR Code`}
                             height="auto"
                             className="w-100"
@@ -95,6 +100,9 @@ export const QrDetail = () => {
                     <Button
                         small
                         outline
+                        linkAsButton
+                        href={ selected?.id ? route(QrEditRoute, selected.id) : undefined }
+                        onClick={handleEdit}
                     >
                         <Edit size={24} className="me-2"/>Edit
                     </Button>

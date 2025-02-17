@@ -2,6 +2,7 @@ export const MDConfirm = 'modal-confirm'
 
 export const MDAuthLogout = 'modal-auth-logout'
 
+export const MDQr = 'modal-qr'
 export const MDQrDelete = 'modal-qr-delete'
 export const MDQrTypeDelete = 'modal-qr-type-delete'
 

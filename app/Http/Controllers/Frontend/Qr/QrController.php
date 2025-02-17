@@ -51,7 +51,9 @@ class QrController extends Controller
 
     public function edit($id)
     {
-        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        $qr = Qr::with(['type'])
+            ->where('createdBy', Auth::user()->id)
+            ->find($id);
         return Inertia::render('app/qr/QrEdit', ['data' => $qr]);
     }
 }

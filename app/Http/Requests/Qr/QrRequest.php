@@ -4,7 +4,7 @@ namespace App\Http\Requests\Qr;
 
 use Logia\Core\Validation\Support\FormRequest;
 
-class CreateQrRequest extends FormRequest
+class QrRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class CreateQrRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'      => ['required', 'string'],
+            'qrTypeId'  => ['required', 'uuid'],
+            'data'      => ['required', 'array'],
+            'style'     => ['required', 'array'],
         ];
     }
 }

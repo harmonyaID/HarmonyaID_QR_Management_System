@@ -136,7 +136,13 @@ const ImageDisplay = ({
                         />
                     ) : (
                         <img
-                            src={image.storageRoute ? storage_url(image.url) : `${route(GetFileRoute, '')}/${image.url}`}
+                            src={image.absoluteUrl ? (
+                                image.absoluteUrl
+                            ) : image.storageRoute ? (
+                                storage_url(image.url)
+                            ) : (
+                                `${route(GetFileRoute, '')}/${image.url}`
+                            )}
                             alt="Uploaded image"
                             className="w-100 h-100 image-cover"
                         />

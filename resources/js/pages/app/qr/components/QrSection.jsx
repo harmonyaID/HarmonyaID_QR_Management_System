@@ -8,7 +8,7 @@ import { formatDate } from "@/helpers/formatter"
 import { Check } from "@/icons/Check"
 import { Download } from "@/icons/Download"
 import { Plus } from "@/icons/Plus"
-import { QrCreateRoute, QrImageRoute } from "@/routes/app"
+import { QrCreateRoute, QrEditRoute, QrImageRoute } from "@/routes/app"
 import { useGetQrCodes } from "@/services/swr/qr"
 import { useContext, useState } from "react"
 import { route } from "ziggy-js"
@@ -42,6 +42,10 @@ export const QrSection = () => {
             ...prevState,
             page: page,
         }))
+    }
+
+    const handleEdit = (selected) => {
+        window.open(route(QrEditRoute, selected.id), '_self')
     }
 
     const handleDelete = (selected) => {
@@ -114,22 +118,18 @@ export const QrSection = () => {
                             { data.result.map((qrCode) => (
                                 <DataCard
                                     key={`qr-code-${qrCode.id}`}
+                                    onClick={() => handleShowDetail(qrCode)}
+                                    onEdit={() => handleEdit(qrCode)}
                                     onDelete={() => handleDelete(qrCode)}
                                     customButton={(
                                         <>
                                             <DataCardButton
                                                 as="download"
-                                                className="btn-small btn-primary-950"
+                                                className="btn-small btn-primary"
                                                 icon={Download}
                                                 title={`Download ${qrCode.name} QR Code`}
                                                 href={route(QrImageRoute, qrCode.id)}
                                                 download={`${qrCode.name} QR Code`}
-                                            />
-                                            <DataCardButton
-                                                className="btn-small btn-neutral-800"
-                                                icon={Info}
-                                                title="Show detail"
-                                                onClick={() => handleShowDetail(qrCode)}
                                             />
                                         </>
                                     )}
@@ -137,7 +137,7 @@ export const QrSection = () => {
                                     <div className="d-flex gap-3 justify-content-center align-items-center">
                                         <div className="flex-shrink-0">
                                             <img 
-                                                src={route(QrImageRoute, qrCode.id)}
+                                                src={`${route(QrImageRoute, qrCode.id)}?v=${qrCode.version}`}
                                                 height={160}
                                                 width={160}
                                                 alt={`${qrCode.name} QR code`}

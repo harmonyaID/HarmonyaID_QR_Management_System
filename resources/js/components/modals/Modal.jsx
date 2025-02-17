@@ -59,9 +59,11 @@ export const Modal = ({
     }, [onHide])
 
     useEffect(() => {
-
         toggleModal(id, open)
 
+        return () => {
+            toggleModal(id, false)
+        }
     }, [])
 
     return (

@@ -1,31 +1,9 @@
 import { Input } from "@/components/inputs/Input";
-import { notifyError } from "@/helpers/notification";
-import { createContext, useContext, useState } from "react";
-
-export const QrLinkFormContext = createContext()
-export const QrLinkFormProvider = ({children}) => {
-    const [form, setForm] = useState({
-        url: ''
-    })
-
-    const validate = () => {
-        if (!form?.url) {
-            notifyError('URL is missing')
-            return false
-        }
-
-        return true
-    }
-
-    return (
-        <QrLinkFormContext value={{form, setForm, validate}}>
-            { children }
-        </QrLinkFormContext>
-    )
-}
+import { useContext } from "react";
+import { QrDataFormContext } from "../contexts/QrDataForm";
 
 export const QRLinkForm = () => {
-    const {form, setForm} = useContext(QrLinkFormContext)
+    const {form, setForm} = useContext(QrDataFormContext)
 
     const handleChange = ({name, value}) => {
         setForm((prevState) => ({
@@ -41,6 +19,7 @@ export const QRLinkForm = () => {
                 name="url"
                 label="Link"
                 required
+                placeholder="e.g. https://wikipedia.org"
                 value={ form.url }
                 onChange={ handleChange }
             />
