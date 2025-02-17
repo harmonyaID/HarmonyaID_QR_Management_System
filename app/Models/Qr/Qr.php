@@ -6,7 +6,9 @@ use App\Models\Account\User;
 use App\Models\BaseModel;
 use App\Models\Qr\Traits\CanGenerateQr;
 use App\Models\Qr\Traits\HasActivityQrProperty;
+use App\Models\Scopes\Qr\QrOwnerScope;
 use App\Services\Constant\Qr\QrDataType;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use libphonenumber\PhoneNumberFormat;
 
+#[ScopedBy([QrOwnerScope::class])]
 class Qr extends BaseModel
 {
     use HasActivityQrProperty;
@@ -43,10 +46,6 @@ class Qr extends BaseModel
 
     public function scopeFilter($query, Request $request)
     {
-        if (Auth::user()) {
-            $query->where('createdBy', Auth::user()->id);
-        }
-
         if ($this->hasSearch($request)) {
             $query->where('name', 'ILIKE', "%{$request->search}%");
         }

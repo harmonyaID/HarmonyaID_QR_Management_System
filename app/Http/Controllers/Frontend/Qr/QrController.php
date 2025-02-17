@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Frontend\Qr;
 
 use App\Http\Controllers\Controller;
 use App\Models\Qr\Qr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -18,7 +16,7 @@ class QrController extends Controller
 
     public function image($id)
     {
-        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        $qr = Qr::find($id);
         if (empty($qr)) {
             errNotFound('Image');
         }
@@ -32,7 +30,7 @@ class QrController extends Controller
 
     public function embeddedImage($id)
     {
-        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        $qr = Qr::find($id);
         if (empty($qr?->styles['image'])) {
             errNotFound('Embedded Image');
         }
@@ -52,7 +50,6 @@ class QrController extends Controller
     public function edit($id)
     {
         $qr = Qr::with(['type'])
-            ->where('createdBy', Auth::user()->id)
             ->find($id);
         return Inertia::render('app/qr/QrEdit', ['data' => $qr]);
     }

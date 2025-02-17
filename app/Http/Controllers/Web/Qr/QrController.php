@@ -28,7 +28,7 @@ class QrController extends Controller
 
     public function update(QrRequest $request, $id)
     {
-        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        $qr = Qr::find($id);
         if (empty($qr)) {
             errNotFound('QR Code');
         }
@@ -39,7 +39,7 @@ class QrController extends Controller
 
     public function delete($id)
     {
-        $qr = Qr::where('createdBy', Auth::user()->id)->find($id);
+        $qr = Qr::find($id);
         if (empty($qr)) {
             errNotFound('QR Code');
         }
