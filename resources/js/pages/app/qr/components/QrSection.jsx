@@ -4,7 +4,7 @@ import { DataCard, DataCardButton } from "@/components/cards/DataCard"
 import { SearchForm, SearchFormContext } from "@/components/forms/SearchForm"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
 import { Loader } from "@/components/misc/Loader"
-import { formatDate } from "@/helpers/formatter"
+import { formatDate, formatNumber } from "@/helpers/formatter"
 import { Check } from "@/icons/Check"
 import { Download } from "@/icons/Download"
 import { Plus } from "@/icons/Plus"
@@ -13,13 +13,13 @@ import { useGetQrCodes } from "@/services/swr/qr"
 import { useContext, useState } from "react"
 import { route } from "ziggy-js"
 import { QrDetail, QrDetailContext } from "./QrDetail"
-import { Info } from "@/icons/Info"
 import { Pagination } from "@/components/navigations/Pagination"
 import { toggleModal } from "@/helpers/toggleModal"
 import { MDQrDelete } from "@/configs/modalId"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
 import { qrDelete } from "@/services/api/qr"
 import { notifySuccess } from "@/helpers/notification"
+import { SummaryCard } from "@/components/cards/SummaryCard"
 
 export const QrSection = () => {
     const [selectedId, setSelectedId] = useState('')
@@ -87,6 +87,13 @@ export const QrSection = () => {
 
     return (
         <>
+            <section className="d-grid grid-cols-md-2 grid-cols-lg-3 grid-cols-xl-4 gap-3 mb-3">
+                <SummaryCard
+                    label="Created Qr Codes"
+                    data={ formatNumber(data?.pagination?.total || 0) }
+                    loading={isLoading}
+                />
+            </section>
             <Card 
                 noBorder
             >

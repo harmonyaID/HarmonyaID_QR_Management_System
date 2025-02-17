@@ -1,0 +1,1 @@
+export const GetDashboardRoute = 'web.dashboard.get'

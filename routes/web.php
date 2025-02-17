@@ -12,6 +12,7 @@ Route::middleware(['auth:web'])
     ->group(function () use ($base) {
 
         require($base . "account.php");
+        require($base . "dashboard.php");
         require($base . "file.php");
         require($base . "qr.php");
 
