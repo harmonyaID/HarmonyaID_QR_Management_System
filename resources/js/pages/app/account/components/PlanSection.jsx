@@ -94,12 +94,12 @@ export const PlanSection = () => {
                     <div className="text-center">
                         <Loader/> Loading...
                     </div>
-                ) : !data?.result?.data?.length ? (
+                ) : !data?.result?.length ? (
                     <ErrorMsg message="No plan found"/>
                 ) : (
                     <>
                         <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                            { data.result.data.map((plan) => (
+                            { data.result.map((plan) => (
                                 <DataCard
                                     key={`plan-${plan.id}`}
                                     onEdit={() => handleEdit(plan)}

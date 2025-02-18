@@ -29,7 +29,7 @@ class PlanAlgo
                     ->saveActivity('Create new plan: ' . $this->plan->name . '[' . $this->plan->id . ']');
             });
 
-            return success($this->plan->toArray());
+            return success($this->plan);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -50,7 +50,7 @@ class PlanAlgo
                     ->saveActivity('Update plan: ' . $this->plan->name . '[' . $this->plan->id . ']');
             });
 
-            return success($this->plan->toArray());
+            return success($this->plan);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -71,7 +71,7 @@ class PlanAlgo
                     ->saveActivity('Delete plan: ' . $this->plan->name . '[' . $this->plan->id . ']');
             });
 
-            return success($this->plan->toArray());
+            return success($this->plan);
 
         } catch (\Throwable $th) {
             exception($th);

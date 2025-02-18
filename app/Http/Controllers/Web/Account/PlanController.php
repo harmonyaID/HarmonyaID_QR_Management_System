@@ -14,7 +14,7 @@ class PlanController extends Controller
     {
         $plan = Plan::filter($request)->getOrPaginate($request, true);
 
-        return success($plan->toArray());
+        return success($plan);
     }
 
     public function create(PlanRequest $request)

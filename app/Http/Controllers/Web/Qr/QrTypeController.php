@@ -15,7 +15,7 @@ class QrTypeController extends Controller
         $types = QrType::filter($request)->getOrPaginate($request, true);
 
         if (empty($request->groupDynamic)) {
-            return success($types->toArray());
+            return success($types);
         }
 
         $output = [
@@ -28,7 +28,7 @@ class QrTypeController extends Controller
                 $key = 'dynamic';
             }
 
-            $output[$key][] = $type->toArray();
+            $output[$key][] = $type;
         }
 
         return success($output);

@@ -50,7 +50,7 @@ class UsageCategoryAlgo
                     ->saveActivity('Create new usage category: ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
             });
 
-            return success($this->usageCategory->toArray());
+            return success($this->usageCategory);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -100,7 +100,7 @@ class UsageCategoryAlgo
                 }
             });
 
-            return success($this->usageCategory->toArray());
+            return success($this->usageCategory);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -121,7 +121,7 @@ class UsageCategoryAlgo
                     ->saveActivity('Delete usage category: ' . $this->usageCategory->name . ' [' . $this->usageCategory->id . ']');
             });
 
-            return success($this->usageCategory->toArray());
+            return success($this->usageCategory);
 
         } catch (\Throwable $th) {
             exception($th);

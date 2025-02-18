@@ -50,7 +50,7 @@ class QrTypeAlgo
                     ->saveActivity('Create new qr type: ' . $this->qrType->name . '[' . $this->qrType->id . ']');
             });
 
-            return success($this->qrType->toArray());
+            return success($this->qrType);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -100,7 +100,7 @@ class QrTypeAlgo
                 }
             });
 
-            return success($this->qrType->toArray());
+            return success($this->qrType);
 
         } catch (\Throwable $th) {
             exception($th);
@@ -121,7 +121,7 @@ class QrTypeAlgo
                     ->saveActivity('Delete qr type: ' . $this->qrType->name . '[' . $this->qrType->id . ']');
             });
 
-            return success($this->qrType->toArray());
+            return success($this->qrType);
 
         } catch (\Throwable $th) {
             exception($th);

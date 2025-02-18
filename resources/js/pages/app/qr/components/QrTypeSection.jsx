@@ -12,15 +12,27 @@ import { qrTypeDelete } from "@/services/api/qr"
 import { MDQrTypeDelete } from "@/configs/modalId"
 import { useGetQrTypes } from "@/services/swr/qr"
 import { storage_url } from "@/helpers/url"
+import { Pagination } from "@/components/navigations/Pagination"
 
 export const QrTypeSection = () => {
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
 
-    const { committedFilter }   = useContext(SearchFormContext)
+    const { setFilter, committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setForm, setOpen }  = useContext(QrTypeFormContext)
 
     const {data, isLoading, mutate} = useGetQrTypes(committedFilter)
+
+    const handlePaginate = (page) => {
+        setFilter((prevState) => ({
+            ...prevState,
+            page: page,
+        }))
+        setCommittedFilter((prevState) => ({
+            ...prevState,
+            page: page,
+        }))
+    }
 
     const handleEdit = (selected) => {
         setForm((prevState) => ({
@@ -96,12 +108,12 @@ export const QrTypeSection = () => {
                     <div className="text-center">
                         <Loader/> Loading...
                     </div>
-                ) : !data?.result?.data?.length ? (
+                ) : !data?.result?.length ? (
                     <ErrorMsg message="No qr type found"/>
                 ) : (
                     <>
                         <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                            { data.result.data.map((type) => (
+                            { data.result.map((type) => (
                                 <DataCard
                                     key={`type-${type.id}`}
                                     onEdit={() => handleEdit(type)}
@@ -125,6 +137,10 @@ export const QrTypeSection = () => {
                                 </DataCard>
                             )) }
                         </div>
+                        <Pagination
+                            currentPage={data.pagination.currentPage}
+                            maxPages={data.pagination.totalPage}
+                        />
                     </>
                 ) }
             </section>

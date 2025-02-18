@@ -81,7 +81,7 @@ export const SelectUsageCategorySection = ({
                 <div className="text-center">
                     <Loader/> Loading...
                 </div>
-            ) : !categoryUsage?.result?.data?.length ? (
+            ) : !categoryUsage?.result?.length ? (
                 <ErrorMsg message="No usage category found"/>
             ) : (
                 <section
@@ -89,7 +89,7 @@ export const SelectUsageCategorySection = ({
                 >
                     <p className="mb-4 fw-bold">What would you like to use QR Codes for?</p>
                     <div className="d-grid mb-4 gap-4">
-                        { categoryUsage.result.data.map(item => (
+                        { categoryUsage.result.map(item => (
                             <Card
                                 key={`select-category-${item.id}`}
                                 className={`${

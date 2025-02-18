@@ -16,14 +16,14 @@ class UsageCategoryController extends Controller
     {
         $usageCategories = UsageCategory::filter($request)->getOrPaginate($request, true);
 
-        return success($usageCategories->toArray());
+        return success($usageCategories);
     }
 
     public function getCurrent()
     {
         $category = Auth::user()->usageCategory;
 
-        return success($category?->toArray());
+        return success($category);
     }
 
     public function create(CreateUsageCategoryRequest $request)

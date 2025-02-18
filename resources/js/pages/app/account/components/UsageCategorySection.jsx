@@ -94,11 +94,11 @@ export const UsageCategorySection = () => {
                     <div className="text-center">
                         <Loader/> Loading...
                     </div>
-                ) : !data?.result?.data?.length ? (
+                ) : !data?.result?.length ? (
                     <ErrorMsg message="No usage category found"/>
                 ) : (
                     <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                        { data.result.data.map((category) => (
+                        { data.result.map((category) => (
                             <DataCard
                                 key={`category-${category.id}`}
                                 onEdit={() => handleEdit(category)}
