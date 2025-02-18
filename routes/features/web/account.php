@@ -1,12 +1,35 @@
 <?php
 
+use App\Http\Controllers\Web\Account\PermissionController;
 use App\Http\Controllers\Web\Account\PlanController;
+use App\Http\Controllers\Web\Account\RoleController;
 use App\Http\Controllers\Web\Account\UsageCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('accounts')
     ->as('accounts.')
     ->group(function () {
+
+        Route::prefix('roles')
+            ->as('roles.')
+            ->group(function () {
+
+                Route::get('/', [RoleController::class, 'get'])->name('get');
+                Route::post('/', [RoleController::class, 'create'])->name('create');
+                Route::put('{id}', [RoleController::class, 'update'])->name('update');
+                Route::delete('{id}', [RoleController::class, 'delete'])->name('delete');
+
+            });
+
+        Route::prefix('permissions')
+            ->as('permissions.')
+            ->group(function () {
+
+                Route::get('/', [PermissionController::class, 'get'])->name('get');
+                Route::put('{id}/assign/{roleId}', [PermissionController::class, 'assign'])->name('assign');
+                Route::put('{id}/unassign/{roleId}', [PermissionController::class, 'unassign'])->name('unassign');
+
+            });
 
         Route::prefix('plans')
             ->as('plans.')

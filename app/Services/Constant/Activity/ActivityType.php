@@ -11,6 +11,7 @@ class ActivityType extends BaseCodeName
 
     const ACCOUNT = 'account';
     const USER = 'user';
+    const ROLE = 'role';
     const USAGE_CATEGORY = 'usage category';
     const PLAN = 'plan';
 
@@ -24,6 +25,7 @@ class ActivityType extends BaseCodeName
         
         self::ACCOUNT,
         self::USER,
+        self::ROLE,
         self::USAGE_CATEGORY,
         self::PLAN,
 

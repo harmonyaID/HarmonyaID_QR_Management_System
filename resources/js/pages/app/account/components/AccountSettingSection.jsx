@@ -9,6 +9,7 @@ import { PlanFormProvider } from "./PlanForm"
 import { PlanSection } from "./PlanSection"
 import { RoleSection } from "./RoleSection"
 import { PermissionSection } from "./PermissionSection"
+import { RoleFormProvider } from "./RoleForm"
 
 export const AccountSettingSection = () => {
     const [index, setIndex] = useState(0)
@@ -60,7 +61,11 @@ export const AccountSettingSection = () => {
         >
             <div className="tab-content">
                 { openPanel == 'roles' ? (
-                    <RoleSection/>
+                    <RoleFormProvider>
+                        <SearchFormProvider>
+                            <RoleSection/>
+                        </SearchFormProvider>
+                    </RoleFormProvider>
                 ) : openPanel == 'permissions' ? (
                     <PermissionSection/>
                 ) : openPanel == 'usage categories' ? (

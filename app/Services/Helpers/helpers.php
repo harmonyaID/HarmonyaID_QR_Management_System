@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Account\Permission;
+use App\Models\Account\User;
 use Illuminate\Support\Str;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
@@ -83,6 +85,46 @@ if (!function_exists("alphabet_from_number")) {
             $defaultNumber++;
         }
         return null;
+    }
+
+}
+
+if (!function_exists("auth_user")) {
+    
+    /**
+     * @return ?User
+     */
+    function auth_user() : ?User
+    {
+        return auth()?->user();
+    }
+
+}
+
+if (!function_exists("auth_permissions")) {
+    
+    /**
+     * @return ?array
+     */
+    function auth_permissions() : ?array
+    {
+        return Permission::getUserPermissions();
+    }
+
+}
+
+if (!function_exists("has_permissions")) {
+    
+    /**
+     * @return bool
+     */
+    function has_permissions(string ...$permissions) : bool
+    {
+        $availablePermissions = auth_permissions();
+
+        $difference = array_diff($availablePermissions, $permissions);
+
+        return count($availablePermissions) > count($difference);
     }
 
 }

@@ -7,4 +7,5 @@ export const MDQrDelete = 'modal-qr-delete'
 export const MDQrTypeDelete = 'modal-qr-type-delete'
 
 export const MDUsageCategoryDelete = 'modal-usage-category-delete'
+export const MDRoleDelete = 'modal-role-delete'
 export const MDPlanDelete = 'modal-plan-delete'

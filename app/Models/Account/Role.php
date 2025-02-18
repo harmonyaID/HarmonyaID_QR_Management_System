@@ -2,13 +2,17 @@
 
 namespace App\Models\Account;
 
+use App\Models\Account\Traits\HasActivityRoleProperty;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class Role extends BaseModel
 {
+    use HasActivityRoleProperty;
+
     // protected $table = '';
     protected $guarded = ['id'];
 
@@ -17,6 +21,18 @@ class Role extends BaseModel
         self::UPDATED_AT => 'datetime',
         self::DELETED_AT => 'datetime'
     ];
+
+
+    // Scopes
+
+    public function scopeFilter($query, Request $request)
+    {
+        if ($this->hasSearch($request)) {
+            $query->where('name', 'ILIKE', "%{$request->search}%");
+        }
+
+        return $query;
+    }
 
 
     // Relationships

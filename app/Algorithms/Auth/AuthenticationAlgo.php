@@ -2,6 +2,7 @@
 
 namespace App\Algorithms\Auth;
 
+use App\Models\Account\Role;
 use App\Models\Account\User;
 use App\Services\Constant\Activity\ActivityAction;
 use Illuminate\Auth\Events\Lockout;
@@ -90,9 +91,15 @@ class AuthenticationAlgo
                     errInvalid('This email is being used by another user');
                 }
 
+                $role = Role::where('name', 'User')->first();
+                if (empty($role)) {
+                    errNotFound(Role::class);
+                }
+
                 /** @var User */
                 $user = User::create([
                     ...$request->validated(),
+                    'roleId'    => $role->id,
                     'password'  => Hash::make($request->password),
                 ]);
 

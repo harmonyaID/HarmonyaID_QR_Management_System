@@ -9,3 +9,12 @@ export const GetPlanRoute = 'web.accounts.plans.get'
 export const CreatePlanRoute = 'web.accounts.plans.create'
 export const UpdatePlanRoute = 'web.accounts.plans.update'
 export const DeletePlanRoute = 'web.accounts.plans.delete'
+
+export const GetRoleRoute = 'web.accounts.roles.get'
+export const CreateRoleRoute = 'web.accounts.roles.create'
+export const UpdateRoleRoute = 'web.accounts.roles.update'
+export const DeleteRoleRoute = 'web.accounts.roles.delete'
+
+export const GetPermissionRoute = 'web.accounts.permissions.get'
+export const AssignPermissionRoute = 'web.accounts.permissions.assign'
+export const UnassignPermissionRoute = 'web.accounts.permissions.unassign'
