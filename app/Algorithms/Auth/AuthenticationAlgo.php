@@ -91,7 +91,7 @@ class AuthenticationAlgo
                     errInvalid('This email is being used by another user');
                 }
 
-                $role = Role::where('name', 'User')->first();
+                $role = Role::where('name', 'User')->where('deletable', false)->first();
                 if (empty($role)) {
                     errNotFound(Role::class);
                 }
