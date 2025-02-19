@@ -11,14 +11,38 @@ import { RoleSection } from "./RoleSection"
 import { PermissionSection } from "./PermissionSection"
 import { RoleFormProvider } from "./RoleForm"
 import { PermissionSearchProvider } from "./PermissionSearchForm"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { PERMISSIONS_GROUP_ALL, PLANS_GROUP_ALL, ROLES_GROUP_ALL, USAGE_CATEGORIES_GROUP_ALL } from "@/configs/permissions"
 
 export const AccountSettingSection = () => {
     const [index, setIndex] = useState(0)
     const [openPanel, setOpenPanel] = useState()
+    const canAccessRole     = useHasAnyPermissions(ROLES_GROUP_ALL)
+    const canAccessPerm     = useHasAnyPermissions(PERMISSIONS_GROUP_ALL)
+    const canAccessUsage    = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_ALL)
+    const canAccessPlan     = useHasAnyPermissions(PLANS_GROUP_ALL)
 
     const availablePanels = useMemo(() => {
-        return ['roles', 'permissions', 'usage categories', 'plans']
-    }, [])
+        const panels = []
+
+        if (canAccessRole) {
+            panels.push('roles')
+        }
+
+        if (canAccessPerm) {
+            panels.push('permissions')
+        }
+
+        if (canAccessUsage) {
+            panels.push('usage categories')
+        }
+
+        if (canAccessPlan) {
+            panels.push('plans')
+        }
+
+        return panels
+    }, [canAccessRole, canAccessPerm, canAccessUsage, canAccessPlan])
 
     useEffect(() => {
         setOpenPanel(availablePanels[0])

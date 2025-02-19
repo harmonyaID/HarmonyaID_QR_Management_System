@@ -8,6 +8,8 @@ import { Link } from "@inertiajs/react"
 import { Setting } from "@/icons/Setting"
 import { route } from "ziggy-js"
 import { QrCode } from "@/icons/QrCode"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { ACCOUNT_SETTING_GROUP, QR_GROUP_ALL, QR_SETTING_GROUP } from "@/configs/permissions"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -59,8 +61,8 @@ export const Sidebar = () => {
                     </SidebarHeader>
                     <SidebarList
                         items={[
-                            { href: route(QrRoute), label: 'Qr Codes', icon: QrCode },
-                            { href: route(QrSettingRoute), label: 'Qr Setting', icon: Setting },
+                            { href: route(QrRoute), label: 'Qr Codes', icon: QrCode, permissions: QR_GROUP_ALL },
+                            { href: route(QrSettingRoute), label: 'Qr Setting', icon: Setting, permissions: QR_SETTING_GROUP },
                         ]}
                     />
                     <SidebarHeader>
@@ -69,7 +71,7 @@ export const Sidebar = () => {
                     <SidebarList
                         items={[
                             { href: route(AccountRoute), label: 'Account', icon: User },
-                            { href: route(AccountSettingRoute), label: 'Account Setting', icon: Setting },
+                            { href: route(AccountSettingRoute), label: 'Account Setting', icon: Setting, permissions: ACCOUNT_SETTING_GROUP },
                             // { href: route(PlanRoute), label: 'Plan', icon: Star },
                         ]}
                     />
@@ -109,18 +111,18 @@ const SidebarItem = ({
     const location = window.location.href
     // const subItemId = `nav-${alias}`
     const isActive = href == location
-    // const hasPermissions = useHasAnyPermissions(permissions)
+    const hasPermissions = useHasAnyPermissions(permissions)
     
-    // const [open, setOpen] = useState(isActive)
+    const [open, setOpen] = useState(isActive)
 
     // const handleToggleCollapse = () => {
     //     toggleCollapse(subItemId, !open)
     //     setOpen(!open)
     // }
 
-    // if (!hasPermissions) {
-    //     return <></>
-    // }
+    if (!hasPermissions) {
+        return <></>
+    }
 
     // if (!Array.isArray(subItems) || !subItems.length) {
         return (

@@ -16,6 +16,9 @@
     @viteReactRefresh
     @vite(['resources/js/app.jsx', "resources/js/pages/{$page['component']}.jsx", 'resources/scss/main.scss'])
     @inertiaHead
+    <script>
+        window.permissions = JSON.parse('@json(auth_permissions())')
+    </script>
 </head>
 <body>
     @inertia

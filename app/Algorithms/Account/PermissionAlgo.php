@@ -2,9 +2,11 @@
 
 namespace App\Algorithms\Account;
 
+use App\Jobs\Account\CachePermissionJob;
 use App\Models\Account\Permission;
 use App\Models\Account\Role;
 use App\Services\Constant\Activity\ActivityAction;
+use App\Services\Constant\Global\QueueType;
 use Illuminate\Support\Facades\DB;
 
 class PermissionAlgo
@@ -29,6 +31,9 @@ class PermissionAlgo
     
             });
 
+            CachePermissionJob::dispatch($role->id)
+                ->delay(now()->addSeconds(10));
+
             return success();
 
         } catch (\Throwable $th) {
@@ -51,6 +56,9 @@ class PermissionAlgo
                     ->saveActivity('Unassign permission ' . $this->permission->name . ' from ' . $role->name);
     
             });
+
+            CachePermissionJob::dispatch($role->id)
+                ->delay(now()->addSeconds(10));
 
             return success();
 

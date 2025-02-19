@@ -12,6 +12,7 @@ class QueueType extends BaseCodeName
     const LOW = 'low';
     const PDF = 'pdf';
     const REPORT = 'report';
+    const ACCOUNT = 'account';
 
     const OPTION = [
         self::DEFAULT,
@@ -20,6 +21,7 @@ class QueueType extends BaseCodeName
         self::LOW,
         self::PDF,
         self::REPORT,
+        self::ACCOUNT,
     ];
 
 }
