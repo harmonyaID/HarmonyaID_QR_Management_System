@@ -32,7 +32,7 @@ class SettingController extends Controller
                 PermissionCode::USAGE_CATEGORIES_UPDATE,
                 PermissionCode::USAGE_CATEGORIES_DELETE,
             )) {
-                errUnauthorized();
+                return redirect()->back()->withErrors('Unauthorized');
             }
 
             return $next($request);
