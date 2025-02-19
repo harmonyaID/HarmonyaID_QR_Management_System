@@ -45,4 +45,6 @@ class PermissionCode extends BaseCodeName
     const QR_READ    = 'qr-codes.read';
     const QR_UPDATE  = 'qr-codes.update';
     const QR_DELETE  = 'qr-codes.delete';
+
+    const ACTIVITIES_READ = 'activities.read';
 }

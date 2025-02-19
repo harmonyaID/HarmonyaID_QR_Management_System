@@ -6,10 +6,46 @@ use App\Algorithms\Qr\QrTypeAlgo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Qr\QrTypeRequest;
 use App\Models\Qr\QrType;
+use App\Services\Constant\Account\PermissionCode;
 use Illuminate\Http\Request;
 
 class QrTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_CREATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('create');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_READ)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('get');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_UPDATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('update');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_DELETE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('delete');
+    }
+
     public function get(Request $request)
     {
         $types = QrType::filter($request)->getOrPaginate($request, true);

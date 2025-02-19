@@ -6,11 +6,47 @@ use App\Algorithms\Qr\QrAlgo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Qr\QrRequest;
 use App\Models\Qr\Qr;
+use App\Services\Constant\Account\PermissionCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class QrController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_ALL, PermissionCode::QR_CREATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('create');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_ALL, PermissionCode::QR_READ)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('get');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_ALL, PermissionCode::QR_UPDATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('update');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::QR_ALL, PermissionCode::QR_DELETE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('delete');
+    }
+
     public function get(Request $request)
     {
         $qrCodes = Qr::filter($request)

@@ -7,11 +7,47 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\CreateUsageCategoryRequest;
 use App\Http\Requests\Account\UpdateUsageCategoryRequest;
 use App\Models\Account\UsageCategory;
+use App\Services\Constant\Account\PermissionCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UsageCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_CREATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('create');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_READ)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('get');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_UPDATE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('update');
+
+        $this->middleware(function ($request, $next) {
+            if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_DELETE)) {
+                errUnauthorized();
+            }
+
+            return $next($request);
+        })->only('delete');
+    }
+
     public function get(Request $request)
     {
         $usageCategories = UsageCategory::filter($request)->getOrPaginate($request, true);
