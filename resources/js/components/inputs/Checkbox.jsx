@@ -6,12 +6,26 @@ export const Checkbox = ({
     id              = '',
     className       = '',
     inputClassName  = '',
+    noLabel = false,
     onChange,
     ...props
 }) => {
     const inputId = id || `checkbox-${name}`
 
     const handleChange = useChangeHandler(onChange)
+
+    if (noLabel) {
+        return (
+            <input 
+                className={`form-check-input ${className} ${inputClassName}`} 
+                type="checkbox"
+                id={inputId}
+                name={name}
+                onChange={handleChange}
+                {...props}
+            />
+        )
+    }
 
     return (
         <div 

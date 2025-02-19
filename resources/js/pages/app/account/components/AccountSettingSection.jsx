@@ -10,6 +10,7 @@ import { PlanSection } from "./PlanSection"
 import { RoleSection } from "./RoleSection"
 import { PermissionSection } from "./PermissionSection"
 import { RoleFormProvider } from "./RoleForm"
+import { PermissionSearchProvider } from "./PermissionSearchForm"
 
 export const AccountSettingSection = () => {
     const [index, setIndex] = useState(0)
@@ -67,7 +68,9 @@ export const AccountSettingSection = () => {
                         </SearchFormProvider>
                     </RoleFormProvider>
                 ) : openPanel == 'permissions' ? (
-                    <PermissionSection/>
+                    <PermissionSearchProvider>
+                        <PermissionSection/>
+                    </PermissionSearchProvider>
                 ) : openPanel == 'usage categories' ? (
                     <UsageCategoryFormProvider>
                         <SearchFormProvider>

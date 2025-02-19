@@ -6,6 +6,7 @@ use App\Algorithms\Account\PermissionAlgo;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Permission;
 use App\Models\Account\Role;
+use App\Parser\Account\PermissionParser;
 use App\Services\Constant\Account\PermissionCode;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,8 @@ class PermissionController extends Controller
 
     public function get(Request $request)
     {
-        $permissions = Permission::hasRole($request)->get();
+        $permissions = Permission::hasRole($request)->orderBy('id')->get();
+        $permissions = PermissionParser::get($permissions);
         return success($permissions);
     }
 

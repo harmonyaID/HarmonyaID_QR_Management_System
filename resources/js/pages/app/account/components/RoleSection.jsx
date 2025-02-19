@@ -11,7 +11,6 @@ import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { roleDelete } from "@/services/api/account"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
-import { formatPrice } from "@/helpers/formatter"
 
 export const RoleSection = () => {
     const [sendLoading, setSendLoading] = useState(false)

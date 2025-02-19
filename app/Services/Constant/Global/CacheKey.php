@@ -7,10 +7,7 @@ use App\Services\Constant\BaseCodeName;
 class CacheKey extends BaseCodeName
 {
     const PERMISSION = 'role-ability';
-
-    const OPTION = [
-        self::PERMISSION,
-    ];
+    const SUPERADMIN_ROLE = 'role-super';
 
     public static function permissions(string $roleId) : string
     {

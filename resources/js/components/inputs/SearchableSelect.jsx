@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Input } from "./Input"
 import { ArrowUp } from "@/icons/ArrowUp"
 import { ArrowDown } from "@/icons/ArrowDown"
+import { Loader } from "../misc/Loader"
 
 const DefaultItem = ({item, searchKey}) => (
     <div>
@@ -22,6 +23,8 @@ export const SearchableSelect = ({
     valueKey    = 'id',
     prefix,
     onChange,
+    onSearch,
+    loading = false,
 }) => {
     const [display, setDisplay] = useState('')
     const [search, setSearch]   = useState('')
@@ -135,6 +138,10 @@ export const SearchableSelect = ({
     }, [value])
 
     useEffect(() => {
+        if (typeof onSearch == 'function') {
+            onSearch(display)
+        }
+
         if (updateSearchRef.current) {
             return
         }
@@ -161,6 +168,7 @@ export const SearchableSelect = ({
                 label={label}
                 required={required}
                 value={display}
+                autoComplete="off"
                 onChange={handleSearch}
                 onFocus={handleFocusSearch}
                 onBlur={handleBlurSearch}
@@ -191,7 +199,11 @@ export const SearchableSelect = ({
                     focused ? 'show' : ''
                 }`}
             >
-                { filtered.map((item) => (
+                { loading ? (
+                    <div className="text-center py-3">
+                        <Loader small/> Loading...
+                    </div>
+                ) : filtered.map((item) => (
                     <div
                         key={typeof item == 'object' ? item[valueKey] : item}
                         className="select-item cursor-pointer"

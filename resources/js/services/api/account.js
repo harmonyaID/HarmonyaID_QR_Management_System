@@ -1,5 +1,5 @@
 import { DELETE, POST, PUT } from "@/helpers/api"
-import { CreatePlanRoute, CreateRoleRoute, CreateUsageCategoryRoute, DeletePlanRoute, DeleteRoleRoute, DeleteUsageCategoryRoute, SelectUsageCategoryRoute, UpdatePlanRoute, UpdateRoleRoute, UpdateUsageCategoryRoute } from "@/routes/account"
+import { AssignPermissionRoute, CreatePlanRoute, CreateRoleRoute, CreateUsageCategoryRoute, DeletePlanRoute, DeleteRoleRoute, DeleteUsageCategoryRoute, SelectUsageCategoryRoute, UnassignPermissionRoute, UpdatePlanRoute, UpdateRoleRoute, UpdateUsageCategoryRoute } from "@/routes/account"
 import { route } from "ziggy-js"
 
 export const usageCategoryCreate = (formRequest = {}) => {

@@ -4,10 +4,12 @@ namespace App\Models\Account;
 
 use App\Models\Account\Traits\HasActivityRoleProperty;
 use App\Models\BaseModel;
+use App\Services\Constant\Global\CacheKey;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class Role extends BaseModel
 {
@@ -50,5 +52,23 @@ class Role extends BaseModel
     public function creator() : BelongsTo
     {
         return $this->belongsTo(User::class, 'createdBy');
+    }
+
+    
+    // Functions 
+    
+    public static function getSuperadminId()
+    {
+        $key = CacheKey::SUPERADMIN_ROLE;
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        }
+
+        $role = static::where('name', 'Superadmin')
+            ->where('deletable', false)
+            ->first();
+        Cache::forever($key, $role->id);
+
+        return $role->id;
     }
 }

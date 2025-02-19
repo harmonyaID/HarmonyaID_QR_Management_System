@@ -18,6 +18,9 @@ class PermissionAlgo
         try {
             
             DB::transaction(function () use ($role) {
+                if ($role->id == Role::getSuperadminId()) {
+                    errUnauthorized();
+                }
     
                 $this->permission->assignRole($role);
 
@@ -38,6 +41,9 @@ class PermissionAlgo
         try {
             
             DB::transaction(function () use ($role) {
+                if ($role->id == Role::getSuperadminId()) {
+                    errUnauthorized();
+                }
     
                 $this->permission->unassignRole($role);
 

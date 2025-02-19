@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Account\Role;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,14 +41,16 @@ class HandleInertiaRequests extends Middleware
             $user = [
                 'fullname'  => $user->fullname,
                 'email'     => $user->email,
+                'roleId'    => $user->roleId,
             ];
         }
 
         return [
             ...parent::share($request),
-            'user'          => $user,
-            'csrf_token'    => csrf_token(),
-            'current_route' => $request->route()->getName(),
+            'user'              => $user,
+            'superadminRoleId'  => Role::getSuperadminId(),
+            'csrf_token'        => csrf_token(),
+            'current_route'     => $request->route()->getName(),
         ];
     }
 }
