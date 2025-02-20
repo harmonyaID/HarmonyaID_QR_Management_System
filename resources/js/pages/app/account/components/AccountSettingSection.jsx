@@ -12,11 +12,14 @@ import { PermissionSection } from "./PermissionSection"
 import { RoleFormProvider } from "./RoleForm"
 import { PermissionSearchProvider } from "./PermissionSearchForm"
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
-import { PERMISSIONS_GROUP_ALL, PLANS_GROUP_ALL, ROLES_GROUP_ALL, USAGE_CATEGORIES_GROUP_ALL } from "@/configs/permissions"
+import { PERMISSIONS_GROUP_ALL, PLANS_GROUP_ALL, ROLES_GROUP_ALL, USAGE_CATEGORIES_GROUP_ALL, USERS_GROUP_ALL } from "@/configs/permissions"
+import { UserFormProvider } from "./UserForm"
+import { UserSection } from "./UserSection"
 
 export const AccountSettingSection = () => {
     const [index, setIndex] = useState(0)
     const [openPanel, setOpenPanel] = useState()
+    const canAccessUser     = useHasAnyPermissions(USERS_GROUP_ALL)
     const canAccessRole     = useHasAnyPermissions(ROLES_GROUP_ALL)
     const canAccessPerm     = useHasAnyPermissions(PERMISSIONS_GROUP_ALL)
     const canAccessUsage    = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_ALL)
@@ -24,6 +27,10 @@ export const AccountSettingSection = () => {
 
     const availablePanels = useMemo(() => {
         const panels = []
+
+        if (canAccessUser) {
+            panels.push('users')
+        }
 
         if (canAccessRole) {
             panels.push('roles')
@@ -85,7 +92,13 @@ export const AccountSettingSection = () => {
             )) }
         >
             <div className="tab-content">
-                { openPanel == 'roles' ? (
+                { openPanel == 'users' ? (
+                    <UserFormProvider>
+                        <SearchFormProvider>
+                            <UserSection/>
+                        </SearchFormProvider>
+                    </UserFormProvider>
+                ) : openPanel == 'roles' ? (
                     <RoleFormProvider>
                         <SearchFormProvider>
                             <RoleSection/>

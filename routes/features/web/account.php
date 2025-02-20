@@ -4,11 +4,23 @@ use App\Http\Controllers\Web\Account\PermissionController;
 use App\Http\Controllers\Web\Account\PlanController;
 use App\Http\Controllers\Web\Account\RoleController;
 use App\Http\Controllers\Web\Account\UsageCategoryController;
+use App\Http\Controllers\Web\Account\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('accounts')
     ->as('accounts.')
     ->group(function () {
+
+        Route::prefix('users')
+            ->as('users.')
+            ->group(function () {
+
+                Route::get('/', [UserController::class, 'get'])->name('get');
+                Route::post('/', [UserController::class, 'create'])->name('create');
+                Route::put('{id}', [UserController::class, 'update'])->name('update');
+                Route::delete('{id}', [UserController::class, 'delete'])->name('delete');
+
+            });
 
         Route::prefix('roles')
             ->as('roles.')

@@ -48,9 +48,9 @@ class RoleController extends Controller
 
     public function get(Request $request)
     {
-        $plan = Role::filter($request)->getOrPaginate($request, true);
+        $roles = Role::filter($request)->getOrPaginate($request, true);
 
-        return success($plan);
+        return success($roles);
     }
 
     public function create(RoleRequest $request)
@@ -61,23 +61,23 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, $id)
     {
-        $plan = Role::find($id);
-        if (empty($plan)) {
+        $role = Role::find($id);
+        if (empty($role)) {
             errNotFound(Role::class);
         }
 
-        $algo = new RoleAlgo($plan);
+        $algo = new RoleAlgo($role);
         return $algo->update($request);
     }
 
     public function delete($id)
     {
-        $plan = Role::find($id);
-        if (empty($plan)) {
+        $role = Role::find($id);
+        if (empty($role)) {
             errNotFound(Role::class);
         }
 
-        $algo = new RoleAlgo($plan);
+        $algo = new RoleAlgo($role);
         return $algo->delete();
     }
 }

@@ -1,5 +1,5 @@
 import { useSwr } from "@/hooks/useSwr"
-import { GetMyUsageCategoryRoute, GetPermissionRoute, GetPlanRoute, GetRoleRoute, GetUsageCategoryRoute } from "@/routes/account"
+import { GetMyUsageCategoryRoute, GetPermissionRoute, GetPlanRoute, GetRoleRoute, GetUsageCategoryRoute, GetUserRoute } from "@/routes/account"
 import { route } from "ziggy-js"
 
 export const useGetCategoryUsage = (filter = {}) => {
@@ -12,6 +12,10 @@ export const useGetMyCategoryUsage = (filter = {}) => {
 
 export const useGetPlans = (filter = {}) => {
     return useSwr(route(GetPlanRoute), filter)
+}
+
+export const useGetUsers = (filter = {}) => {
+    return useSwr(route(GetUserRoute), filter)
 }
 
 export const useGetRoles = (filter = {}) => {

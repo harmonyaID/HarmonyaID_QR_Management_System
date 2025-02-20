@@ -27,6 +27,8 @@ return new class extends Migration
             $table->foreignUuid('planId')->nullable()->references('id')->on('plans');
             $table->foreignUuid('usageCategoryId')->nullable()->references('id')->on('usage_categories');
 
+            $table->boolean('deletable')->default(false);
+
             $table->string('googleId')->nullable();
             $table->string('googleToken')->nullable();
             $table->string('googleExpiredAt')->nullable();

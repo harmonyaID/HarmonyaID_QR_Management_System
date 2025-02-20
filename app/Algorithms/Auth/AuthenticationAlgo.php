@@ -100,6 +100,7 @@ class AuthenticationAlgo
                 $user = User::create([
                     ...$request->validated(),
                     'roleId'    => $role->id,
+                    'deletable' => true,
                     'password'  => Hash::make($request->password),
                 ]);
 

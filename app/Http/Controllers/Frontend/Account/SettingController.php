@@ -13,6 +13,11 @@ class SettingController extends Controller
     {
         $this->middleware(function ($request, $next) {
             if (!has_permissions(
+                PermissionCode::USERS_ALL, 
+                PermissionCode::USERS_CREATE,
+                PermissionCode::USERS_READ,
+                PermissionCode::USERS_UPDATE,
+                PermissionCode::USERS_DELETE,
                 PermissionCode::ROLES_ALL, 
                 PermissionCode::ROLES_CREATE,
                 PermissionCode::ROLES_READ,

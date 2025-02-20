@@ -10,6 +10,11 @@ export const CreatePlanRoute = 'web.accounts.plans.create'
 export const UpdatePlanRoute = 'web.accounts.plans.update'
 export const DeletePlanRoute = 'web.accounts.plans.delete'
 
+export const GetUserRoute = 'web.accounts.users.get'
+export const CreateUserRoute = 'web.accounts.users.create'
+export const UpdateUserRoute = 'web.accounts.users.update'
+export const DeleteUserRoute = 'web.accounts.users.delete'
+
 export const GetRoleRoute = 'web.accounts.roles.get'
 export const CreateRoleRoute = 'web.accounts.roles.create'
 export const UpdateRoleRoute = 'web.accounts.roles.update'

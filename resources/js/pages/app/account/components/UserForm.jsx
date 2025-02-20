@@ -4,19 +4,24 @@ import { Input } from "@/components/inputs/Input";
 import { Loader } from "@/components/misc/Loader";
 import { Offcanvas } from "@/components/offcanvas/Offcanvas";
 import { notifySuccess } from "@/helpers/notification";
-import { roleCreate, roleUpdate } from "@/services/api/account";
+import { userCreate, userUpdate } from "@/services/api/account";
 import { createContext, useCallback, useContext, useState } from "react";
+import { RoleSelect } from "./RoleSelect";
 
-export const RoleFormContext = createContext(null)
-export const RoleFormProvider = ({children}) => {
+export const UserFormContext = createContext(null)
+export const UserFormProvider = ({children}) => {
     const [form, setForm] = useState({
-        name    : '',
+        firstname   : '',
+        lastname    : '',
+        email       : '',
+        password    : '',
+        roleId      : '',
     });
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
     return (
-        <RoleFormContext 
+        <UserFormContext 
             value={{
                 form, setForm,
                 open, setOpen,
@@ -24,11 +29,11 @@ export const RoleFormProvider = ({children}) => {
             }}
         >
             {children}
-        </RoleFormContext>
+        </UserFormContext>
     )
 }
 
-export const RoleForm = ({
+export const UserForm = ({
     id = '',
     onSuccess = () => {}
 }) => {
@@ -36,11 +41,15 @@ export const RoleForm = ({
         form, setForm, 
         open, setOpen,
         loading, setLoading,
-    } = useContext(RoleFormContext)
+    } = useContext(UserFormContext)
 
     const reset = () => {
         setForm({
-            name    : '',
+            firstname   : '',
+            lastname    : '',
+            email       : '',
+            password    : '',
+            roleId      : '',
         })
     }
 
@@ -65,9 +74,9 @@ export const RoleForm = ({
 
         let service
         if (id) {
-            service = roleUpdate(id, form)
+            service = userUpdate(id, form)
         } else {
-            service = roleCreate(form)
+            service = userCreate(form)
         }
 
         service.then(response => {
@@ -88,7 +97,7 @@ export const RoleForm = ({
 
     return (
         <Offcanvas
-            title={id ? 'Edit Role' : 'Create Role'}
+            title={id ? 'Edit User' : 'Create User'}
             open={open}
             onHide={handleHide}
         >
@@ -96,16 +105,44 @@ export const RoleForm = ({
                 onSubmit={handleSubmit}
                 className="d-flex flex-column justify-content-between align-items-stretch"
             >
-                <section>
-                    <div className="mb-4">
+                <section className="d-grid gap-3 mb-4">
+                    <Input
+                        name="firstname"
+                        label="Firstname"
+                        value={form.firstname}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        name="lastname"
+                        label="Lastname"
+                        value={form.lastname}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        type="email"
+                        name="email"
+                        label="Email"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    { !id ? (
                         <Input
-                            name="name"
-                            label="Name"
-                            value={form.name}
+                            type="password"
+                            name="password"
+                            label="Password"
+                            value={form.password}
                             onChange={handleChange}
-                            required
                         />
-                    </div>
+                    ) : (<></>) }
+                    <RoleSelect
+                        name="roleId"
+                        onChange={handleChange}
+                        value={form.roleId}
+                        required
+                    />
                 </section>
                 <Button
                     type="submit"
