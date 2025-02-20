@@ -12,6 +12,10 @@ export const useSwr = (
             return null
         }
 
+        if (filter === false) {
+            return null
+        }
+
         const param = objectToParam(filter)
         return `${url}${param}`
     }, [url, filter])

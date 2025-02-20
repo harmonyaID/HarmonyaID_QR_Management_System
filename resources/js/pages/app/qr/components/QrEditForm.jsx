@@ -4,6 +4,9 @@ import { QrModal, QrModalContext, QrModalProvider } from "./QrModal";
 import { useContext, useEffect } from "react";
 import { MDQr } from "@/configs/modalId";
 import { toggleModal } from "@/helpers/toggleModal";
+import { QR_GROUP_UPDATE } from "@/configs/permissions";
+import { toDashboard } from "@/helpers/navigation";
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions";
 
 export const QrEditProvider = ({children}) => (
     <QrFormProvider>
@@ -17,6 +20,8 @@ export const QrEditForm = () => {
     const { setQr }                     = useContext(QrModalContext)
     const { setForm, setSelectedId }    = useContext(QrFormContext)
     const { props }                     = usePage()
+
+    const canUpdate = useHasAnyPermissions(QR_GROUP_UPDATE)
 
     const handleSuccess = (result) => {
         setQr(result)
@@ -36,6 +41,12 @@ export const QrEditForm = () => {
         }))
 
     }, [])
+
+    useEffect(() => {
+        if (!canUpdate) {
+            toDashboard()
+        }
+    }, [canUpdate])
 
     return (
         <>

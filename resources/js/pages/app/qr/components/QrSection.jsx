@@ -20,24 +20,35 @@ import { ConfirmModal } from "@/components/modals/ConfirmModal"
 import { qrDelete } from "@/services/api/qr"
 import { notifySuccess } from "@/helpers/notification"
 import { SummaryCard } from "@/components/cards/SummaryCard"
+import { QR_GROUP_CREATE, QR_GROUP_DELETE, QR_GROUP_READ, QR_GROUP_UPDATE } from "@/configs/permissions"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 
 export const QrSection = () => {
+    const canCreate = useHasAnyPermissions(QR_GROUP_CREATE)
+    const canRead   = useHasAnyPermissions(QR_GROUP_READ)
+    const canUpdate = useHasAnyPermissions(QR_GROUP_UPDATE)
+    const canDelete = useHasAnyPermissions(QR_GROUP_DELETE)
+
     const [selectedId, setSelectedId] = useState('')
     const [sendLoading, setSendLoading] = useState(false)
-    const { setFilter, committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
+    const { committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setSelected, setOpen } = useContext(QrDetailContext)
-    const {data, isLoading, mutate} = useGetQrCodes(committedFilter)
+    const {data, isLoading, mutate} = useGetQrCodes( canRead ? committedFilter : false )
 
     const handleShowDetail = (selected) => {
+        if (!canRead) {
+            return
+        }
+
         setSelected(selected)
         setOpen(true)
     }
 
     const handlePaginate = (page) => {
-        setFilter((prevState) => ({
-            ...prevState,
-            page: page,
-        }))
+        if (!canRead) {
+            return
+        }
+
         setCommittedFilter((prevState) => ({
             ...prevState,
             page: page,
@@ -45,15 +56,27 @@ export const QrSection = () => {
     }
 
     const handleEdit = (selected) => {
+        if (!canUpdate) {
+            return
+        }
+
         window.open(route(QrEditRoute, selected.id), '_self')
     }
 
     const handleDelete = (selected) => {
+        if (!canDelete) {
+            return
+        }
+
         setSelectedId(selected.id)
         toggleModal(MDQrDelete, true)
     }
 
     const handleConfirmDelete = () => {
+        if (!canDelete) {
+            return
+        }
+
         if (!selectedId) {
             notifyError('No QR code is selected')
             return
@@ -101,14 +124,16 @@ export const QrSection = () => {
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         My Qr Codes
                     </h3>
-                    <div className="text-end">
-                        <Button 
-                            href={route(QrCreateRoute)}
-                            linkAsButton
-                        >
-                            Add New
-                        </Button>
-                    </div>
+                    { canCreate ? (
+                        <div className="text-end">
+                            <Button 
+                                href={route(QrCreateRoute)}
+                                linkAsButton
+                            >
+                                Add New
+                            </Button>
+                        </div>
+                    ) : (<></>) }
                 </header>
                 <SearchForm
                     className="mb-3"
@@ -126,8 +151,8 @@ export const QrSection = () => {
                                 <DataCard
                                     key={`qr-code-${qrCode.id}`}
                                     onClick={() => handleShowDetail(qrCode)}
-                                    onEdit={() => handleEdit(qrCode)}
-                                    onDelete={() => handleDelete(qrCode)}
+                                    onEdit={ canUpdate ? () => handleEdit(qrCode) : undefined }
+                                    onDelete={ canDelete ? () => handleDelete(qrCode) : undefined }
                                     customButton={(
                                         <>
                                             <DataCardButton
@@ -200,16 +225,21 @@ export const QrSection = () => {
                     </>
                 ) }
             </Card>
-            <QrDetail/>
-            <ConfirmModal
-                id={MDQrDelete}
-                title="Delete QR Code"
-                message="Are you sure you want to delete this QR code?"
-                negativeFlow
-                loading={sendLoading}
-                onCancel={handleCloseDelete}
-                onConfirm={handleConfirmDelete}
-            />
+            { canRead ? (
+                <QrDetail/>
+            ) : (<></>) }
+
+            { canDelete ? (
+                <ConfirmModal
+                    id={MDQrDelete}
+                    title="Delete QR Code"
+                    message="Are you sure you want to delete this QR code?"
+                    negativeFlow
+                    loading={sendLoading}
+                    onCancel={handleCloseDelete}
+                    onConfirm={handleConfirmDelete}
+                />
+            ) : (<></>) }
         </>
     )
 }

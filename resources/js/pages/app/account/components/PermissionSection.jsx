@@ -7,10 +7,15 @@ import { Loader } from "@/components/misc/Loader"
 import { upperCaseFirst } from "@/helpers/formatter"
 import { PermissionCheck } from "./PermissionCheck"
 import { usePage } from "@inertiajs/react"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { PERMISSIONS_GROUP_ASSIGN, PERMISSIONS_GROUP_READ } from "@/configs/permissions"
 
 export const PermissionSection = () => {
+    const canRead   = useHasAnyPermissions(PERMISSIONS_GROUP_READ)
+    const canAssign = useHasAnyPermissions(PERMISSIONS_GROUP_ASSIGN)
+
     const { committedFilter } = useContext(PermissionSearchContext)
-    const { data, isLoading, mutate } = useGetPermissions(committedFilter)
+    const { data, isLoading, mutate } = useGetPermissions( canRead ? committedFilter : false )
 
     const updateTimeoutRef = useRef()
 
@@ -82,6 +87,7 @@ export const PermissionSection = () => {
                                                     ( action != '*' && data.result.permissions[group]['*'].checked )
                                                 }
                                                 disabled={
+                                                    !canAssign ||
                                                     committedFilter.roleId == props.superadminRoleId || 
                                                     ( committedFilter.roleId == props.user.roleId && group == 'permissions' ) ||
                                                     ( action != '*' && data.result.permissions[group]['*'].checked )

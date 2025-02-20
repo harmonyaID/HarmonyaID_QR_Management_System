@@ -1,6 +1,8 @@
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Loader } from "@/components/misc/Loader"
+import { PERMISSIONS_GROUP_ASSIGN } from "@/configs/permissions"
 import { notifySuccess } from "@/helpers/notification"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 import { permissionAssign, permissionUnassign } from "@/services/api/account"
 import { useCallback, useEffect, useState } from "react"
 
@@ -14,7 +16,13 @@ export const PermissionCheck = ({
     const [internalCheck, setIsChecked] = useState(checked)
     const [isLoading, setIsLoading] = useState(false)
 
+    const canAssign = useHasAnyPermissions(PERMISSIONS_GROUP_ASSIGN)
+
     const handleChange = useCallback(({value}) => {
+        if (!canAssign) {
+            return
+        }
+
         if (isLoading) {
             return
         }

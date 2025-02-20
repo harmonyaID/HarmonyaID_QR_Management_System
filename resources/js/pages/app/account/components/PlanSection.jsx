@@ -12,17 +12,40 @@ import { notifyError, notifySuccess } from "@/helpers/notification"
 import { planDelete } from "@/services/api/account"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
 import { formatPrice } from "@/helpers/formatter"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { PLANS_GROUP_CREATE, PLANS_GROUP_DELETE, PLANS_GROUP_READ, PLANS_GROUP_UPDATE } from "@/configs/permissions"
+import { Pagination } from "@/components/navigations/Pagination"
 
 export const PlanSection = () => {
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
+
+    const canCreate = useHasAnyPermissions(PLANS_GROUP_CREATE)
+    const canRead   = useHasAnyPermissions(PLANS_GROUP_READ)
+    const canUpdate = useHasAnyPermissions(PLANS_GROUP_UPDATE)
+    const canDelete = useHasAnyPermissions(PLANS_GROUP_DELETE)
     
-    const { committedFilter }   = useContext(SearchFormContext)
+    const { committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setForm, setOpen }  = useContext(PlanFormContext)
 
-    const {data, isLoading, mutate} = useGetPlans(committedFilter)
+    const {data, isLoading, mutate} = useGetPlans( canRead ? committedFilter : false )
+
+    const handlePaginate = (page) => {
+        if (!canRead) {
+            return
+        }
+
+        setCommittedFilter((prevState) => ({
+            ...prevState,
+            page: page,
+        }))
+    }
 
     const handleEdit = (selected) => {
+        if (!canUpdate) {
+            return
+        }
+
         setForm((prevState) => ({
             ...prevState,
             name: selected.name,
@@ -34,11 +57,19 @@ export const PlanSection = () => {
     }
 
     const handleDelete = (selected) => {
+        if (!canDelete) {
+            return
+        }
+
         setSelectedId(selected.id)
         toggleModal(MDPlanDelete, true)
     }
 
     const handleConfirmDelete = () => {
+        if (!canDelete) {
+            return
+        }
+
         if (!selectedId) {
             notifyError('No plan is selected')
             return
@@ -81,11 +112,13 @@ export const PlanSection = () => {
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         Manage Plans
                     </h3>
-                    <div className="text-end">
-                        <Button onClick={() => setOpen(true)}>
-                            Add New
-                        </Button>
-                    </div>
+                    { canCreate ? (
+                        <div className="text-end">
+                            <Button onClick={() => setOpen(true)}>
+                                Add New
+                            </Button>
+                        </div>
+                    ) : (<></>) }
                 </header>
                 <SearchForm
                     className="mb-3"
@@ -98,12 +131,12 @@ export const PlanSection = () => {
                     <ErrorMsg message="No plan found"/>
                 ) : (
                     <>
-                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
+                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4 mb-3">
                             { data.result.map((plan) => (
                                 <DataCard
                                     key={`plan-${plan.id}`}
-                                    onEdit={() => handleEdit(plan)}
-                                    onDelete={() => handleDelete(plan)}
+                                    onEdit={ canUpdate ? () => handleEdit(plan) : undefined }
+                                    onDelete={ canDelete ? () => handleDelete(plan) : undefined }
                                 >
                                     <p className="fw-semibold mb-3">
                                         { plan.name }
@@ -114,22 +147,32 @@ export const PlanSection = () => {
                                 </DataCard>
                             )) }
                         </div>
+                        <Pagination
+                            currentPage={data.pagination.currentPage}
+                            maxPages={data.pagination.totalPage}
+                            onClick={handlePaginate}
+                        />
                     </>
                 ) }
             </section>
-            <PlanForm
-                id={selectedId}
-                onSuccess={() => { mutate() }}
-            />
-            <ConfirmModal
-                id={MDPlanDelete}
-                title="Delete plan"
-                message="Are you sure you want to delete this plan?"
-                negativeFlow
-                loading={sendLoading}
-                onCancel={handleCloseDelete}
-                onConfirm={handleConfirmDelete}
-            />
+            { canCreate || canUpdate ? (
+                <PlanForm
+                    id={selectedId}
+                    onSuccess={() => { mutate() }}
+                />
+            ) : (<></>) }
+
+            { canDelete ? (
+                <ConfirmModal
+                    id={MDPlanDelete}
+                    title="Delete plan"
+                    message="Are you sure you want to delete this plan?"
+                    negativeFlow
+                    loading={sendLoading}
+                    onCancel={handleCloseDelete}
+                    onConfirm={handleConfirmDelete}
+                />
+            ) : (<></>) }
         </>
     )
 }

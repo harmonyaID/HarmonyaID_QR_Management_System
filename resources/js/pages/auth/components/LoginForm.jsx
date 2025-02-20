@@ -3,8 +3,8 @@ import { Form } from "@/components/forms/Form"
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
 import { Loader } from "@/components/misc/Loader"
+import { toDashboard } from "@/helpers/navigation"
 import { notifySuccess } from "@/helpers/notification"
-import { DashboardRoute } from "@/routes/app"
 import { ForgotPasswordRoute, RegisterRoute } from "@/routes/auth"
 import { authLogin } from "@/services/api/auth"
 import { Link } from "@inertiajs/react"
@@ -37,7 +37,7 @@ export const LoginForm = () => {
 
                 notifySuccess(response.status?.message)
 
-                window.open(route(DashboardRoute), '_self')
+                toDashboard()
             })
             .finally(() => {
                 setIsLoading(false)

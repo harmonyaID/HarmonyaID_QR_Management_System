@@ -1,11 +1,12 @@
 import { Button } from "@/components/buttons/Button"
-import { Card } from "@/components/cards/Card"
 import { DataDisplay } from "@/components/misc/DataDisplay"
 import { Offcanvas } from "@/components/offcanvas/Offcanvas"
+import { QR_GROUP_UPDATE } from "@/configs/permissions"
 import { LINK_ID, WHATSAPP_ID, WIFI_ID } from "@/configs/qrDataTypes"
 import { qrStyleTypes } from "@/configs/qrStyleTypes"
 import { wifiEncryptionTypes } from "@/configs/wifiEncryptionTypes"
 import { storage_url } from "@/helpers/url"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 import { Download } from "@/icons/Download"
 import { Edit } from "@/icons/Edit"
 import { QrEditRoute, QrEmbedImageRoute, QrImageRoute } from "@/routes/app"
@@ -30,6 +31,7 @@ export const QrDetailProvider = ({ children }) => {
 }
 
 export const QrDetail = () => {
+    const canUpdate = useHasAnyPermissions(QR_GROUP_UPDATE)
 
     const {
         selected, setSelected,
@@ -43,6 +45,10 @@ export const QrDetail = () => {
 
     const handleEdit = (event) => {
         event.preventDefault()
+        if (!canUpdate) {
+            return
+        }
+        
         window.open(route(QrEditRoute, selected?.id), '_self')
     }
 
@@ -97,15 +103,17 @@ export const QrDetail = () => {
                     <QrStyleDetail/>
                 </div>
                 <div className="d-grid gap-2 position-sticky bottom-0 pt-4 bg-white border-top border-neutral-50">
-                    <Button
-                        small
-                        outline
-                        linkAsButton
-                        href={ selected?.id ? route(QrEditRoute, selected.id) : undefined }
-                        onClick={handleEdit}
-                    >
-                        <Edit size={24} className="me-2"/>Edit
-                    </Button>
+                    { canUpdate ? (
+                        <Button
+                            small
+                            outline
+                            linkAsButton
+                            href={ selected?.id ? route(QrEditRoute, selected.id) : undefined }
+                            onClick={handleEdit}
+                        >
+                            <Edit size={24} className="me-2"/>Edit
+                        </Button>
+                    ) : (<></>) }
                     <Button
                         small
                         linkAsButton

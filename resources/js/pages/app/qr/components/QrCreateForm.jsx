@@ -4,6 +4,9 @@ import { QrForm, QrFormContext, QrFormProvider } from "./QrForm"
 import { QrModal, QrModalContext, QrModalProvider } from "./QrModal"
 import { toggleModal } from "@/helpers/toggleModal"
 import { MDQr } from "@/configs/modalId"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { QR_GROUP_CREATE } from "@/configs/permissions"
+import { toDashboard } from "@/helpers/navigation"
 
 export const QrCreateProvider = ({children}) => (
     <QrTypeSelectFormProvider>
@@ -19,6 +22,8 @@ export const QrCreateForm = () => {
     const [selectedType]= useContext(QrTypeSelectFormContext)
     const { setQr }     = useContext(QrModalContext)
     const { setForm }   = useContext(QrFormContext)
+
+    const canCreate = useHasAnyPermissions(QR_GROUP_CREATE)
 
     const handleSuccess = (result) => {
         setQr(result)
@@ -37,6 +42,12 @@ export const QrCreateForm = () => {
             }
         })
     }, [selectedType])
+
+    useEffect(() => {
+        if (!canCreate) {
+            toDashboard()
+        }
+    }, [canCreate])
 
     return (
         <section className="d-grid grid-cols-lg-2 gap-3 h-100">

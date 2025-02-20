@@ -12,17 +12,40 @@ import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { usageCategoryDelete } from "@/services/api/account"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
+import { USAGE_CATEGORIES_GROUP_CREATE, USAGE_CATEGORIES_GROUP_DELETE, USAGE_CATEGORIES_GROUP_READ, USAGE_CATEGORIES_GROUP_UPDATE } from "@/configs/permissions"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { Pagination } from "@/components/navigations/Pagination"
 
 export const UsageCategorySection = () => {
+    const canCreate = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_CREATE)
+    const canRead   = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_READ)
+    const canUpdate = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_UPDATE)
+    const canDelete = useHasAnyPermissions(USAGE_CATEGORIES_GROUP_DELETE)
+
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
 
-    const { committedFilter }   = useContext(SearchFormContext)
+    const { committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setForm, setOpen }  = useContext(UsageCategoryFormContext)
 
-    const {data, isLoading, mutate} = useGetCategoryUsage(committedFilter)
+    const {data, isLoading, mutate} = useGetCategoryUsage( canRead ? committedFilter : false )
+
+    const handlePaginate = (page) => {
+        if (!canRead) {
+            return
+        }
+
+        setCommittedFilter((prevState) => ({
+            ...prevState,
+            page: page,
+        }))
+    }
 
     const handleEdit = (selected) => {
+        if (!canUpdate) {
+            return
+        }
+
         setForm((prevState) => ({
             ...prevState,
             name: selected.name,
@@ -34,11 +57,19 @@ export const UsageCategorySection = () => {
     }
 
     const handleDelete = (selected) => {
+        if (!canDelete) {
+            return
+        }
+
         setSelectedId(selected.id)
         toggleModal(MDUsageCategoryDelete, true)
     }
 
     const handleConfirmDelete = () => {
+        if (!canDelete) {
+            return
+        }
+
         if (!selectedId) {
             notifyError('No usage category is selected')
             return
@@ -81,11 +112,13 @@ export const UsageCategorySection = () => {
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         Manage Usage Category
                     </h3>
-                    <div className="text-end">
-                        <Button onClick={() => setOpen(true)}>
-                            Add New
-                        </Button>
-                    </div>
+                    { canCreate ? (
+                        <div className="text-end">
+                            <Button onClick={() => setOpen(true)}>
+                                Add New
+                            </Button>
+                        </div>
+                    ) : (<></>)}
                 </header>
                 <SearchForm
                     className="mb-3"
@@ -97,43 +130,55 @@ export const UsageCategorySection = () => {
                 ) : !data?.result?.length ? (
                     <ErrorMsg message="No usage category found"/>
                 ) : (
-                    <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
-                        { data.result.map((category) => (
-                            <DataCard
-                                key={`category-${category.id}`}
-                                onEdit={() => handleEdit(category)}
-                                onDelete={() => handleDelete(category)}
-                            >
-                                <div className="d-flex gap-3 justify-content-center align-items-center">
-                                    <div className="flex-shrink-0">
-                                        <DataCardPicture
-                                            src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
-                                        />
+                    <>
+                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
+                            { data.result.map((category) => (
+                                <DataCard
+                                    key={`category-${category.id}`}
+                                    onEdit={ canUpdate ? () => handleEdit(category) : undefined }
+                                    onDelete={ canDelete ? () => handleDelete(category) : undefined }
+                                >
+                                    <div className="d-flex gap-3 justify-content-center align-items-center">
+                                        <div className="flex-shrink-0">
+                                            <DataCardPicture
+                                                src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                            />
+                                        </div>
+                                        <div className="flex-grow-1">
+                                            <p className="fw-semibold mb-0">
+                                                { category.name }
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="flex-grow-1">
-                                        <p className="fw-semibold mb-0">
-                                            { category.name }
-                                        </p>
-                                    </div>
-                                </div>
-                            </DataCard>
-                        )) }
-                    </div>
+                                </DataCard>
+                            )) }
+                        </div>
+                        <Pagination
+                            currentPage={data.pagination.currentPage}
+                            maxPages={data.pagination.totalPage}
+                            onClick={handlePaginate}
+                        />
+                    </>
                 ) }
             </section>
-            <UsageCategoryForm
-                id={selectedId}
-                onSuccess={() => { mutate() }}
-            />
-            <ConfirmModal
-                id={MDUsageCategoryDelete}
-                title="Delete usage category"
-                message="Are you sure you want to delete this usage category?"
-                negativeFlow
-                loading={sendLoading}
-                onCancel={handleCloseDelete}
-                onConfirm={handleConfirmDelete}
-            />
+            { canCreate || canUpdate ? (
+                <UsageCategoryForm
+                    id={selectedId}
+                    onSuccess={() => { mutate() }}
+                />
+            ) : (<></>) }
+
+            { canDelete ? (
+                <ConfirmModal
+                    id={MDUsageCategoryDelete}
+                    title="Delete usage category"
+                    message="Are you sure you want to delete this usage category?"
+                    negativeFlow
+                    loading={sendLoading}
+                    onCancel={handleCloseDelete}
+                    onConfirm={handleConfirmDelete}
+                />
+            ) : (<></>) }
         </>
     )
 }

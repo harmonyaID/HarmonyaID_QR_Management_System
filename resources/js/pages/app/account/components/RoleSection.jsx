@@ -11,17 +11,40 @@ import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
 import { roleDelete } from "@/services/api/account"
 import { ConfirmModal } from "@/components/modals/ConfirmModal"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { ROLES_GROUP_CREATE, ROLES_GROUP_DELETE, ROLES_GROUP_READ, ROLES_GROUP_UPDATE } from "@/configs/permissions"
+import { Pagination } from "@/components/navigations/Pagination"
 
 export const RoleSection = () => {
     const [sendLoading, setSendLoading] = useState(false)
     const [selectedId, setSelectedId]   = useState('')
+
+    const canCreate = useHasAnyPermissions(ROLES_GROUP_CREATE)
+    const canRead   = useHasAnyPermissions(ROLES_GROUP_READ)
+    const canUpdate = useHasAnyPermissions(ROLES_GROUP_UPDATE)
+    const canDelete = useHasAnyPermissions(ROLES_GROUP_DELETE)
     
-    const { committedFilter }   = useContext(SearchFormContext)
+    const { committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setForm, setOpen }  = useContext(RoleFormContext)
 
-    const {data, isLoading, mutate} = useGetRoles(committedFilter)
+    const {data, isLoading, mutate} = useGetRoles(canRead ? committedFilter : false)
+
+    const handlePaginate = (page) => {
+        if (!canRead) {
+            return
+        }
+
+        setCommittedFilter((prevState) => ({
+            ...prevState,
+            page: page,
+        }))
+    }
 
     const handleEdit = (selected) => {
+        if (!canUpdate) {
+            return
+        }
+
         setForm((prevState) => ({
             ...prevState,
             name: selected.name,
@@ -33,11 +56,19 @@ export const RoleSection = () => {
     }
 
     const handleDelete = (selected) => {
+        if (!canDelete) {
+            return
+        }
+
         setSelectedId(selected.id)
         toggleModal(MDRoleDelete, true)
     }
 
     const handleConfirmDelete = () => {
+        if (!canDelete) {
+            return
+        }
+
         if (!selectedId) {
             notifyError('No role is selected')
             return
@@ -80,11 +111,13 @@ export const RoleSection = () => {
                     <h3 className="flex-shrink-0 fs-5 mb-0">
                         Manage Roles
                     </h3>
-                    <div className="text-end">
-                        <Button onClick={() => setOpen(true)}>
-                            Add New
-                        </Button>
-                    </div>
+                    { canCreate ? (
+                        <div className="text-end">
+                            <Button onClick={() => setOpen(true)}>
+                                Add New
+                            </Button>
+                        </div>
+                    ) : (<></>) }
                 </header>
                 <SearchForm
                     className="mb-3"
@@ -97,12 +130,12 @@ export const RoleSection = () => {
                     <ErrorMsg message="No role found"/>
                 ) : (
                     <>
-                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4">
+                        <div className="d-grid gap-3 grid-cols-1 grid-cols-md-2 grid-cols-lg-3 grid-cols-xxl-4 mb-3">
                             { data.result.map((role) => (
                                 <DataCard
                                     key={`role-${role.id}`}
-                                    onEdit={ role.deletable ? () => handleEdit(role) : undefined}
-                                    onDelete={ role.deletable ? () => handleDelete(role) : undefined}
+                                    onEdit={ role.deletable && canUpdate ? () => handleEdit(role) : undefined}
+                                    onDelete={ role.deletable && canDelete ? () => handleDelete(role) : undefined}
                                 >
                                     <p className="fw-semibold mb-0">
                                         { role.name }
@@ -110,22 +143,32 @@ export const RoleSection = () => {
                                 </DataCard>
                             )) }
                         </div>
+                        <Pagination
+                            currentPage={data.pagination.currentPage}
+                            maxPages={data.pagination.totalPage}
+                            onClick={handlePaginate}
+                        />
                     </>
                 ) }
             </section>
-            <RoleForm
-                id={selectedId}
-                onSuccess={() => { mutate() }}
-            />
-            <ConfirmModal
-                id={MDRoleDelete}
-                title="Delete role"
-                message="Are you sure you want to delete this role?"
-                negativeFlow
-                loading={sendLoading}
-                onCancel={handleCloseDelete}
-                onConfirm={handleConfirmDelete}
-            />
+            { canCreate || canUpdate ? (
+                <RoleForm
+                    id={selectedId}
+                    onSuccess={() => { mutate() }}
+                />
+            ) : (<></>) }
+
+            { canDelete ? (
+                <ConfirmModal
+                    id={MDRoleDelete}
+                    title="Delete role"
+                    message="Are you sure you want to delete this role?"
+                    negativeFlow
+                    loading={sendLoading}
+                    onCancel={handleCloseDelete}
+                    onConfirm={handleConfirmDelete}
+                />
+            ) : (<></>) }
         </>
     )
 }

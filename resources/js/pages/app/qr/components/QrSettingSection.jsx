@@ -5,13 +5,23 @@ import { QrTypeSection } from "./QrTypeSection"
 import { QrTypeFormProvider } from "./QrTypeForm"
 import { SearchFormProvider } from "@/components/forms/SearchForm"
 import { DropboxProvider } from "@/components/inputs/Dropbox"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { QR_TYPES_GROUP_ALL } from "@/configs/permissions"
 
 export const QrSettingSection = () => {
     const [index, setIndex] = useState(0)
     const [openPanel, setOpenPanel] = useState()
 
+    const canAccessQrType = useHasAnyPermissions(QR_TYPES_GROUP_ALL)
+
     const availablePanels = useMemo(() => {
-        return ['qr types']
+        const panels = []
+
+        if (canAccessQrType) {
+            panels.push('qr types')
+        }
+
+        return panels
     }, [])
 
     useEffect(() => {
