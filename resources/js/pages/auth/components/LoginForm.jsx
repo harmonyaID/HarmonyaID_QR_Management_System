@@ -50,10 +50,10 @@ export const LoginForm = () => {
             className="wrapper"
         >
             <div className="pb-3 mb-3">
-                <h4 className="mb-2">
+                <h3 className="mb-2">
                     <span className="fw-normal">Welcome to </span>
                     QR Code App
-                </h4>
+                </h3>
                 <p className="mb-1">
                     Sign in to your account to access the application
                 </p>

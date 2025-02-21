@@ -22,6 +22,10 @@ import { notifySuccess } from "@/helpers/notification"
 import { SummaryCard } from "@/components/cards/SummaryCard"
 import { QR_GROUP_CREATE, QR_GROUP_DELETE, QR_GROUP_READ, QR_GROUP_UPDATE } from "@/configs/permissions"
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
+import { Table } from "@/components/tables/Table"
+import { DataDisplay } from "@/components/misc/DataDisplay"
+import { Delete } from "@/icons/Delete"
+import { Edit } from "@/icons/Edit"
 
 export const QrSection = () => {
     const canCreate = useHasAnyPermissions(QR_GROUP_CREATE)
@@ -56,20 +60,32 @@ export const QrSection = () => {
     }
 
     const handleEdit = (selected) => {
-        if (!canUpdate) {
-            return
-        }
+        return (event) => {
+            console.log('edit')
+            event.preventDefault()
+            event.stopPropagation()
 
-        window.open(route(QrEditRoute, selected.id), '_self')
+            if (!canUpdate) {
+                return
+            }
+    
+            window.open(route(QrEditRoute, selected.id), '_self')
+        }
     }
 
     const handleDelete = (selected) => {
-        if (!canDelete) {
-            return
-        }
+        return (event) => {
+            console.log('delete')
+            event.preventDefault()
+            event.stopPropagation()
 
-        setSelectedId(selected.id)
-        toggleModal(MDQrDelete, true)
+            if (!canDelete) {
+                return
+            }
+    
+            setSelectedId(selected.id)
+            toggleModal(MDQrDelete, true)
+        }
     }
 
     const handleConfirmDelete = () => {
@@ -121,7 +137,7 @@ export const QrSection = () => {
                 noBorder
             >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                    <h3 className="flex-shrink-0 fs-5 mb-0">
+                    <h3 className="flex-shrink-0 mb-0">
                         My Qr Codes
                     </h3>
                     { canCreate ? (
@@ -146,77 +162,114 @@ export const QrSection = () => {
                     <ErrorMsg message="No qr codes found"/>
                 ) : (
                     <>
-                        <div className="d-grid gap-3 grid-cols-1 grid-cols-lg-2 mb-3">
-                            { data.result.map((qrCode) => (
-                                <DataCard
-                                    key={`qr-code-${qrCode.id}`}
-                                    onClick={() => handleShowDetail(qrCode)}
-                                    onEdit={ canUpdate ? () => handleEdit(qrCode) : undefined }
-                                    onDelete={ canDelete ? () => handleDelete(qrCode) : undefined }
-                                    customButton={(
-                                        <>
-                                            <DataCardButton
-                                                as="download"
-                                                className="btn-small btn-primary"
-                                                icon={Download}
-                                                title={`Download ${qrCode.name} QR Code`}
-                                                href={route(QrImageRoute, qrCode.id)}
-                                                download={`${qrCode.name} QR Code`}
-                                            />
-                                        </>
-                                    )}
-                                >
-                                    <div className="d-flex gap-3 justify-content-center align-items-center">
-                                        <div className="flex-shrink-0">
+                        <Table 
+                            className="mb-3"
+                            tableClassName="table-hover"
+                        >
+                            <thead>
+                                <tr>
+                                    <th className="text-start">QR Code</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Created At</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { data.result.map((qrCode) => (
+                                    <tr
+                                        onClick={() => handleShowDetail(qrCode)}
+                                        key={`qr-code-${qrCode.id}`}
+                                        className="cursor-pointer"
+                                    >
+                                        <td>
                                             <img 
                                                 src={`${route(QrImageRoute, qrCode.id)}?v=${qrCode.version}`}
-                                                height={160}
-                                                width={160}
+                                                height={120}
+                                                width={120}
                                                 alt={`${qrCode.name} QR code`}
                                             />
-                                        </div>
-                                        <div className="flex-grow-1">
-                                            <p className="fw-semibold mb-2">
+                                        </td>
+                                        <td>
+                                            <p className="fw-medium">
                                                 { qrCode.name }
                                             </p>
-                                            <div className="d-grid grid-cols-md-3 grid-cols-lg-2 grid-cols-xl-3 gap-3">
-                                                <p className="mb-0">
-                                                    Type:<br/>
-                                                    <span className="fw-semibold">{ qrCode.type.name }</span>
-                                                </p>
-                                                <p className="mb-0">
-                                                    Dynamic:<br/>
-                                                    { qrCode.isDynamic ? (
-                                                        <span className="text-forest">
-                                                            <Check
-                                                                size={24}
-                                                                title="Yes"
-                                                            />
-                                                            {' '}
-                                                            Yes
-                                                        </span>
-                                                    ) : (
-                                                        <span className="text-crimson">
-                                                            <Plus
-                                                                size={24}
-                                                                title="No"
-                                                                className="transform rotate-45"
-                                                            />
-                                                            {' '}
-                                                            No
-                                                        </span>
-                                                    ) }
-                                                </p>
-                                                <p className="mb-0">
-                                                    Created At:<br/>
-                                                    <span className="fw-semibold">{ formatDate(qrCode.createdAt) }</span>
-                                                </p>
+                                        </td>
+                                        <td>
+                                            <p className="fw-medium">
+                                                { qrCode.type.name }
+                                            </p>
+                                            <DataDisplay label="Dynamic">
+                                                { qrCode.isDynamic ? (
+                                                    <span className="text-forest">
+                                                        <Check
+                                                            size={24}
+                                                            title="Yes"
+                                                        />
+                                                        {' '}
+                                                        Yes
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-crimson">
+                                                        <Plus
+                                                            size={24}
+                                                            title="No"
+                                                            className="transform rotate-45"
+                                                        />
+                                                        {' '}
+                                                        No
+                                                    </span>
+                                                ) }
+                                            </DataDisplay>
+                                        </td>
+                                        <td className="text-center">
+                                            { formatDate(qrCode.createdAt) }
+                                        </td>
+                                        <td>
+                                            <div className="d-flex justify-content-end align-items-center gap-2">
+                                                { canDelete ? (
+                                                    <div>
+                                                        <Button
+                                                            circle 
+                                                            small
+                                                            danger
+                                                            outline
+                                                            onClick={handleDelete(qrCode)}
+                                                        >
+                                                            <Delete size={24}/>
+                                                        </Button>
+                                                    </div>
+                                                ) : (<></>) }
+                                                <div>
+                                                    <Button
+                                                        circle 
+                                                        linkAsButton
+                                                        small
+                                                        outline
+                                                        href={route(QrImageRoute, qrCode.id)}
+                                                        download={`${qrCode.name} QR Code`}
+                                                        onClick={(event) => event.stopPropagation()}
+                                                    >
+                                                        <Download size={24}/>
+                                                    </Button>
+                                                </div>
+                                                { canUpdate ? (
+                                                    <div>
+                                                        <Button
+                                                            circle
+                                                            small
+                                                            onClick={handleEdit(qrCode)}
+                                                        >
+                                                            <Edit size={24}/>
+                                                        </Button>
+                                                    </div>
+                                                ) : (<></>) }
                                             </div>
-                                        </div>
-                                    </div>
-                                </DataCard>
-                            )) }
-                        </div>
+                                        </td>
+                                    </tr>
+                                )) }
+                            </tbody>
+                        </Table>
                         <Pagination
                             onClick={handlePaginate}
                             currentPage={data.pagination.currentPage}

@@ -111,7 +111,7 @@ export const QrTypeSection = () => {
                 }`}
             >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                    <h3 className="flex-shrink-0 fs-5 mb-0">
+                    <h3 className="flex-shrink-0 mb-0">
                         Manage Qr Type
                     </h3>
                     { canCreate ? (
@@ -143,6 +143,7 @@ export const QrTypeSection = () => {
                                     <div className="d-flex gap-3 justify-content-center align-items-center">
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
+                                                squared
                                                 src={ type.icon ? storage_url(type.icon) : `https://ui-avatars.com/api/?name=${type.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
                                             />
                                         </div>

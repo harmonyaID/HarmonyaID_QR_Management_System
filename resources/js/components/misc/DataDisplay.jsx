@@ -5,7 +5,7 @@ export const DataDisplay = ({
     dataClassName,
 }) => (
     <div className={className}>
-        <p className="fw-medium mb-1">
+        <p className="fw-medium fs-5 mb-1">
             { label }
         </p>
         <div className={dataClassName}>

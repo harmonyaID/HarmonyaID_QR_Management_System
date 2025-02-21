@@ -46,9 +46,9 @@ export const ForgotPasswordForm = () => {
             className="wrapper"
         >
             <div className="pb-3 mb-3">
-                <h4 className="mb-2">
+                <h3 className="mb-2">
                     <span className="fw-normal">Reset Password</span>
-                </h4>
+                </h3>
                 <p className="mb-1">
                     Input your registered email to reset your password
                 </p>

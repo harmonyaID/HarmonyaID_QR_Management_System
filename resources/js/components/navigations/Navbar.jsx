@@ -60,9 +60,9 @@ export const Navbar = ({
                             <Expand size={24}/>
                         ) }
                     </button>
-                    <h5 className="navbar-title mb-0">
+                    <h3 className="navbar-title mb-0">
                         { title }
-                    </h5>
+                    </h3>
                 </section>
 
                 <section className="navbar-group">

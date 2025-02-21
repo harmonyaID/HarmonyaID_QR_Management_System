@@ -43,11 +43,11 @@ export const Offcanvas = ({
             tabIndex="-1"
         >
             <div className="offcanvas-header">
-                <h5 
+                <h3 
                     className="offcanvas-title"
                 >
                     { title }
-                </h5>
+                </h3>
                 <button 
                     type="button" 
                     className="btn-close" 

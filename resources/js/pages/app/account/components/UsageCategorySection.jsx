@@ -109,7 +109,7 @@ export const UsageCategorySection = () => {
                 }`}
             >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                    <h3 className="flex-shrink-0 fs-5 mb-0">
+                    <h3 className="flex-shrink-0 mb-0">
                         Manage Usage Category
                     </h3>
                     { canCreate ? (
@@ -141,6 +141,7 @@ export const UsageCategorySection = () => {
                                     <div className="d-flex gap-3 justify-content-center align-items-center">
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
+                                                squared
                                                 src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
                                             />
                                         </div>

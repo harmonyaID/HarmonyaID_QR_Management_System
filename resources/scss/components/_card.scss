@@ -80,6 +80,10 @@
     max-height: 3rem;
     border-radius: 50%;
     overflow: hidden;
+    
+    &.squared {
+        border-radius: .5rem;
+    }
 }
 
 .card.selectable {

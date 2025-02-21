@@ -86,14 +86,14 @@ export const Modal = ({
                     { title || !preventClose ? (
                         <div className="modal-header">
                             { title ? (
-                                <h5 className="modal-title">
+                                <h3 className="modal-title">
                                     { title }
                                     { subTitle ? (
                                         <p className="text-grey-600">
                                             { subTitle }
                                         </p>
                                     ) : (<></>) }
-                                </h5>
+                                </h3>
                             ) : (<></>) }
                             <button
                                 type="button"

@@ -7,6 +7,10 @@ import { MDQr } from "@/configs/modalId"
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 import { QR_GROUP_CREATE } from "@/configs/permissions"
 import { toDashboard } from "@/helpers/navigation"
+import { Button } from "@/components/buttons/Button"
+import { route } from "ziggy-js"
+import { QrRoute } from "@/routes/app"
+import { ArrowLeft } from "@/icons/ArrowLeft"
 
 export const QrCreateProvider = ({children}) => (
     <QrTypeSelectFormProvider>
@@ -50,18 +54,30 @@ export const QrCreateForm = () => {
     }, [canCreate])
 
     return (
-        <section className="d-grid grid-cols-lg-2 gap-3 h-100">
-            <QrTypeSelectForm/>
-            { !selectedType ? (
-                <section className="d-flex flex-column justify-content-center align-items-center h-100 text-center px-4 py-5">
-                    <h3 className="mb-0">What kind of QR Code do you want to create?</h3>
-                </section>
-            ) : (
-                <QrForm
-                    onSuccess={handleSuccess}
-                />
-            ) }
+        <>
+            <div className="text-end mb-3">
+                <Button
+                    outline
+                    small
+                    linkAsButton
+                    href={route(QrRoute)}
+                >
+                    <ArrowLeft size={24}/> Back
+                </Button>
+            </div>
+            <section className="d-grid grid-cols-lg-2 gap-3 h-100">
+                <QrTypeSelectForm/>
+                { !selectedType ? (
+                    <section className="d-flex flex-column justify-content-center align-items-center h-100 text-center px-4 py-5">
+                        <h3 className="mb-0">What kind of QR Code do you want to create?</h3>
+                    </section>
+                ) : (
+                    <QrForm
+                        onSuccess={handleSuccess}
+                    />
+                ) }
+            </section>
             <QrModal/>
-        </section>
+        </>
     )
 }

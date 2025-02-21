@@ -5,7 +5,7 @@ import { SearchForm, SearchFormContext } from "@/components/forms/SearchForm"
 import { useGetUsers } from "@/services/swr/account"
 import { Loader } from "@/components/misc/Loader"
 import { ErrorMsg } from "@/components/misc/ErrorMsg"
-import { DataCard } from "@/components/cards/DataCard"
+import { DataCard, DataCardPicture } from "@/components/cards/DataCard"
 import { MDUserDelete } from "@/configs/modalId"
 import { toggleModal } from "@/helpers/toggleModal"
 import { notifyError, notifySuccess } from "@/helpers/notification"
@@ -111,7 +111,7 @@ export const UserSection = () => {
                 }`}
             >
                 <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                    <h3 className="flex-shrink-0 fs-5 mb-0">
+                    <h3 className="flex-shrink-0 mb-0">
                         Manage Users
                     </h3>
                     { canCreate ? (
@@ -140,18 +140,27 @@ export const UserSection = () => {
                                     onEdit={ user.deletable && canUpdate ? () => handleEdit(user) : undefined}
                                     onDelete={ user.deletable && canDelete ? () => handleDelete(user) : undefined}
                                 >
-                                    <p className=" mb-2">
-                                        <span className="fw-medium">
-                                            { user.fullname }
-                                        </span>
-                                    </p>
-                                    <p className="mb-0">
-                                        { user.role ? (
-                                            <Tag pill>
-                                                { user.role.name }
-                                            </Tag>
-                                        ) : (<></>) }
-                                    </p>
+                                    <div className="d-flex gap-3 justify-content-center align-items-center">
+                                        <div className="flex-shrink-0">
+                                            <DataCardPicture
+                                                src={ `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                            />
+                                        </div>
+                                        <div className="flex-grow-1">
+                                            <p className=" mb-2">
+                                                <span className="fw-medium">
+                                                    { user.fullname }
+                                                </span>
+                                            </p>
+                                            <p className="mb-0">
+                                                { user.role ? (
+                                                    <Tag pill>
+                                                        { user.role.name }
+                                                    </Tag>
+                                                ) : (<></>) }
+                                            </p>
+                                        </div>
+                                    </div>
                                 </DataCard>
                             )) }
                         </div>

@@ -21,6 +21,8 @@ export const Button = ({
     text        = false,
     link        = false,
     linkAsButton= false,
+    danger      = false,
+    circle      = false,
     children,
     download,
     ...props
@@ -37,6 +39,8 @@ export const Button = ({
         return DefaultLink
     }, [link, linkAsButton])
 
+    const color = danger ? 'crimson' : 'primary';
+
     return (
         <Component 
             disabled={disabled}
@@ -44,11 +48,13 @@ export const Button = ({
                 'btn'
             } ${
                 (text || link) && disabled ? 'text-neutral-200 btn-text' :
-                (text || link) ? 'text-primary btn-text' :
+                (text || link) ? `text-${color} btn-text` :
                 outline && disabled ? 'btn-outline-neutral-200' :
-                outline ? 'btn-outline-primary' :
+                outline ? `btn-outline-${color}` :
                 disabled ? 'btn-neutral-200 text-white' :
-                'btn-primary text-white' 
+                `btn-${color} text-white` 
+            } ${
+                circle ? 'circle' : ''
             } ${
                 small ? 'btn-sm' : ''
             } ${

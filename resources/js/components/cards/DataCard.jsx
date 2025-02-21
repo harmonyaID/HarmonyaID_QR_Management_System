@@ -141,9 +141,16 @@ export const DataCardButton = ({
 }
 
 export const DataCardPicture = ({
-    src
+    src,
+    squared = false,
 }) => (
-    <div className="data-card-picture">
+    <div 
+        className={`${
+            "data-card-picture"
+        } ${
+            squared ? 'squared' : ''
+        }`}
+    >
         <img 
             className="image-cover w-100 h-100"
             src={src}

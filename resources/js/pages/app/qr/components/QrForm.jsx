@@ -170,6 +170,10 @@ export const QrForm = ({
     }, [form.style.image, selectedId])
 
     useEffect(() => {
+        if (!form?.style?.qr_style) {
+            return
+        }
+        
         setSelectedStyle(form.style.qr_style)
     }, [form.style.qr_style])
 

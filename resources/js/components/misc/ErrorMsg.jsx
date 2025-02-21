@@ -9,8 +9,8 @@ export const ErrorMsg = ({
         className={wrapperClassName}
         noBorder
     >
-        <h4 className={`fw-normal text-center text-dark ${className}`}>
+        <h3 className={`fw-normal text-center text-dark ${className}`}>
             { message }
-        </h4>
+        </h3>
     </Card>
 )

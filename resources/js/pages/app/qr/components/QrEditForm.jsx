@@ -7,6 +7,10 @@ import { toggleModal } from "@/helpers/toggleModal";
 import { QR_GROUP_UPDATE } from "@/configs/permissions";
 import { toDashboard } from "@/helpers/navigation";
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions";
+import { Button } from "@/components/buttons/Button";
+import { route } from "ziggy-js";
+import { QrRoute } from "@/routes/app";
+import { ArrowLeft } from "@/icons/ArrowLeft";
 
 export const QrEditProvider = ({children}) => (
     <QrFormProvider>
@@ -50,6 +54,16 @@ export const QrEditForm = () => {
 
     return (
         <>
+            <div className="container text-end mb-3">
+                <Button
+                    outline
+                    small
+                    linkAsButton
+                    href={route(QrRoute)}
+                >
+                    <ArrowLeft size={24}/> Back
+                </Button>
+            </div>
             <section className="container">
                 <QrForm
                     onSuccess={handleSuccess}

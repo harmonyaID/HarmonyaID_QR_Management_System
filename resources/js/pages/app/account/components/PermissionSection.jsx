@@ -36,7 +36,7 @@ export const PermissionSection = () => {
             }`}
         >
             <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
-                <h3 className="flex-shrink-0 fs-5 mb-0">
+                <h3 className="flex-shrink-0 mb-0">
                     Manage Permissions
                 </h3>
             </header>
