@@ -84,6 +84,13 @@
     &.squared {
         border-radius: .5rem;
     }
+
+    &.small {
+        width: 2.25rem;
+        max-width: 2.25rem;
+        height: 2.25rem;
+        max-height: 2.25rem;
+    }
 }
 
 .card.selectable {
