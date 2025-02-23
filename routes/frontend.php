@@ -23,5 +23,6 @@ Route::prefix('app')
     ->group(function () use ($base) {
         require($base . "account.php");
         require($base . "dashboard.php");
+        require($base . "misc.php");
         require($base . "qr.php");
     });

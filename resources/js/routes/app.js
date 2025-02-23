@@ -12,3 +12,6 @@ export const AccountRoute = 'frontend.app.accounts.index'
 export const AccountSettingRoute = 'frontend.app.accounts.settings'
 export const UsageCategoryRoute = 'frontend.app.accounts.usage-category'
 export const PlanRoute = 'frontend.app.accounts.plans'
+
+export const FaqRoute = 'frontend.app.faqs.index'
+export const FaqManageRoute = 'frontend.app.faqs.manage'

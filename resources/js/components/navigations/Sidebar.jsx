@@ -1,7 +1,7 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { AccountRoute, AccountSettingRoute, DashboardRoute, PlanRoute, QrRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
+import { AccountRoute, AccountSettingRoute, DashboardRoute, FaqManageRoute, FaqRoute, PlanRoute, QrRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
 import { User } from "@/icons/User"
 import { Link } from "@inertiajs/react"
@@ -9,7 +9,8 @@ import { Setting } from "@/icons/Setting"
 import { route } from "ziggy-js"
 import { QrCode } from "@/icons/QrCode"
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
-import { ACCOUNT_SETTING_GROUP, QR_GROUP_ALL, QR_SETTING_GROUP } from "@/configs/permissions"
+import { ACCOUNT_SETTING_GROUP, FAQ_GROUP_ALL, QR_GROUP_ALL, QR_SETTING_GROUP } from "@/configs/permissions"
+import { Chat } from "@/icons/Chat"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -73,6 +74,15 @@ export const Sidebar = () => {
                             { href: route(AccountRoute), label: 'Account', icon: User },
                             { href: route(AccountSettingRoute), label: 'Account Setting', icon: Setting, permissions: ACCOUNT_SETTING_GROUP },
                             // { href: route(PlanRoute), label: 'Plan', icon: Star },
+                        ]}
+                    />
+                    <SidebarHeader>
+                        Help
+                    </SidebarHeader>
+                    <SidebarList
+                        items={[
+                            { href: route(FaqRoute), label: 'Frequently Asked Question', icon: Chat },
+                            { href: route(FaqManageRoute), label: 'Manage FAQ', icon: Setting, permissions: FAQ_GROUP_ALL },
                         ]}
                     />
                 </section>

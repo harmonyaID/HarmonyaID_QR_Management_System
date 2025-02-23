@@ -70,6 +70,16 @@ class PermissionSeeder extends Seeder
             ['name' => 'Read QR Code', 'code' => PermissionCode::QR_READ],
             ['name' => 'Update QR Code', 'code' => PermissionCode::QR_UPDATE],
             ['name' => 'Delete QR Code', 'code' => PermissionCode::QR_DELETE],
+            
+            ['name' => 'All FAQ Permissions', 'code' => PermissionCode::FAQS_ALL],
+            ['name' => 'Create FAQ', 'code' => PermissionCode::FAQS_CREATE],
+            ['name' => 'Read FAQ', 'code' => PermissionCode::FAQS_READ],
+            ['name' => 'Update FAQ', 'code' => PermissionCode::FAQS_UPDATE],
+            ['name' => 'Delete FAQ', 'code' => PermissionCode::FAQS_DELETE],
+
+            ['name' => 'Read All Activity Logs', 'code' => PermissionCode::ACTIVITIES_READ_ALL],
+            ['name' => 'Read Activity Logs', 'code' => PermissionCode::ACTIVITIES_READ],
+            ['name' => 'Manage System', 'code' => PermissionCode::SYSTEM_ALL],
         ];
     }
 

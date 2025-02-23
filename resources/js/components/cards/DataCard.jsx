@@ -143,10 +143,13 @@ export const DataCardButton = ({
 export const DataCardPicture = ({
     src,
     squared = false,
+    small   = false,
 }) => (
     <div 
         className={`${
             "data-card-picture"
+        } ${
+            small ? 'small' : ''
         } ${
             squared ? 'squared' : ''
         }`}

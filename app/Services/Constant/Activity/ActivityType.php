@@ -19,6 +19,9 @@ class ActivityType extends BaseCodeName
     const QR_TYPE = 'qr type';
     const QR_VISITOR = 'qr visitor';
 
+    const MISC = 'misc';
+    const FAQ = 'faq';
+
     const OPTION = [
         self::GENERAL,
         self::COMPONENT,
@@ -32,6 +35,9 @@ class ActivityType extends BaseCodeName
         self::QR,
         self::QR_TYPE,
         self::QR_VISITOR,
+
+        self::MISC,
+        self::FAQ,
     ];
 
 }
