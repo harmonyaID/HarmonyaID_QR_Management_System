@@ -19,7 +19,7 @@ class QrSettingController extends Controller
                 PermissionCode::QR_TYPES_UPDATE,
                 PermissionCode::QR_TYPES_DELETE,
             )) {
-                return redirect()->back()->withErrors('Unauthorized');
+                return redirect()->route('frontend.app.dashboard.index')->withErrors('Unauthorized');
             }
 
             return $next($request);

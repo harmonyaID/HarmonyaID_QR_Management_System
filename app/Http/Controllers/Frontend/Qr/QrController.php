@@ -20,7 +20,7 @@ class QrController extends Controller
                 PermissionCode::QR_UPDATE,
                 PermissionCode::QR_DELETE,
             )) {
-                return redirect()->back()->withErrors('Unauthorized');
+                return redirect()->route('frontend.app.dashboard.index')->withErrors('Unauthorized');
             }
 
             return $next($request);
@@ -31,7 +31,7 @@ class QrController extends Controller
                 PermissionCode::QR_ALL, 
                 PermissionCode::QR_CREATE,
             )) {
-                return redirect()->back()->withErrors('Unauthorized');
+                return redirect()->route('frontend.app.dashboard.index')->withErrors('Unauthorized');
             }
 
             return $next($request);
@@ -42,7 +42,7 @@ class QrController extends Controller
                 PermissionCode::QR_ALL, 
                 PermissionCode::QR_UPDATE,
             )) {
-                return redirect()->back()->withErrors('Unauthorized');
+                return redirect()->route('frontend.app.dashboard.index')->withErrors('Unauthorized');
             }
 
             return $next($request);

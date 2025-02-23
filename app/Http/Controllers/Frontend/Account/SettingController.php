@@ -37,7 +37,7 @@ class SettingController extends Controller
                 PermissionCode::USAGE_CATEGORIES_UPDATE,
                 PermissionCode::USAGE_CATEGORIES_DELETE,
             )) {
-                return redirect()->back()->withErrors('Unauthorized');
+                return redirect()->route('frontend.app.dashboard.index')->withErrors('Unauthorized');
             }
 
             return $next($request);
