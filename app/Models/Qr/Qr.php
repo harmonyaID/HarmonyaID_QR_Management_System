@@ -8,6 +8,7 @@ use App\Models\Qr\Traits\CanGenerateQr;
 use App\Models\Qr\Traits\HasActivityQrProperty;
 use App\Models\Scopes\Qr\QrOwnerScope;
 use App\Services\Constant\Qr\QrDataType;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,6 +49,13 @@ class Qr extends BaseModel
     {
         if ($this->hasSearch($request)) {
             $query->where('name', 'ILIKE', "%{$request->search}%");
+        }
+
+        if ($this->hasCreatedAt($request)) {
+            $from = Carbon::createFromFormat('d F Y', $request->createdFrom)->startOfDay();
+            $to = Carbon::createFromFormat('d F Y', $request->createdTo)->endOfDay();
+
+            $query->whereBetween('createdAt', [$from, $to]);
         }
 
         return $query;

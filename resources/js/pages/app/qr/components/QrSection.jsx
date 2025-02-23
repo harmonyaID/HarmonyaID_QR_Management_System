@@ -153,6 +153,7 @@ export const QrSection = () => {
                 </header>
                 <SearchForm
                     className="mb-3"
+                    withCreatedAt
                 />
                 { isLoading ? (
                     <div className="text-center">
