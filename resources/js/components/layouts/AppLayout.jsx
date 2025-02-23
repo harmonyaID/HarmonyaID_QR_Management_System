@@ -3,6 +3,7 @@ import { Sidebar } from "../navigations/Sidebar";
 import { Navbar } from "../navigations/Navbar";
 import { Head } from "@inertiajs/react";
 import { useEffect } from "react";
+import "quill/dist/quill.snow.css";
 
 export const AppLayout = ({
     title = '',
