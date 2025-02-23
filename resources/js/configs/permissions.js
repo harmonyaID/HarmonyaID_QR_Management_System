@@ -205,4 +205,34 @@ export const QR_GROUP_DELETE = [
     QR_DELETE
 ]
 
+export const FAQ_ALL     = 'faqs.*'
+export const FAQ_CREATE  = 'faqs.create'
+export const FAQ_READ    = 'faqs.read'
+export const FAQ_UPDATE  = 'faqs.update'
+export const FAQ_DELETE  = 'faqs.delete'
+
+export const FAQ_GROUP_ALL = [
+    FAQ_ALL,
+    FAQ_CREATE,
+    FAQ_READ,
+    FAQ_UPDATE,
+    FAQ_DELETE
+]
+export const FAQ_GROUP_CREATE = [
+    FAQ_ALL,
+    FAQ_CREATE
+]
+export const FAQ_GROUP_READ = [
+    FAQ_ALL,
+    FAQ_READ
+]
+export const FAQ_GROUP_UPDATE = [
+    FAQ_ALL,
+    FAQ_UPDATE
+]
+export const FAQ_GROUP_DELETE = [
+    FAQ_ALL,
+    FAQ_DELETE
+]
+
 export const ACTIVITIES_READ = 'activities.read'

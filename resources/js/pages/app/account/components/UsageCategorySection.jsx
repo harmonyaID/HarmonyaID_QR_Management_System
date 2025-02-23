@@ -142,7 +142,7 @@ export const UsageCategorySection = () => {
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
                                                 squared
-                                                src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                                src={ category.icon ? storage_url(category.icon) : `https://ui-avatars.com/api/?name=${category.name}&rounded=true&color=FFFFFF&background=0056B3&font-size=0.35` }
                                             />
                                         </div>
                                         <div className="flex-grow-1">

@@ -10,3 +10,5 @@ export const MDUsageCategoryDelete = 'modal-usage-category-delete'
 export const MDUserDelete = 'modal-user-delete'
 export const MDRoleDelete = 'modal-role-delete'
 export const MDPlanDelete = 'modal-plan-delete'
+
+export const MDFaqDelete = 'modal-faq-delete'

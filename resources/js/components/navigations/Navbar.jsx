@@ -118,7 +118,7 @@ const ProfileDropdown = () => {
             >
                 <div className="navbar-photo rounded-circle overflow-hidden">
                     <img 
-                        src={ photoUrl || `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                        src={ photoUrl || `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0056B3&font-size=0.35` }
                         alt="Profile"
                         className="object-fit-cover w-100 h-100"
                     />

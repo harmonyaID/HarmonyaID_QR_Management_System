@@ -144,7 +144,7 @@ export const QrTypeSection = () => {
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
                                                 squared
-                                                src={ type.icon ? storage_url(type.icon) : `https://ui-avatars.com/api/?name=${type.name}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                                src={ type.icon ? storage_url(type.icon) : `https://ui-avatars.com/api/?name=${type.name}&rounded=true&color=FFFFFF&background=0056B3&font-size=0.35` }
                                             />
                                         </div>
                                         <div className="flex-grow-1">

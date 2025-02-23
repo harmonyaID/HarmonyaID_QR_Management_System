@@ -143,7 +143,7 @@ export const UserSection = () => {
                                     <div className="d-flex gap-3 justify-content-center align-items-center">
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
-                                                src={ `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0099AB&font-size=0.35` }
+                                                src={ `https://ui-avatars.com/api/?name=${user.fullname}&rounded=true&color=FFFFFF&background=0056B3&font-size=0.35` }
                                             />
                                         </div>
                                         <div className="flex-grow-1">
