@@ -21,9 +21,9 @@ export const AppLayout = ({
             <SidebarProvider>
                 <div className="d-flex">
                     <Sidebar/>
-                    <main className="flex-grow-1">
+                    <main className="flex-grow-1 min-vh-100 d-flex flex-column justify-content-start">
                         <Navbar title={title}/>
-                        <div className="m-2 px-3 py-4">
+                        <div className="m-2 px-3 py-4 flex-grow-1">
                             { children }
                         </div>
                     </main>

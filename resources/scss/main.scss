@@ -15,6 +15,7 @@
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/helpers";
 @import "bootstrap/scss/forms";
+@import "bootstrap/scss/accordion";
 @import "bootstrap/scss/buttons";
 // @import "bootstrap/scss/button-group";
 @import "bootstrap/scss/badge";
@@ -29,6 +30,7 @@
 @import "bootstrap/scss/tooltip";
 @import "bootstrap/scss/transitions";
 
+@import "components/accordion";
 @import "components/badge";
 @import "components/button";
 @import "components/card";
@@ -47,6 +49,7 @@
 @import "components/select";
 @import "components/sidebar";
 @import "components/tables";
+@import "components/text";
 @import "components/transforms";
 @import "components/transition";
 

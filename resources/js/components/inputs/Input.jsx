@@ -1,9 +1,10 @@
 import { useChangeHandler } from "@/hooks/useChangeHandler"
 
 export const Input = ({
-    id      = '',
-    name    = '',
-    label   = '',
+    id          = '',
+    name        = '',
+    label       = '',
+    hideLabel   = '',
     value,
     horizontal      = false,
     className       = '',
@@ -30,35 +31,37 @@ export const Input = ({
                 className
             }`}
         >
-            <div
-                className={`${
-                    !horizontal ? 'd-grid grid-cols-5' : ''
-                }`}
-            >
-                <label 
+            { !hideLabel ? (
+                <div
                     className={`${
-                        horizontal ? '' :
-                        !errorMsg ? 'grid-span-5' :
-                        'grid-span-3'
+                        !horizontal ? 'd-grid grid-cols-5' : ''
                     }`}
-                    htmlFor={inputId}
-                    title={ errorMsg ? `Error: ${errorMsg}` : '' }
                 >
-                    { label || name }
-                    { required ? (
-                        <span className="text-crimson-500">*</span>
+                        <label 
+                            className={`${
+                                horizontal ? '' :
+                                !errorMsg ? 'grid-span-5' :
+                                'grid-span-3'
+                            }`}
+                            htmlFor={inputId}
+                            title={ errorMsg ? `Error: ${errorMsg}` : '' }
+                        >
+                            { label || name }
+                            { required ? (
+                                <span className="text-crimson-500">*</span>
+                            ) : (<></>) }
+                        </label>
+                    { !horizontal && errorMsg ? (
+                        <div 
+                            id={`${inputId}-feedback`}
+                            className="invalid-feedback grid-span-2 align-self-end text-end overflow-hidden text-truncate"
+                            title={errorMsg}
+                        >
+                            { errorMsg }
+                        </div>
                     ) : (<></>) }
-                </label>
-                { !horizontal && errorMsg ? (
-                    <div 
-                        id={`${inputId}-feedback`}
-                        className="invalid-feedback grid-span-2 align-self-end text-end overflow-hidden text-truncate"
-                        title={errorMsg}
-                    >
-                        { errorMsg }
-                    </div>
-                ) : (<></>) }
-            </div>
+                </div>
+            ) : (<></>) }
             <div
                 className={`${
                     "form-control-container"
@@ -80,6 +83,8 @@ export const Input = ({
                         'form-control'
                     } ${
                         errorMsg ? 'is-invalid' : ''
+                    } ${
+                        hideLabel ? 'h-100' : ''
                     } ${
                         inputClassName
                     }`}
