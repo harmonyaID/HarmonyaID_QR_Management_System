@@ -73,7 +73,6 @@ export const Sidebar = () => {
                         items={[
                             { href: route(AccountRoute), label: 'Account', icon: User },
                             { href: route(AccountSettingRoute), label: 'Account Setting', icon: Setting, permissions: ACCOUNT_SETTING_GROUP },
-                            // { href: route(PlanRoute), label: 'Plan', icon: Star },
                         ]}
                     />
                     <SidebarHeader>
@@ -112,110 +111,30 @@ const SidebarList = ({
 const SidebarItem = ({
     label,
     href,
-    subItems,
-    alias,
     permissions,
     icon
 }) => {
     const Icon = icon
     const location = window.location.href
-    // const subItemId = `nav-${alias}`
     const isActive = href == location
     const hasPermissions = useHasAnyPermissions(permissions)
-    
-    const [open, setOpen] = useState(isActive)
-
-    // const handleToggleCollapse = () => {
-    //     toggleCollapse(subItemId, !open)
-    //     setOpen(!open)
-    // }
 
     if (!hasPermissions) {
         return <></>
     }
 
-    // if (!Array.isArray(subItems) || !subItems.length) {
-        return (
-            <li className={isActive ? 'active' : ''}>
-                <Link 
-                    href={href}
-                    className="stretched-link"
-                    title={label}
-                >
-                    <Icon size={24} className="menu-icon"/>
-                    <span className="menu-label">
-                        { label }
-                    </span>
-                </Link>
-            </li>
-        )
-    // }
-
-    // return (
-    //     <li 
-    //         className={`flex-wrap ${isActive ? 'active' : ''}`}
-    //     >
-    //         <div 
-    //             className="menu-extendable-label flex-shrink-0"
-    //             onClick={handleToggleCollapse}
-    //             title={label}
-    //         >
-    //             <Icon className="menu-icon"/>
-    //             <span className="menu-label">
-    //                 { label }
-    //             </span>
-    //             { open ? (
-    //                 <ArrowUp2 className="menu-icon"/>
-    //             ) : (
-    //                 <ArrowDown2 className="menu-icon"/>
-    //             ) }
-    //         </div>
-    //         <ul 
-    //             id={`nav-${alias}`} 
-    //             className={`collapse ${isActive ? 'show' : ''}`}
-    //         >
-    //             { subItems.map(((item, index) => (
-    //                 <SidebarSubItem
-    //                     key={`nav-${alias}-sub-item-${index}`}
-    //                     label={item.label}
-    //                     href={item.href}
-    //                     permissions={item.permissions}
-    //                     icon={item.icon}
-    //                 />
-    //             ))) }
-    //         </ul>
-    //     </li>
-    // )
-}
-
-const SidebarSubItem  = ({
-    label,
-    href,
-    permissions,
-    icon,
-}) => {
-    // const { pathname } = useLocation()
-    // const hasPermissions = useHasAnyPermissions(permissions)
-    const Icon = icon
-
-    // if (!hasPermissions) {
-    //     return <></>
-    // }
-
     return (
-        <li 
-            // className={pathname.startsWith(href) ? 'active' : ''}
-        >
-            <Link
+        <li className={isActive ? 'active' : ''}>
+            <Link 
                 href={href}
                 className="stretched-link"
                 title={label}
             >
-                <Icon className="menu-icon" size="1.2rem"/>
+                <Icon size={24} className="menu-icon"/>
                 <span className="menu-label">
                     { label }
                 </span>
             </Link>
         </li>
-    )
+    )    
 }
