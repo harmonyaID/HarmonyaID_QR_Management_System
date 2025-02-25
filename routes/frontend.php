@@ -22,6 +22,7 @@ Route::prefix('app')
     ->middleware('auth')
     ->group(function () use ($base) {
         require($base . "account.php");
+        require($base . "activity.php");
         require($base . "dashboard.php");
         require($base . "misc.php");
         require($base . "qr.php");

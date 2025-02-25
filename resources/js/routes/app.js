@@ -8,6 +8,8 @@ export const QrEmbedImageRoute = 'frontend.app.qr-codes.embed-image';
 
 export const QrSettingRoute = 'frontend.app.qr-codes.settings'
 
+export const ActivityRoute = 'frontend.app.activities.index'
+
 export const AccountRoute = 'frontend.app.accounts.index'
 export const AccountSettingRoute = 'frontend.app.accounts.settings'
 export const UsageCategoryRoute = 'frontend.app.accounts.usage-category'

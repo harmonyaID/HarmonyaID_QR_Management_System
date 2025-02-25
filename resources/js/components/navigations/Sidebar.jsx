@@ -1,7 +1,7 @@
 import { SidebarContext } from "@/contexts/navigations/SidebarContext"
 import { useContext, useState } from "react"
 import { Logo } from "../brandings/Logo"
-import { AccountRoute, AccountSettingRoute, DashboardRoute, FaqManageRoute, FaqRoute, PlanRoute, QrRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
+import { AccountRoute, AccountSettingRoute, ActivityRoute, DashboardRoute, FaqManageRoute, FaqRoute, PlanRoute, QrRoute, QrSettingRoute, UsageCategoryRoute } from "@/routes/app"
 import { House } from "@/icons/House"
 import { User } from "@/icons/User"
 import { Link } from "@inertiajs/react"
@@ -11,6 +11,7 @@ import { QrCode } from "@/icons/QrCode"
 import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 import { ACCOUNT_SETTING_GROUP, FAQ_GROUP_ALL, QR_GROUP_ALL, QR_SETTING_GROUP } from "@/configs/permissions"
 import { Chat } from "@/icons/Chat"
+import { Operation } from "@/icons/Operation"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
@@ -82,6 +83,14 @@ export const Sidebar = () => {
                         items={[
                             { href: route(FaqRoute), label: 'Frequently Asked Question', icon: Chat },
                             { href: route(FaqManageRoute), label: 'Manage FAQ', icon: Setting, permissions: FAQ_GROUP_ALL },
+                        ]}
+                    />
+                    <SidebarHeader>
+                        Activity
+                    </SidebarHeader>
+                    <SidebarList
+                        items={[
+                            { href: route(ActivityRoute), label: 'Activity Logs', icon: Operation },
                         ]}
                     />
                 </section>
