@@ -4,7 +4,6 @@ import { ErrorMsg } from "@/components/misc/ErrorMsg"
 import { Pagination } from "@/components/navigations/Pagination"
 import { FaqSearchContext, FaqSearchForm } from "./FaqSearchForm"
 import { useGetFaq } from "@/services/swr/misc"
-import { Card } from "@/components/cards/Card"
 import { Accordion } from "@/components/misc/Accordion"
 
 export const FaqList = () => {
@@ -42,7 +41,7 @@ export const FaqList = () => {
                             key={`faq-question-${faq.id}`}
                             title={faq.question}
                         >
-                            <p dangerouslySetInnerHTML={{__html: faq.answer}}/>
+                            <div className="text-break" dangerouslySetInnerHTML={{__html: faq.answer}}/>
                         </Accordion>
                     )) }
                     <Pagination

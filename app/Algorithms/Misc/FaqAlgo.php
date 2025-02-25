@@ -26,7 +26,7 @@ class FaqAlgo
                 ]);
 
                 $this->faq->setActivityPropertyAttributes(ActivityAction::CREATE)
-                    ->saveActivity('Create new FAQ: ' . $this->faq->name . '[' . $this->faq->id . ']');
+                    ->saveActivity('Create new FAQ: ' . $this->faq->question . ' [' . $this->faq->id . ']');
             });
 
             return success($this->faq);
@@ -47,7 +47,7 @@ class FaqAlgo
                 $this->faq->update($request->validated());
 
                 $this->faq->setActivityPropertyAttributes(ActivityAction::UPDATE)
-                    ->saveActivity('Update FAQ: ' . $this->faq->name . '[' . $this->faq->id . ']');
+                    ->saveActivity('Update FAQ: ' . $this->faq->question . ' [' . $this->faq->id . ']');
             });
 
             return success($this->faq);
@@ -68,7 +68,7 @@ class FaqAlgo
                 $this->faq->delete();
 
                 $this->faq->setActivityPropertyAttributes(ActivityAction::DELETE)
-                    ->saveActivity('Delete FAQ: ' . $this->faq->name . '[' . $this->faq->id . ']');
+                    ->saveActivity('Delete FAQ: ' . $this->faq->question . ' [' . $this->faq->id . ']');
             });
 
             return success($this->faq);
