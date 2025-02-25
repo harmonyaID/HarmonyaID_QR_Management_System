@@ -41,3 +41,9 @@ php artisan db:seed
 # Compile frontend files
 npm run build
 ```
+
+### Queue List
+
+| Name | Usage |
+| ---- | ----- |
+| default | Permission Caching |
