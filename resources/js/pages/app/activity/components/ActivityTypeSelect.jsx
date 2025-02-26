@@ -3,12 +3,6 @@ import { upperCaseFirst } from "@/helpers/formatter"
 import { useGetActivityTypes } from "@/services/swr/activity"
 import { useCallback, useRef, useState } from "react"
 
-const ActivityTypeSelectTemplate = ({item}) => (
-    <div>
-        { upperCaseFirst(item) }
-    </div>
-)
-
 export const ActivityTypeSelect = ({
     name = 'activityType',
     label= 'Type',
@@ -42,7 +36,8 @@ export const ActivityTypeSelect = ({
             label={label}
             onChange={onChange}
             onSearch={handleSearch}
-            component={ActivityTypeSelectTemplate}
+            valueKey="value"
+            searchKey="label"
             { ...props }
         />
     )

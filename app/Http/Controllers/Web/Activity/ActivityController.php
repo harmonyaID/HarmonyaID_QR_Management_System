@@ -30,13 +30,7 @@ class ActivityController extends Controller
      */
     public function getTypes(Request $request)
     {
-        $types = ActivityType::OPTION;
-        if (!empty($request->search)) {
-            $types = array_filter($types, function ($type) use ($request) {
-                $search = strtolower($request->search);
-                return str_contains($type, $search);
-            });
-        }
+        $types = ActivityType::getTypes($request);
 
         return success($types);
     }
