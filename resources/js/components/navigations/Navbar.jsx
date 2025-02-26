@@ -12,6 +12,7 @@ import { Fold } from "@/icons/Fold"
 import { Expand } from "@/icons/Expand"
 import { toggleModal } from "@/helpers/toggleModal"
 import { usePage } from "@inertiajs/react"
+import { AccountRoute } from "@/routes/app"
 
 export const Navbar = ({
     title
@@ -131,7 +132,7 @@ const ProfileDropdown = () => {
                     <hr className="dropdown-divider"/>
                     <a
                         className="dropdown-item cursor-pointer"
-                        href={'#'}
+                        href={route(AccountRoute)}
                         onClick={handleRedirect}
                     >
                         <span className="me-2">

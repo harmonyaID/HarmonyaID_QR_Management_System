@@ -44,9 +44,9 @@ export const AccountSettingSection = () => {
             panels.push('usage categories')
         }
 
-        if (canAccessPlan) {
-            panels.push('plans')
-        }
+        // if (canAccessPlan) {
+        //     panels.push('plans')
+        // }
 
         return panels
     }, [canAccessRole, canAccessPerm, canAccessUsage, canAccessPlan])
