@@ -1,7 +1,7 @@
 import { Button } from "@/components/buttons/Button"
 import { Card } from "@/components/cards/Card"
 import { storage_url } from "@/helpers/url"
-import { UsageCategoryRoute } from "@/routes/app"
+import { SetupUsageCategory } from "@/routes/setup"
 import { route } from "ziggy-js"
 
 export const UsageCategoryCard = ({
@@ -35,7 +35,7 @@ export const UsageCategoryCard = ({
                         <Button 
                             link 
                             small
-                            href={route(UsageCategoryRoute)}
+                            href={route(SetupUsageCategory)}
                         >
                             Change
                         </Button>

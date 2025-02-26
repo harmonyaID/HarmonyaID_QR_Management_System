@@ -11,10 +11,6 @@ export const AccountSection = () => {
                 category={data?.result}
                 loading={isLoading}
             />
-            
-            <ErrorMsg
-                message="Work In Progress"
-            />
         </div>
     )
 }
