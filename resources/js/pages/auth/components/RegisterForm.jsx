@@ -1,4 +1,5 @@
 import { Button } from "@/components/buttons/Button"
+import { GoogleButton } from "@/components/buttons/GoogleButton"
 import { Form } from "@/components/forms/Form"
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
@@ -199,7 +200,7 @@ export const RegisterForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="d-grid grid-span-2">
+                <div className="d-grid gap-1 grid-span-2">
                     <Button disabled={isLoading}>
                         { isLoading ? (
                             <Loader small className="me-2"/>
@@ -213,6 +214,9 @@ export const RegisterForm = () => {
                     >
                         Sign In
                     </Button>
+                    <GoogleButton>
+                        Sign Up with Google
+                    </GoogleButton>
                 </div>
             </section>
         </Form>

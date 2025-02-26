@@ -1,6 +1,8 @@
 export const LoginRoute = 'frontend.auth.login'
 export const RegisterRoute = 'frontend.auth.register'
 export const ForgotPasswordRoute = 'frontend.auth.forgot-password'
+export const LoginGoogleRoute = 'frontend.auth.google.login'
+export const AuthorizeGoogleRoute = 'frontend.auth.google.authorize'
 
 export const LoginApiRoute = 'web.auth.login'
 export const RegisterApiRoute = 'web.auth.register'

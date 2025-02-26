@@ -42,6 +42,20 @@ php artisan db:seed
 npm run build
 ```
 
+Add Google client id and client secret to .env
+
+```
+GOOGLE_CLIENT_ID=<client_id>
+GOOGLE_CLIENT_SECRET=<client_secret>
+```
+
+Register redirect url on your Google cloud console
+
+```
+https://<your-domain>/auth/google/authorize
+# Example: https://example.com/auth/google.authorize
+```
+
 ### Queue List
 
 | Name | Usage |

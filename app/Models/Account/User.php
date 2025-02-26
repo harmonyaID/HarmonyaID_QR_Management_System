@@ -19,6 +19,8 @@ class User extends BaseAuthenticatable
 
     protected $guarded = ['id'];
 
+    protected $rememberTokenName = 'rememberToken';
+
     protected $casts = [
         self::CREATED_AT    => 'datetime',
         self::UPDATED_AT    => 'datetime',

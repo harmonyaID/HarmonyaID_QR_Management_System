@@ -1,4 +1,5 @@
 import { Button } from "@/components/buttons/Button"
+import { GoogleButton } from "@/components/buttons/GoogleButton"
 import { Form } from "@/components/forms/Form"
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
@@ -91,7 +92,7 @@ export const LoginForm = () => {
                     Forgot password?
                 </Link>
             </div>
-            <div className="d-grid">
+            <div className="d-grid gap-1">
                 <Button disabled={isLoading}>
                     { isLoading ? (
                         <Loader small className="me-2"/>
@@ -105,6 +106,9 @@ export const LoginForm = () => {
                 >
                     Sign Up
                 </Button>
+                <GoogleButton>
+                    Sign In with Google
+                </GoogleButton>
             </div>
         </Form>
     )
