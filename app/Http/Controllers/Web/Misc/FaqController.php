@@ -22,14 +22,6 @@ class FaqController extends Controller
         })->only('create');
 
         $this->middleware(function ($request, $next) {
-            if (!has_permissions(PermissionCode::FAQS_ALL, PermissionCode::FAQS_READ)) {
-                errUnauthorized();
-            }
-
-            return $next($request);
-        })->only('get');
-
-        $this->middleware(function ($request, $next) {
             if (!has_permissions(PermissionCode::FAQS_ALL, PermissionCode::FAQS_UPDATE)) {
                 errUnauthorized();
             }

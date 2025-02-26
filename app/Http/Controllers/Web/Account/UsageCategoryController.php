@@ -24,14 +24,6 @@ class UsageCategoryController extends Controller
         })->only('create');
 
         $this->middleware(function ($request, $next) {
-            if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_READ)) {
-                errUnauthorized();
-            }
-
-            return $next($request);
-        })->only('get');
-
-        $this->middleware(function ($request, $next) {
             if (!has_permissions(PermissionCode::USAGE_CATEGORIES_ALL, PermissionCode::USAGE_CATEGORIES_UPDATE)) {
                 errUnauthorized();
             }

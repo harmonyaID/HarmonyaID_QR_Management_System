@@ -22,14 +22,6 @@ class QrTypeController extends Controller
         })->only('create');
 
         $this->middleware(function ($request, $next) {
-            if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_READ)) {
-                errUnauthorized();
-            }
-
-            return $next($request);
-        })->only('get');
-
-        $this->middleware(function ($request, $next) {
             if (!has_permissions(PermissionCode::QR_TYPES_ALL, PermissionCode::QR_TYPES_UPDATE)) {
                 errUnauthorized();
             }
