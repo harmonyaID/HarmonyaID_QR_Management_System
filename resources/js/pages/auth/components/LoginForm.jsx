@@ -67,6 +67,7 @@ export const LoginForm = () => {
                 onChange={handleChange}
                 placeholder="e.g hello@example.com"
                 className="pb-2 mb-4"
+                required
             />
             <Input
                 name="password"
@@ -76,6 +77,7 @@ export const LoginForm = () => {
                 onChange={handleChange}
                 placeholder="••••••"
                 className="pb-2 mb-1"
+                required
             />
             <div className="d-flex justify-content-between align-items-center pb-3 mb-3">
                 <Checkbox
