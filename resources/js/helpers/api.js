@@ -6,6 +6,7 @@ const CancelToken = axios.CancelToken
 
 const isSuccess = (response) => response.status == 200
 const handleError = (error) => {
+    console.error(error)
     if (axios.isCancel(error)) {
         return
     }
