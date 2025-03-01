@@ -61,7 +61,6 @@ export const QrSection = () => {
 
     const handleEdit = (selected) => {
         return (event) => {
-            console.log('edit')
             event.preventDefault()
             event.stopPropagation()
 
@@ -75,7 +74,6 @@ export const QrSection = () => {
 
     const handleDelete = (selected) => {
         return (event) => {
-            console.log('delete')
             event.preventDefault()
             event.stopPropagation()
 
