@@ -27,10 +27,10 @@ class SystemAlgo
 
     public function getSize()
     {
-        // if (Cache::has(CacheKey::APP_SIZE)) {
-        //     $size = Cache::get(CacheKey::APP_SIZE);
-        //     return success(['size' => $this->parseSize($size)]);
-        // }
+        if (Cache::has(CacheKey::APP_SIZE)) {
+            $size = Cache::get(CacheKey::APP_SIZE);
+            return success(['size' => $this->parseSize($size)]);
+        }
 
         $size = $this->getDirSize(base_path());
 
