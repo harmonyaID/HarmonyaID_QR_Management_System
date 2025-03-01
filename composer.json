@@ -1,7 +1,8 @@
 {
-    "name": "yusologia/lara-backend-service",
+    "name": "synchat/qr_code_generator",
+    "version": "1.0.0",
     "type": "project",
-    "description": "Yusologia Default Backend Service.",
+    "description": "QR Code Generator.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {

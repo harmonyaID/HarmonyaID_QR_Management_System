@@ -236,3 +236,4 @@ export const FAQ_GROUP_DELETE = [
 ]
 
 export const ACTIVITIES_READ = 'activities.read'
+export const SYSTEM_ALL = 'system.*'

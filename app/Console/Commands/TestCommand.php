@@ -12,9 +12,9 @@ class TestCommand extends Command
 
     public function handle()
     {
-        $this->info(format_phone('ID', '085258430431'));
-        $this->info(format_phone('ID', '085258430431', PhoneNumberFormat::INTERNATIONAL));
-        $this->info(format_phone('ID', '085258430431', PhoneNumberFormat::NATIONAL));
-        $this->info(format_phone('ID', '085258430431', PhoneNumberFormat::RFC3966));
+        $bits = random_bytes(6);
+        $hex = bin2hex($bits);
+
+        $this->info($hex);
     }
 }

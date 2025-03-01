@@ -6,6 +6,7 @@ use App\Services\Constant\BaseCodeName;
 
 class CacheKey extends BaseCodeName
 {
+    const APP_SIZE = 'app-size';
     const PERMISSION = 'role-ability';
     const SUPERADMIN_ROLE = 'role-super';
 
