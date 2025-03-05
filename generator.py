@@ -1,5 +1,5 @@
 import click
-from .resources.python.main import generate
+from resources.python.main import generate
 
 @click.command()
 

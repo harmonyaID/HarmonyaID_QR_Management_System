@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use libphonenumber\PhoneNumberFormat;
 
 class TestCommand extends Command
 {
@@ -11,6 +12,9 @@ class TestCommand extends Command
 
     public function handle()
     {
-        //
+        $bits = random_bytes(6);
+        $hex = bin2hex($bits);
+
+        $this->info($hex);
     }
 }

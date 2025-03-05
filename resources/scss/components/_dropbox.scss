@@ -1,0 +1,13 @@
+.dropbox {
+    border: 2px dashed var(--bs-neutral-200);
+    max-height: 450px;
+
+    &.filled {
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    .display-container {
+        height: 300px;
+    }
+}

@@ -1,0 +1,54 @@
+@use "sass:map";
+
+$max-width-utils : (
+    "max-w" : (
+        property: max-width,
+        responsive: true,
+        class: max-w,
+        values: (
+            10: 10%,
+            10vw: 10vw,
+            20: 20%,
+            20vw: 20vw,
+            30: 30%,
+            30vw: 30vw,
+            40: 40%,
+            40vw: 40vw,
+            50: 50%,
+            50vw: 50vw,
+            60: 60%,
+            60vw: 60vw,
+            70: 70%,
+            70vw: 70vw,
+            80: 80%,
+            80vw: 80vw,
+            90: 90%,
+            90vw: 90vw,
+            100: 100%,
+            100vw: 100vw,
+        )
+    ),
+);
+
+$width-screen-utils : (
+    "w-screen" : (
+        property: width,
+        responsive: true,
+        class: w-screen,
+        values: (
+            10: 10vw,
+            20: 20vw,
+            30: 30vw,
+            40: 40vw,
+            50: 50vw,
+            60: 60vw,
+            70: 70vw,
+            80: 80vw,
+            90: 90vw,
+            100: 100vw,
+        )
+    ),
+);
+
+$utilities: map.merge($utilities, $max-width-utils);
+$utilities: map.merge($utilities, $width-screen-utils);

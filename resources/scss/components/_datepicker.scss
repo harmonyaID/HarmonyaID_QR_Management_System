@@ -1,0 +1,74 @@
+@import "vanillajs-datepicker/sass/datepicker-bs5";
+
+.datepicker-header {
+    .datepicker-controls {
+        padding: .5rem .5rem 0;
+
+        .view-switch {
+            font-size: .875rem;
+        }
+
+        .next-btn, .prev-btn {
+            font-size: 1.25rem;
+            color: var(--bs-primary);
+        }
+    }
+}
+
+.datepicker-main {
+    padding: .5rem;
+}
+
+.datepicker {
+    .days {
+        .dow {
+            color: var(--bs-primary)
+        }
+
+        .dow, .datepicker-cell {
+            font-size: .75rem;
+        }
+
+        .datepicker-cell {
+            &.range {
+                background-color: var(--bs-neutral-50);
+            }
+
+            &.selected {
+                background-color: var(--bs-primary);
+            }
+
+            &.range-start:not(.selected), &.range-end:not(.selected) {
+                background-color: var(--bs-neutral-200);
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.datepicker-extra {
+    border-top: 1px solid #C9C9D8;
+    border-bottom: 1px solid #C9C9D8;
+}
+
+.daterange-picker {
+    .input-group {
+
+        .form-control.last {
+            border-top-right-radius: $input-border-radius !important;
+            border-bottom-right-radius: $input-border-radius !important;
+        }
+
+        &.active {
+            .form-control {
+                color: $input-focus-color;
+                background-color: $input-focus-bg;
+                border-color: $input-focus-border-color;
+                outline: 0;
+            }
+            .input-group-text {
+                border-color: $input-focus-border-color;
+            }
+        }
+    }
+}

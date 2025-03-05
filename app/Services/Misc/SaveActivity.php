@@ -116,11 +116,10 @@ class SaveActivity
     {
         if (!$this->activity->causedBy) {
 
-            // TODO: Change to auth_company_office_ids() after install globalxtreme/laravel-identifier.
-//            if ($user = auth_user()) {
-//                $this->activity->causedBy = $user['id'];
-//                $this->activity->causedByName = $user['fullName'];
-//            }
+            if ($user = auth_user()) {
+                $this->activity->causedBy = $user['id'];
+                $this->activity->causedByName = $user['fullName'];
+            }
 
         }
 

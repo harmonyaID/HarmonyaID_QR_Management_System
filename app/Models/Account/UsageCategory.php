@@ -2,11 +2,15 @@
 
 namespace App\Models\Account;
 
+use App\Models\Account\Traits\HasActivityUsageCategoryProperty;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class UsageCategory extends BaseModel
 {
+    use HasActivityUsageCategoryProperty;
+    
     // protected $table = '';
     protected $guarded = ['id'];
 
@@ -15,6 +19,18 @@ class UsageCategory extends BaseModel
         self::UPDATED_AT => 'datetime',
         self::DELETED_AT => 'datetime'
     ];
+
+
+    // Scopes
+
+    public function scopeFilter ($query, Request $request)
+    {
+        if ($this->hasSearch($request)) {
+            $query->where('name', 'ILIKE', "%{$request->search}%");
+        }
+
+        return $query;
+    }
 
 
     // Relationships

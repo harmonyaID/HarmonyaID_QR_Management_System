@@ -1,0 +1,183 @@
+.page-sidebar {
+    width: 64px;
+
+    min-height: 100vh;
+    max-height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1021;
+
+    overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+        width: .125rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: white;
+    }
+    
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--bs-primary);
+        }
+    }
+
+    background-color: var(--bs-white);
+    border-right: 1px solid var(--bs-grey-950);
+    transition: width 300ms;
+
+    .logo-container {
+        text-align: center;
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+
+        img {
+            transition: width 300ms, height 300ms;
+        }
+    }
+
+    .menu-section {
+        .menu-name {
+            color: var(--bs-grey-700);
+            font-size: .75rem;
+            font-weight: 600;
+            line-height: 0;
+            padding: 0;
+            text-transform: uppercase;
+            max-width: 0;
+            overflow: hidden;
+            transition: max-width 300ms, padding 300ms, line-height 300ms;
+        }
+
+        .menu-list {
+            list-style-type: none;
+            padding-left: 0;
+
+            li {
+                position: relative;
+                padding: .25rem 1rem;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                min-height: 3rem;
+                
+                a {
+                    color: var(--bs-grey-700);
+                    width: 100%;
+                    text-decoration: none;
+
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .menu-extendable-label {
+                    color: var(--bs-grey-700);
+                    width: 100%;
+                    text-decoration: none;
+
+                    cursor: pointer;
+
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 2.5rem;
+                }
+
+                .menu-icon {
+                    font-size: 1.5rem;
+                    transition: margin 300ms;
+                }
+
+                .menu-label {
+                    font-weight: 400;
+                    line-height: 1.5;
+                    font-size: .875rem;
+                    flex-grow: 1;
+                    max-width: 0;
+                    overflow: hidden;
+                    transition: max-width 300ms;
+                }
+
+                
+                ul {
+                    padding-left: 0;
+                    margin: auto;
+
+                    li {
+                        padding-left: 0;
+                        padding-right: 0;
+
+                        .menu-icon {
+                            font-size: .875rem;
+                        }
+                    }
+                }
+
+                &:hover, &.active {
+                    &>a, &>.menu-extendable-label {
+                        color: var(--bs-primary);
+                        & > .menu-label{
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.active {
+        position: sticky;
+    }
+
+    &.active, &:hover {
+        width: 240px;
+
+        .menu-name {
+            max-width: 240px;
+            padding: 1rem 1rem .25rem;
+            line-height: 2;
+        }
+
+        .menu-list li {
+            .menu-icon {
+                margin-right: .875rem;
+            }
+            
+            .menu-label {
+                max-width: 160px;
+            }
+
+            ul {
+                margin: 0;
+                li {
+                    padding-left: 2.375rem;
+                    padding-right: inherit;
+                    .menu-icon {
+                        font-size: .875rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sidebar-replacement {
+    width: 64px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    flex-shrink: 0;
+}

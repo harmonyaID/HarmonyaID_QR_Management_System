@@ -1,0 +1,10 @@
+.nav-underline {
+    .nav-link {
+        padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+        color: var(--bs-neutral-300);
+
+        &.active {
+            font-weight: 600;
+        }
+    }
+}
