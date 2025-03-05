@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\Account\Permission;
+use App\Models\Account\User;
 use Illuminate\Support\Str;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\PhoneNumberUtil;
 
 if (!function_exists('filename')) {
 
@@ -81,6 +85,63 @@ if (!function_exists("alphabet_from_number")) {
             $defaultNumber++;
         }
         return null;
+    }
+
+}
+
+if (!function_exists("auth_user")) {
+    
+    /**
+     * @return ?User
+     */
+    function auth_user() : ?User
+    {
+        return auth()?->user();
+    }
+
+}
+
+if (!function_exists("auth_permissions")) {
+    
+    /**
+     * @return ?array
+     */
+    function auth_permissions() : ?array
+    {
+        return Permission::getUserPermissions();
+    }
+
+}
+
+if (!function_exists("has_permissions")) {
+    
+    /**
+     * @return bool
+     */
+    function has_permissions(string ...$permissions) : bool
+    {
+        $availablePermissions = auth_permissions();
+
+        $difference = array_diff($availablePermissions, $permissions);
+
+        return count($availablePermissions) > count($difference);
+    }
+
+}
+
+if (!function_exists("format_phone")) {
+
+    /**
+     * @param float|int|string $number
+     *
+     * @return bool `true` if $long is valid, `false` if not
+     */
+    function format_phone($country, $number, $format = PhoneNumberFormat::E164)
+    {
+        $parser = PhoneNumberUtil::getInstance();
+        $phone  = $parser->parse($number, $country);
+        
+        return $parser->format($phone, $format);
     }
 
 }

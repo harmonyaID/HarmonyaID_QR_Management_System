@@ -1,0 +1,88 @@
+.transform {
+    --bs-translate-x: 0;
+    --bs-translate-y: 0;
+    --bs-rotate     : 0;
+    --bs-skew-x     : 0;
+    --bs-skew-y     : 0;
+    --bs-scale-x    : 1;
+    --bs-scale-y    : 1;
+    transform: 
+        translate(var(--bs-translate-x), var(--bs-translate-y)) 
+        rotate(var(--bs-rotate))
+        skewX(var(--bs-skew-x))
+        skewY(var(--bs-skew-y))
+        scaleX(var(--bs-scale-x))
+        scaleY(var(--bs-scale-y))
+}
+
+@each $variant, $value in $translate {
+    .translate-x-#{$variant} {
+        --bs-translate-x: #{$value};
+    }
+    
+    .translate-y-#{$variant} {
+        --bs-translate-y: #{$value};
+    }
+
+    @if $variant != 0 {
+        .-translate-x-#{$variant} {
+            --bs-translate-x: -#{$value};
+        }
+        
+        .-translate-y-#{$variant} {
+            --bs-translate-y: -#{$value};
+        }
+    }
+}
+
+@each $variant, $value in $rotate {
+    .rotate-#{$variant} {
+        --bs-rotate: #{$value};
+    }
+
+    @if $variant != 0 {
+        .-rotate-#{$variant} {
+            --bs-rotate: -#{$value};
+        }
+    }
+}
+
+@each $variant, $value in $skew {
+    .skew-x-#{$variant} {
+        --bs-skew-x: #{$value};
+    }
+
+    .skew-y-#{$variant} {
+        --bs-skew-y: #{$value};
+    }
+
+    @if $variant != 0 {
+        .-skew-x-#{$variant} {
+            --bs-skew-x: -#{$value};
+        }
+
+        .-skew-y-#{$variant} {
+            --bs-skew-y: -#{$value};
+        }
+    }
+}
+
+@each $variant, $value in $scale {
+    .scale-x-#{$variant} {
+        --bs-scale-x: #{$value};
+    }
+
+    .scale-y-#{$variant} {
+        --bs-scale-y: #{$value};
+    }
+
+    @if $variant != 0 {
+        .-scale-x-#{$variant} {
+            --bs-scale-x: -#{$value};
+        }
+
+        .-scale-y-#{$variant} {
+            --bs-scale-y: -#{$value};
+        }
+    }
+}

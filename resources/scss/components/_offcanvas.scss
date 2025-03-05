@@ -1,0 +1,6 @@
+.offcanvas {
+    max-width: 100vw;
+
+    @include media-breakpoint-up(md) { max-width: 70vw; }
+    @include media-breakpoint-up(lg) { max-width: 45vw; }
+}

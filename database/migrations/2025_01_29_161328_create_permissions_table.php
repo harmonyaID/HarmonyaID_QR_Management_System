@@ -18,6 +18,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
+            $table->string('code');
 
             $this->getDefaultTimestamps($table);
         });

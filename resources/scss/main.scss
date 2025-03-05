@@ -15,17 +15,46 @@
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/helpers";
 @import "bootstrap/scss/forms";
+@import "bootstrap/scss/accordion";
 @import "bootstrap/scss/buttons";
-@import "bootstrap/scss/button-group";
+// @import "bootstrap/scss/button-group";
 @import "bootstrap/scss/badge";
 @import "bootstrap/scss/modal";
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/spinners";
 @import "bootstrap/scss/card";
 @import "bootstrap/scss/close";
+@import "bootstrap/scss/offcanvas";
 @import "bootstrap/scss/pagination";
 @import "bootstrap/scss/tables";
 @import "bootstrap/scss/tooltip";
 @import "bootstrap/scss/transitions";
 
+@import "components/accordion";
+@import "components/badge";
+@import "components/button";
+@import "components/card";
+@import "components/cursor";
+@import "components/datepicker";
+@import "components/dropbox";
+@import "components/fonts";
+@import "components/grid";
+@import "components/heights";
+@import "components/image";
+@import "components/input";
+@import "components/nav";
+@import "components/navbar";
+@import "components/offcanvas";
+@import "components/pagination";
+@import "components/select";
+@import "components/sidebar";
+@import "components/tables";
+@import "components/text";
+@import "components/transforms";
+@import "components/transition";
+@import "components/widths";
+
 @import "bootstrap/scss/utilities/api";
+
+@import "layouts/auth";
+@import "layouts/setup";

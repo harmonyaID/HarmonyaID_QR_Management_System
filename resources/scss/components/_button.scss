@@ -1,0 +1,31 @@
+.btn {
+    line-height: 1.25rem;
+
+    &.btn-sm {
+        line-height: .915rem;
+    }
+
+    &.btn-text {
+        border-color: transparent;
+    }
+
+    &.circle {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding : 0;
+        width   : 2.25em;
+        height  : 2.25em;
+        border-radius: 50%;
+    }
+}
+
+.btn-icon {
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+}

@@ -21,10 +21,13 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email');
             $table->string('password');
+            $table->string('rememberToken', 100)->nullable();
 
-            $table->foreignUuid('roleId')->references('id')->on('roles');
+            $table->foreignUuid('roleId')->nullable()->references('id')->on('roles');
             $table->foreignUuid('planId')->nullable()->references('id')->on('plans');
             $table->foreignUuid('usageCategoryId')->nullable()->references('id')->on('usage_categories');
+
+            $table->boolean('deletable')->default(false);
 
             $table->string('googleId')->nullable();
             $table->string('googleToken')->nullable();
@@ -35,6 +38,12 @@ return new class extends Migration
             
             $table->timestamp('emailVerifiedAt')->nullable();
             $this->getDefaultTimestamps($table);
+        });
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

@@ -76,6 +76,12 @@ trait HasActivity
         return $this;
     }
 
+    public function setAction(string $action)
+    {
+        $this->activityAction = $action;
+        return $this;
+    }
+
     public function setActivityPropertyAttributes(string $action, string|null $customMethod = null, array|null $others = null)
     {
         $this->activityAction = $action;

@@ -1,0 +1,10 @@
+.badge {
+    line-height: .915rem;
+
+    &.badge-important {
+        padding-top: .3125rem;
+        padding-bottom: .3125rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
+}

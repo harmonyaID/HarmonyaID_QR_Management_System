@@ -1,0 +1,10 @@
+.image-cover {
+    object-fit: cover;
+}
+
+.qr-embed-image {
+    &-container {
+        width: 64px;
+        height: 64px;
+    }
+}

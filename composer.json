@@ -1,14 +1,18 @@
 {
-    "name": "yusologia/lara-backend-service",
+    "name": "synchat/qr_code_generator",
+    "version": "1.0.0",
     "type": "project",
-    "description": "Yusologia Default Backend Service.",
+    "description": "QR Code Generator.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "giggsey/libphonenumber-for-php-lite": "^8.13",
         "inertiajs/inertia-laravel": "^2.0",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
+        "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.9",
+        "tightenco/ziggy": "^2.5",
         "yusologia/lara-core": "^1.0"
     },
     "require-dev": {

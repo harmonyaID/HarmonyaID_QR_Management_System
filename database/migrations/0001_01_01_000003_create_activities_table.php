@@ -18,12 +18,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('activities', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('type');
             $table->string('subType')->nullable();
             $table->string('action');
             $table->text('description')->nullable();
-            $table->foreignId('reference')->nullable();
+            $table->foreignUuid('reference')->nullable();
             $table->string('referenceType')->nullable();
             $table->char('causedBy')->nullable();
             $table->string('causedByName')->nullable();
