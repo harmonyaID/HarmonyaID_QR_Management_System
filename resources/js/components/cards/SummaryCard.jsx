@@ -1,5 +1,5 @@
 import { Loader } from "../misc/Loader";
-import { Card } from "./card";
+import { Card } from "./Card";
 
 export const SummaryCard = ({
     loading = false,
