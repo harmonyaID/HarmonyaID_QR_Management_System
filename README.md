@@ -2,7 +2,7 @@
 
 ### Installation
 
-Make sure make, php 8, composer, npm, python, and pip are installed on your machine
+Make sure **make**, **php 8**, **composer**, **npm**, **python**, and **pip** are installed on your machine
 
 This project uses Python for generating the QR Code because the PHP library generates weird rounded eyeballs
 
@@ -54,6 +54,11 @@ Register redirect url on your Google cloud console
 ```
 https://<your-domain>/auth/google/authorize
 # Example: https://example.com/auth/google.authorize
+```
+
+To change the app name, set the value of `APP_NAME` in `.env` file
+```
+APP_NAME="QR Code Generator"
 ```
 
 ### Queue List

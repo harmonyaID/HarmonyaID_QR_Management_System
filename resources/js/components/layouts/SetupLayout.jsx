@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react"
+import { Head, usePage } from "@inertiajs/react"
 import { Logo } from "../brandings/Logo"
 import { Button } from "../buttons/Button"
 import { Upload } from "@/icons/Upload"
@@ -16,6 +16,7 @@ export const SetupLayout = ({
     children
 }) => {
     const [loading, setLoading] = useState(false)
+    const { props } = usePage()
 
     const handleLogout = () => {
         toggleModal(MDAuthLogout, true)
@@ -72,7 +73,7 @@ export const SetupLayout = ({
                     </div>
                 </header>
                 <section className="container py-5">
-                    <h2>Welcome to QR Code!</h2>
+                    <h2>Welcome to { props.app_name }!</h2>
                     <p className="mb-5">Please help us tailor our service to your needs.</p>
                     { children }
                 </section>

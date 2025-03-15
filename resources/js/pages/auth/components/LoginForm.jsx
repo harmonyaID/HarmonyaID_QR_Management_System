@@ -8,13 +8,15 @@ import { toDashboard } from "@/helpers/navigation"
 import { notifySuccess } from "@/helpers/notification"
 import { ForgotPasswordRoute, RegisterRoute } from "@/routes/auth"
 import { authLogin } from "@/services/api/auth"
-import { Link } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import { useState } from "react"
 import { route } from "ziggy-js"
 
 export const LoginForm = () => {
     const [formRequest, setFormRequest] = useState({ email: '', password: '', remember: false })
     const [isLoading, setIsLoading] = useState(false)
+
+    const { props } = usePage()
 
     const handleChange = ({name, value}) => {
         setFormRequest((prevState) => ({
@@ -53,7 +55,7 @@ export const LoginForm = () => {
             <div className="pb-3 mb-3">
                 <h3 className="mb-2">
                     <span className="fw-normal">Welcome to </span>
-                    QR Code App
+                    { props.app_name }
                 </h3>
                 <p className="mb-1">
                     Sign in to your account to access the application
