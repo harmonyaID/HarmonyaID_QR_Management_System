@@ -42,6 +42,12 @@ php artisan db:seed
 npm run build
 ```
 
+Add Python alias to .env
+```
+PYTHON_ALIAS="python3"  # Linux
+PYTHON_ALIAS="py"       # Windows
+```
+
 Add Google client id and client secret to .env
 
 ```
