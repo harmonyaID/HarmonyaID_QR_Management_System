@@ -12,7 +12,7 @@ export const Table = ({
     >
         <table 
             className={`${
-                "table table-borderless"
+                "table "
             } ${
                 tableClassName
             }`}
