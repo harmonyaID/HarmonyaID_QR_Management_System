@@ -3,6 +3,7 @@ import { GoogleButton } from "@/components/buttons/GoogleButton"
 import { Form } from "@/components/forms/Form"
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
+import { DividerText } from "@/components/misc/DividerText"
 import { Loader } from "@/components/misc/Loader"
 import { toDashboard } from "@/helpers/navigation"
 import { notifySuccess } from "@/helpers/notification"
@@ -61,6 +62,14 @@ export const LoginForm = () => {
                     Sign in to your account to access the application
                 </p>
             </div>
+            <div className="d-grid gap-1">
+                <GoogleButton>
+                    Sign In with Google
+                </GoogleButton>
+            </div>
+            <DividerText className="my-5 text-neutral-600">
+                or Sign In With Email
+            </DividerText>
             <Input
                 name="email"
                 type="email"
@@ -110,9 +119,6 @@ export const LoginForm = () => {
                 >
                     Sign Up
                 </Button>
-                <GoogleButton>
-                    Sign In with Google
-                </GoogleButton>
             </div>
         </Form>
     )
