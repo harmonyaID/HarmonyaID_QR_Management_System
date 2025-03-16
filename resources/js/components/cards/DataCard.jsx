@@ -135,7 +135,7 @@ export const DataCardButton = ({
             data-bs-title={title}
             {...props}
         >
-            <Icon size="1.5rem"/>
+            <Icon size="1.25rem"/>
         </Component>
     )
 }
