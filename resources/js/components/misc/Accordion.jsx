@@ -1,5 +1,5 @@
 import { Collapse } from "bootstrap"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export const Accordion = ({
     title,
@@ -8,9 +8,11 @@ export const Accordion = ({
 }) => {
     const collapseElementRef = useRef()
     const collapseRef = useRef()
+    const [open, setOpen] = useState(false)
 
     const handleClick = () => {
         collapseRef.current?.toggle()
+        setOpen(prevState => !prevState)
     }
 
     useEffect(() => {
@@ -36,9 +38,13 @@ export const Accordion = ({
                 <h3 className="accordion-header">
                     <button 
                         onClick={() => handleClick()}
-                        className="accordion-button collapsed" 
+                        className={`${
+                            "accordion-button"
+                        } ${
+                            !open ? 'collapsed' : ''
+                        }`}
                         type="button"
-                        aria-expanded="false"
+                        aria-expanded={open ? 'false' : 'true'}
                     >
                         {title}
                     </button>
