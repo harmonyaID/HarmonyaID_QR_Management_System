@@ -3,9 +3,11 @@ import { Form } from "@/components/forms/Form"
 import { Input } from "@/components/inputs/Input"
 import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
+import { ArrowLeft } from "@/icons/ArrowLeft"
 import { DashboardRoute } from "@/routes/app"
 import { LoginRoute } from "@/routes/auth"
 import { authForgotPassword } from "@/services/api/auth"
+import { Link } from "@inertiajs/react"
 import { useState } from "react"
 import { route } from "ziggy-js"
 
@@ -45,10 +47,19 @@ export const ForgotPasswordForm = () => {
             onSubmit={handleSubmit}
             className="wrapper"
         >
+            <div className="pb-4 mb-5">
+                <Link
+                    className="d-inline-flex align-items-center text-primary text-decoration-none"
+                    href={route(LoginRoute)}
+                >
+                    <ArrowLeft className="me-3" size={20}/>
+                    Back to Sign In
+                </Link>
+            </div>
             <div className="pb-3 mb-3">
-                <h3 className="mb-2">
-                    <span className="fw-normal">Reset Password</span>
-                </h3>
+                <h2 className="mb-2">
+                    Forgot Password
+                </h2>
                 <p className="mb-1">
                     Input your registered email to reset your password
                 </p>
@@ -70,13 +81,6 @@ export const ForgotPasswordForm = () => {
                         <Loader small className="me-2"/>
                     ) : (<></>) }
                     <span>Reset Password</span>
-                </Button>
-                <Button
-                    link
-                    href={route(LoginRoute)}
-                    type="button"
-                >
-                    Sign In
                 </Button>
             </div>
         </Form>
