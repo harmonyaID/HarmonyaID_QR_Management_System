@@ -108,7 +108,7 @@ export const Sidebar = () => {
 const SidebarHeader = ({
     children
 }) => (
-    <header className="menu-name">
+    <header className="menu-name fs-8">
         { children }
     </header>
 )
@@ -145,8 +145,8 @@ const SidebarItem = ({
                 className="stretched-link"
                 title={label}
             >
-                <Icon size={24} className="menu-icon"/>
-                <span className="menu-label">
+                <Icon size={20} className="menu-icon"/>
+                <span className="menu-label fs-8">
                     { label }
                 </span>
             </Link>

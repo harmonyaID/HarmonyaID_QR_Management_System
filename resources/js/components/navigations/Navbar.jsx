@@ -125,11 +125,10 @@ const ProfileDropdown = () => {
                     />
                 </div>
                 
-                <div className="dropdown-menu fs-7">
+                <div className="dropdown-menu border-0 shadow-sm fs-7">
                     <a className="dropdown-item">
                         Version 1.0.0
                     </a>
-                    <hr className="dropdown-divider"/>
                     <a
                         className="dropdown-item cursor-pointer"
                         href={route(AccountRoute)}

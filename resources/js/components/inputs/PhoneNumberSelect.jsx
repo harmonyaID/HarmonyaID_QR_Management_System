@@ -58,18 +58,18 @@ export const PhoneNumberSelect = ({
             valueKey="code"
             searchKey="label"
             className="phone-search"
+            inputClassName={ value?.flag ? 'px-0' : '' }
             onChange={handleChange}
             required={required}
             component={PhoneSelectTemplate}
-            prefix={
-                value?.flag ? (
-                    <div className="phone-search-flag">
-                        <img 
-                            src={value.flag}
-                        />
-                    </div>
-                ) : ( <></> )
-            }
+            prefix={ value?.flag ? (   
+                <div className="input-group-text border-end-0 bg-white cursor-pointer">
+                    <img 
+                        className="phone-search-flag"
+                        src={value.flag}
+                    />
+                </div>
+            ) : ( <></> )}
         />
     )
 }

@@ -45,7 +45,8 @@ trait CanGenerateQr
         $slug = Str::slug($name);
         $fileName = $directory . '/' . $slug . '-' . time();
 
-        $command = "py generator.py ";
+        $command = config('python.alias');
+        $command .= " generator.py ";
         $command .= '"' . $value . '" ';
         $command .= '"' . storage_path('app/' . $fileName) . '" ';
         $command .= $styleOption;

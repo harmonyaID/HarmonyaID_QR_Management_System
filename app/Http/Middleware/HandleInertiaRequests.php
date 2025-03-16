@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            'app_name'          => config('app.name', 'QR Code'),
             'user'              => $user,
             'superadminRoleId'  => Role::getSuperadminId(),
             'csrf_token'        => csrf_token(),

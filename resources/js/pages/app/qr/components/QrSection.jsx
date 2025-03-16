@@ -202,7 +202,7 @@ export const QrSection = () => {
                                                 { qrCode.isDynamic ? (
                                                     <span className="text-forest">
                                                         <Check
-                                                            size={24}
+                                                            size={20}
                                                             title="Yes"
                                                         />
                                                         {' '}
@@ -211,7 +211,7 @@ export const QrSection = () => {
                                                 ) : (
                                                     <span className="text-crimson">
                                                         <Plus
-                                                            size={24}
+                                                            size={20}
                                                             title="No"
                                                             className="transform rotate-45"
                                                         />
@@ -221,7 +221,7 @@ export const QrSection = () => {
                                                 ) }
                                             </DataDisplay>
                                         </td>
-                                        <td className="text-center">
+                                        <td>
                                             { formatDate(qrCode.createdAt) }
                                         </td>
                                         <td>
@@ -235,7 +235,7 @@ export const QrSection = () => {
                                                             outline
                                                             onClick={handleDelete(qrCode)}
                                                         >
-                                                            <Delete size={24}/>
+                                                            <Delete size={20}/>
                                                         </Button>
                                                     </div>
                                                 ) : (<></>) }
@@ -249,7 +249,7 @@ export const QrSection = () => {
                                                         download={`${qrCode.name} QR Code`}
                                                         onClick={(event) => event.stopPropagation()}
                                                     >
-                                                        <Download size={24}/>
+                                                        <Download size={20}/>
                                                     </Button>
                                                 </div>
                                                 { canUpdate ? (
@@ -259,7 +259,7 @@ export const QrSection = () => {
                                                             small
                                                             onClick={handleEdit(qrCode)}
                                                         >
-                                                            <Edit size={24}/>
+                                                            <Edit size={20}/>
                                                         </Button>
                                                     </div>
                                                 ) : (<></>) }

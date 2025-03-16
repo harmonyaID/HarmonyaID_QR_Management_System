@@ -87,7 +87,7 @@
                 style="border: 0; background: #D1D1D1; height: 1px;"
             />
             <p>
-                <a style="color: #0056B3; font-weight: 700;" href="{{ url('/') }}">QR Code App</a> by SynChat
+                <a style="color: #0056B3; font-weight: 700;" href="{{ url('/') }}">{{ config('app.name', 'QR Code') }}</a> by SynChat
             </p>
         </div>
     </div>
