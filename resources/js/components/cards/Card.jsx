@@ -75,7 +75,7 @@ export const CardNav = ({
             onClick={onClick}
         >
             <a 
-                className={`nav-link ${ active ? 'active' : '' } fw-normal`}
+                className={`nav-link ${ active ? 'active' : '' } fw-normal fs-7`}
                 href="#"
             >
                 { label.toUpperCase() }
