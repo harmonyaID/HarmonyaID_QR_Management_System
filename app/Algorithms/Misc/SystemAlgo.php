@@ -6,6 +6,7 @@ use App\Services\Constant\Global\CacheKey;
 use FilesystemIterator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\File;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -62,7 +63,74 @@ class SystemAlgo
                 'storage'   => is_writable(base_path('storage')),
                 'cache'     => is_writable(base_path('bootstrap/cache')),
             ],
+            'storageLink'   => $this->checkStorageLink(),
         ];
+    }
+
+    private function checkStorageLink()
+    {
+        $path   = public_path('storage');
+        $output = [
+            'exists'        => false,
+            'permission'    => '-',
+        ];
+
+        $output['exists'] = File::exists($path);
+        if (!$output['exists']) {
+            return $output;
+        }
+
+        $permissions = fileperms($path);
+        switch ($permissions & 0xF000) {
+            case 0xC000: // socket
+                $permissionStr = 's';
+                break;
+            case 0xA000: // symbolic link
+                $permissionStr = 'l';
+                break;
+            case 0x8000: // regular
+                $permissionStr = 'r';
+                break;
+            case 0x6000: // block special
+                $permissionStr = 'b';
+                break;
+            case 0x4000: // directory
+                $permissionStr = 'd';
+                break;
+            case 0x2000: // character special
+                $permissionStr = 'c';
+                break;
+            case 0x1000: // FIFO pipe
+                $permissionStr = 'p';
+                break;
+            default: // unknown
+                $permissionStr = 'u';
+        }
+
+        // Owner
+        $permissionStr .= (($permissions & 0x0100) ? 'r' : '-');
+        $permissionStr .= (($permissions & 0x0080) ? 'w' : '-');
+        $permissionStr .= (($permissions & 0x0040) ?
+            (($permissions & 0x0800) ? 's' : 'x' ) :
+            (($permissions & 0x0800) ? 'S' : '-'));
+
+        // Group
+        $permissionStr .= (($permissions & 0x0020) ? 'r' : '-');
+        $permissionStr .= (($permissions & 0x0010) ? 'w' : '-');
+        $permissionStr .= (($permissions & 0x0008) ?
+            (($permissions & 0x0400) ? 's' : 'x' ) :
+            (($permissions & 0x0400) ? 'S' : '-'));
+
+        // World
+        $permissionStr .= (($permissions & 0x0004) ? 'r' : '-');
+        $permissionStr .= (($permissions & 0x0002) ? 'w' : '-');
+        $permissionStr .= (($permissions & 0x0001) ?
+                (($permissions & 0x0200) ? 't' : 'x' ) :
+                (($permissions & 0x0200) ? 'T' : '-'));
+
+        $output['permission'] = $permissionStr;
+
+        return $output;
     }
 
     private function getEmailEnv()
