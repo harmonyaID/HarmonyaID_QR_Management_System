@@ -7,6 +7,10 @@
     padding: .5rem 1.5rem;
     min-height: 4rem;
     max-height: 4rem;
+
+    .dropdown-item {
+        padding: .5rem 1.2rem;
+    }
 }
 
 .navbar-group {
@@ -29,12 +33,13 @@
     .navbar-title {
         font-size: 1.25rem;
         line-height: 1.2;
+        font-weight: 400;
     }
 }
 
 .navbar-photo {
-    height: 2.5rem;
-    max-height: 2.5rem;
-    width: 2.5rem;
-    max-width: 2.5rem;
+    height: 2rem;
+    max-height: 2rem;
+    width: 2rem;
+    max-width: 2rem;
 }

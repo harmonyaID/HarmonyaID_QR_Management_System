@@ -42,6 +42,19 @@ export const SystemInfoSection = ({
                     </span>
                 ) }
             </SystemInfoTemplate>
+            <SystemInfoTemplate hasBorder label="Cache Writable">
+                { data.result.system.dirWritable.cache ? (
+                    <span className="text-forest">
+                        <Check size={18} className="me-2"/>
+                        Yes
+                    </span>
+                ) : (
+                    <span className="text-crimson">
+                        <Plus size={18} className="transform rotate-45 me-2"/>
+                        No
+                    </span>
+                ) }
+            </SystemInfoTemplate>
             <SystemInfoTemplate hasBorder label="Storage Writable">
                 { data.result.system.dirWritable.storage ? (
                     <span className="text-forest">
@@ -55,8 +68,8 @@ export const SystemInfoSection = ({
                     </span>
                 ) }
             </SystemInfoTemplate>
-            <SystemInfoTemplate label="Cache Writable">
-                { data.result.system.dirWritable.cache ? (
+            <SystemInfoTemplate hasBorder label="Storage Linked">
+                { data.result.system.storageLink?.exists ? (
                     <span className="text-forest">
                         <Check size={18} className="me-2"/>
                         Yes
@@ -67,6 +80,9 @@ export const SystemInfoSection = ({
                         No
                     </span>
                 ) }
+            </SystemInfoTemplate>
+            <SystemInfoTemplate label="Storage Link Permission">
+                { data.result.system.storageLink?.permission }
             </SystemInfoTemplate>
         </Card>
     )

@@ -6,7 +6,7 @@ import { Loader } from "@/components/misc/Loader";
 import { Offcanvas } from "@/components/offcanvas/Offcanvas";
 import { notifySuccess } from "@/helpers/notification";
 import { faqCreate, faqUpdate } from "@/services/api/misc";
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useRef, useState } from "react";
 
 export const FaqFormContext = createContext(null)
 export const FaqFormProvider = ({children}) => {
@@ -35,6 +35,7 @@ export const FaqForm = ({
     id = '',
     onSuccess = () => {}
 }) => {
+    const editorRef = useRef()
     const { 
         form, setForm, 
         open, setOpen,
@@ -43,9 +44,18 @@ export const FaqForm = ({
 
     const reset = () => {
         setForm({
-            question    : '',
-            answer      : '',
+            question        : '',
+            answer          : '',
+            persistedAnswer : '',
         })
+
+        const quill = editorRef.current
+        if (!quill) {
+            return
+        }
+
+        const converted = quill.clipboard.convert({html: ''})
+        quill.setContents(converted)
     }
 
     const handleHide = useCallback(() => {
@@ -115,6 +125,7 @@ export const FaqForm = ({
                             name="answer"
                             value={form.persistedAnswer}
                             onChange={handleChange}
+                            ref={editorRef}
                         />
                     </div>
                 </section>

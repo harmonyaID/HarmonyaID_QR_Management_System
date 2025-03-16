@@ -18,6 +18,7 @@ export const SearchableSelect = ({
     required = false,
     component = DefaultItem,
     className = '',
+    inputClassName = '',
     value,
     searchKey   = 'name',
     valueKey    = 'id',
@@ -173,9 +174,10 @@ export const SearchableSelect = ({
                 onFocus={handleFocusSearch}
                 onBlur={handleBlurSearch}
                 prefix={prefix}
+                inputClassName={inputClassName}
                 suffix={
                     <div 
-                        className="select-arrow-container"
+                        className="input-group-text border-start-0 bg-white cursor-pointer"
                         onClick={handleFocus}
                     >
                         { focused ? (

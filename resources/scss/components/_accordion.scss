@@ -1,4 +1,8 @@
 .accordion {
     border-radius: .625rem;
     overflow: hidden;
+
+    .accordion-button:focus {
+        box-shadow: none !important;
+    }
 }

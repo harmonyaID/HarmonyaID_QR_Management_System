@@ -181,7 +181,7 @@ export const FaqSection = () => {
                                                             outline
                                                             onClick={() => handleDelete(question)}
                                                         >
-                                                            <Delete size={24}/>
+                                                            <Delete size={20}/>
                                                         </Button>
                                                     </div>
                                                 ) : (<></>) }
@@ -192,7 +192,7 @@ export const FaqSection = () => {
                                                             small
                                                             onClick={() => handleEdit(question)}
                                                         >
-                                                            <Edit size={24}/>
+                                                            <Edit size={20}/>
                                                         </Button>
                                                     </div>
                                                 ) : (<></>) }

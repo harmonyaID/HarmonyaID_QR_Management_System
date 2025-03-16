@@ -47,6 +47,16 @@ input[type="number"] {
     }
 }
 
+input.form-control {
+    &:not(:first-child) {
+        border-left-width: 0;
+    }
+
+    &:not(:last-child) {
+        border-right-width: 0;
+    }
+}
+
 .form-control {
     resize: none;
     &:focus {
@@ -58,4 +68,16 @@ input[type="number"] {
     display: block;
     justify-self: end;
     text-align: end;
+}
+
+.ql-editor {
+    min-height: 15rem;
+}
+
+.input-group {
+    &:has(input:focus) {
+        [class^='input-group-'], [class*=' input-group-'] {
+            border-color: var(--bs-primary);
+        }
+    }
 }

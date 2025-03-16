@@ -3,12 +3,14 @@ import { GoogleButton } from "@/components/buttons/GoogleButton"
 import { Form } from "@/components/forms/Form"
 import { Checkbox } from "@/components/inputs/Checkbox"
 import { Input } from "@/components/inputs/Input"
+import { DividerText } from "@/components/misc/DividerText"
 import { Loader } from "@/components/misc/Loader"
 import { notifySuccess } from "@/helpers/notification"
 import { validatePassword, validatePasswordConfirm } from "@/helpers/validation"
 import { LoginRoute } from "@/routes/auth"
 import { SetupUsageCategory } from "@/routes/setup"
 import { authRegister } from "@/services/api/auth"
+import { usePage } from "@inertiajs/react"
 import { useState } from "react"
 import { route } from "ziggy-js"
 
@@ -40,6 +42,8 @@ export const RegisterForm = () => {
         }
     })
     const [isLoading, setIsLoading] = useState(false)
+
+    const { props } = usePage()
 
     const handleChange = ({name, value}) => {
         let error = ''
@@ -124,16 +128,23 @@ export const RegisterForm = () => {
             onSubmit={handleSubmit}
             className="wrapper"
         >
-            <div className="pb-3 mb-3">
+            <div className="pb-3 mb-2">
                 <h3 className="mb-2">
                     <span className="fw-normal">Welcome to </span>
-                    QR Code App
+                    { props.app_name }
                 </h3>
-                <p className="mb-1">
+                <p className="mb-0">
                     Sign up to start using our application
                 </p>
             </div>
-
+            <div className="d-grid gap-1">
+                <GoogleButton>
+                    Sign Up with Google
+                </GoogleButton>
+            </div>
+            <DividerText className="my-4 text-neutral-600">
+                or Sign Up With Email
+            </DividerText>
             <section className="d-grid grid-cols-2 gap-2">
                 <Input
                     name="firstname"
@@ -214,9 +225,6 @@ export const RegisterForm = () => {
                     >
                         Sign In
                     </Button>
-                    <GoogleButton>
-                        Sign Up with Google
-                    </GoogleButton>
                 </div>
             </section>
         </Form>

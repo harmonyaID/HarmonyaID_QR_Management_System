@@ -1,9 +1,12 @@
 import { SummaryCard } from "@/components/cards/SummaryCard"
+import { USERS_GROUP_READ } from "@/configs/permissions"
 import { formatNumber } from "@/helpers/formatter"
+import { useHasAnyPermissions } from "@/hooks/useHasPermissions"
 import { useGetDashboard } from "@/services/swr/dashboard"
 
 export const DashboardSummary = () => {
-    const { data, isLoading } = useGetDashboard()
+    const { data, isLoading }   = useGetDashboard()
+    const hasUserPermission     = useHasAnyPermissions(USERS_GROUP_READ)
 
     return (
         <section
@@ -14,6 +17,13 @@ export const DashboardSummary = () => {
                 data={ formatNumber(data?.result?.totalQr || 0) }
                 loading={isLoading}
             />
+            { hasUserPermission && typeof data?.result?.totalUser == 'number' ? (
+                <SummaryCard
+                    label="Number of Users"
+                    data={ formatNumber(data.result.totalUser || 0) }
+                    loading={isLoading}
+                />
+            ) : (<></>) }
         </section>
     )
 }

@@ -58,25 +58,9 @@
     }
 
     &.phone-search {
-        input {
-            padding-left: 3rem;
-        }
-
-        .phone-search-flag {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3rem;
-
-            
-            img {
-                width: 1.5rem;
-                height: auto;
-            }
+        img.phone-search-flag {
+            width: 1.5rem;
+            height: auto;
         }
         
         .phone-search-flag-circle {
