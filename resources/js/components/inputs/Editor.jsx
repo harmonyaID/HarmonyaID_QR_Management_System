@@ -8,6 +8,7 @@ const EditorComponent = ({
     value = '',
     onChange,
     onType,
+    ref,
 }) => {
     const quillRef          = useRef(null)
     const containerRef      = useRef(null)
@@ -54,6 +55,9 @@ const EditorComponent = ({
         })
 
         quillRef.current = quill
+        if (typeof ref != 'undefined') {
+            ref.current = quill
+        }
 
         if (value && typeof value == 'string') {
             const converted = quill.clipboard.convert({html: value})
