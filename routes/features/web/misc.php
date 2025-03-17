@@ -28,6 +28,7 @@ Route::prefix('misc')
                     ->group(function () {
 
                         Route::get('/', [SystemController::class, 'get'])->name('get');
+                        Route::get('packages', [SystemController::class, 'getPackage'])->name('package');
                         Route::get('size', [SystemController::class, 'getSize'])->name('size');
 
                     });
