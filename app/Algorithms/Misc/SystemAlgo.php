@@ -7,6 +7,7 @@ use FilesystemIterator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -21,9 +22,15 @@ class SystemAlgo
         return success([
             'system'    => $this->getSystemEnv(),
             'server'    => $this->getServerEnv(),
-            'packages'  => $this->getPackages(),
             'email'     => $this->getEmailEnv(),
         ]);
+    }
+
+    public function getPackage()
+    {
+        $this->loadComposer();
+        
+        return success($this->getPackages());
     }
 
     public function getSize()
@@ -193,7 +200,57 @@ class SystemAlgo
             ];
         }
 
+        $pythonPackages = $this->getPythonPackages();
+        $packages = array_merge($packages, $pythonPackages);
+
         return $packages;
+    }
+
+    private function getPythonPackages()
+    {
+        $packages = [
+            'click',
+            'numpy',
+            'qrcode',
+            'colorama',
+            'pillow'
+        ];
+        
+        $outputs = [];
+
+        foreach ($packages as $package) {
+            $command = config('python.alias');
+            $command .= " -m pip show ";
+            $command .= $package;
+
+            $packageData = [
+                'name'      => "[Python] " . $package,
+                'version'   => null,
+            ];
+
+            $result = Process::path(base_path())->run($command);
+            if ($result->failed()) {
+                $outputs[] = $packageData;
+                continue;
+            }
+
+            $message = $result->output();
+            $versionStartIndex = strpos($message, 'Version:');
+            if (!$versionStartIndex) {
+                $outputs[] = $packageData;
+                continue;
+            }
+
+            $versionEndIndex = strpos($message, "\n", $versionStartIndex);
+            $versionStr = substr($message, $versionStartIndex, $versionEndIndex - $versionStartIndex);
+            $version = explode(':', $versionStr)[1];
+
+            $packageData['version'] = trim($version);
+
+            $outputs[] = $packageData;
+        }
+
+        return $outputs;
     }
 
     private function isSSLIntalled()
