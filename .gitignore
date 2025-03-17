@@ -19,3 +19,7 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/**/__pycache__
+/build
+generator.spec
+generator
+generator.exe

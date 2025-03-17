@@ -40,6 +40,9 @@ php artisan db:seed
 
 # Compile frontend files
 npm run build
+
+# Compile generator
+pyinstaller generator.py -F --distpath .
 ```
 
 Add Python alias to .env
