@@ -26,6 +26,12 @@ class SystemController extends Controller
         return $algo->get();
     }
 
+    public function getPackage()
+    {
+        $algo = new SystemAlgo;
+        return $algo->getPackage();
+    }
+
     public function getSize()
     {
         $algo = new SystemAlgo;
