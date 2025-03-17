@@ -6,25 +6,24 @@ from .drawers.moduledrawers import GappedCircleModuleDrawer
 from qrcode.image.styles.moduledrawers.pil import SquareModuleDrawer, GappedSquareModuleDrawer, RoundedModuleDrawer, VerticalBarsDrawer, HorizontalBarsDrawer
 
 def generate(content, name, style, image):
-    match style:
-        case "pixel":
-            module_drawer   = GappedSquareModuleDrawer(size_ratio = .75)
-            eye_drawer      = SquareModuleDrawer()
-        case "circle":
-            module_drawer   = GappedCircleModuleDrawer(size_ratio = .75)
-            eye_drawer      = CircleEyeDrawer()
-        case "rounded":
-            module_drawer   = RoundedModuleDrawer()
-            eye_drawer      = RoundedModuleDrawer()
-        case "v-bars":
-            module_drawer   = VerticalBarsDrawer(horizontal_shrink = .75)
-            eye_drawer      = BarsEyeDrawer()
-        case "h-bars":
-            module_drawer   = HorizontalBarsDrawer(vertical_shrink = .75)
-            eye_drawer      = BarsEyeDrawer()
-        case _:
-            module_drawer   = SquareModuleDrawer()
-            eye_drawer      = SquareModuleDrawer()
+    if style == "pixel":
+        module_drawer   = GappedSquareModuleDrawer(size_ratio = .75)
+        eye_drawer      = SquareModuleDrawer()
+    elif style == "circle":
+        module_drawer   = GappedCircleModuleDrawer(size_ratio = .75)
+        eye_drawer      = CircleEyeDrawer()
+    elif style == "rounded":
+        module_drawer   = RoundedModuleDrawer()
+        eye_drawer      = RoundedModuleDrawer()
+    elif style == "v-bars":
+        module_drawer   = VerticalBarsDrawer(horizontal_shrink = .75)
+        eye_drawer      = BarsEyeDrawer()
+    elif style == "h-bars":
+        module_drawer   = HorizontalBarsDrawer(vertical_shrink = .75)
+        eye_drawer      = BarsEyeDrawer()
+    else:
+        module_drawer   = SquareModuleDrawer()
+        eye_drawer      = SquareModuleDrawer()
 
     qr = qrcode.QRCode(
         version             = None,
