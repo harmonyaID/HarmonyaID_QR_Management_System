@@ -46,28 +46,35 @@ pyinstaller generator.py -F --distpath .
 ```
 
 Add Python alias to .env
-```
+```sh
 PYTHON_ALIAS="python3"  # Linux
 PYTHON_ALIAS="py"       # Windows
 ```
 
 Add Google client id and client secret to .env
 
-```
+```sh
 GOOGLE_CLIENT_ID=<client_id>
 GOOGLE_CLIENT_SECRET=<client_secret>
 ```
 
 Register redirect url on your Google cloud console
 
-```
+```sh
 https://<your-domain>/auth/google/authorize
 # Example: https://example.com/auth/google.authorize
 ```
 
 To change the app name, set the value of `APP_NAME` in `.env` file
-```
+```sh
 APP_NAME="QR Code Generator"
+```
+
+### Generator Variants
+You can easily switch between PHP and Python Generator by changing the value of `QR_GENERATOR` in `.env` file
+```sh
+QR_GENERATOR=python # Using Python generator
+QR_GENERATOR=php    # Using PHP generator
 ```
 
 ### Queue List
