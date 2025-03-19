@@ -10,7 +10,7 @@ export const DividerText = ({
         }`}
     >
         <hr/>
-        <div className="text">
+        <div className="text text-center">
             { children }
         </div>
     </div>

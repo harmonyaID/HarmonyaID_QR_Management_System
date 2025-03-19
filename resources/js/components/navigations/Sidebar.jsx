@@ -39,6 +39,10 @@ export const Sidebar = () => {
     return (
         <>
             { !open ? (<div className="sidebar-replacement"/>) : <></> }
+            <div 
+                className={`page-sidebar-backdrop ${ open ? 'active' : '' }`}
+                onClick={() => setOpen(false)}
+            />
             <nav 
                 className={`page-sidebar flex-shrink-0 ${ open ? 'active' : '' }`}
                 onMouseEnter={handleMouseEnter}

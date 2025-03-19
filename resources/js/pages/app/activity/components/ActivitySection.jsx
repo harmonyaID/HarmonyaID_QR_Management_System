@@ -26,7 +26,7 @@ export const ActivitySection = () => {
         <Card
             noBorder
         >
-            <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
+            <header className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <h3 className="flex-shrink-0 mb-0">
                     Manage Activities
                 </h3>
