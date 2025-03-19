@@ -84,13 +84,16 @@ class QrController extends Controller
 
     public function create()
     {
-        return Inertia::render('app/qr/QrCreate');
+        $generator = strtolower(config('qr.generator'));
+        return Inertia::render('app/qr/QrCreate', [ 'generator' => $generator ]);
     }
 
     public function edit($id)
     {
         $qr = Qr::with(['type'])
             ->find($id);
-        return Inertia::render('app/qr/QrEdit', ['data' => $qr]);
+
+        $generator = strtolower(config('qr.generator'));
+        return Inertia::render('app/qr/QrEdit', [ 'data' => $qr, 'generator' => $generator ]);
     }
 }
