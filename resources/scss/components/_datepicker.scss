@@ -57,6 +57,8 @@
         .form-control.last {
             border-top-right-radius: $input-border-radius !important;
             border-bottom-right-radius: $input-border-radius !important;
+
+            border-right-width: 1px;
         }
 
         &.active {

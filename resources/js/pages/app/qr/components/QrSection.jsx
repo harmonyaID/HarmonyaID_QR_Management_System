@@ -134,7 +134,7 @@ export const QrSection = () => {
             <Card 
                 noBorder
             >
-                <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
+                <header className="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
                     <h3 className="flex-shrink-0 mb-0">
                         My Qr Codes
                     </h3>
