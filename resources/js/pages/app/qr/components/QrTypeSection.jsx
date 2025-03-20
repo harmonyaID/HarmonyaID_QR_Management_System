@@ -110,7 +110,7 @@ export const QrTypeSection = () => {
                     "tab-pane fade show active"
                 }`}
             >
-                <header className="d-flex flex-wrap justify-content-between align-items-center mb-2">
+                <header className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                     <h3 className="flex-shrink-0 mb-0">
                         Manage Qr Type
                     </h3>
@@ -140,7 +140,7 @@ export const QrTypeSection = () => {
                                     onEdit={ canUpdate ? () => handleEdit(type) : undefined }
                                     onDelete={ canDelete ? () => handleDelete(type) : undefined }
                                 >
-                                    <div className="d-flex gap-3 justify-content-center align-items-center">
+                                    <div className="d-flex gap-3 justify-content-center">
                                         <div className="flex-shrink-0">
                                             <DataCardPicture
                                                 squared
