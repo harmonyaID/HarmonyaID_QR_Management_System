@@ -125,7 +125,7 @@ export const FaqSection = () => {
                     ) : (<></>) }
                 </header>
                 <SearchForm
-                    className="mb-3"
+                    className="mb-5"
                     withCreatedAt
                 />
                 { isLoading ? (
@@ -171,7 +171,7 @@ export const FaqSection = () => {
                                             </div>
                                         </td>
                                         <td>
-                                            <div className="d-flex justify-content-end align-items-center gap-2">
+                                            <div className="d-flex flex-wrap justify-content-end align-items-center gap-2 px-3">
                                                 { canDelete ? (
                                                     <div>
                                                         <Button

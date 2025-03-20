@@ -59,7 +59,8 @@ export const QrModal = () => {
                         href={ qr?.id ? route(QrImageRoute, qr.id) : undefined }
                         download={`${qr?.name} QR Code`}
                     >
-                        <Download size={24} className="me-2"/>Download
+                        <Download size={24}/>
+                        <span>Download</span>
                     </Button>
                     <Button
                         outline
@@ -68,7 +69,8 @@ export const QrModal = () => {
                         onClick={handleToCreate}
                         href={route(QrCreateRoute)}
                     >
-                        <Plus size={24} className="me-2"/>Create Another
+                        <Plus size={24}/>
+                        <span>Create Another</span>
                     </Button>
                     <Button
                         outline
@@ -77,7 +79,8 @@ export const QrModal = () => {
                         onClick={handleReturn}
                         href={route(QrRoute)}
                     >
-                        <ArrowLeft size={24} className="me-2"/>Return
+                        <ArrowLeft size={24}/>
+                        <span>Return</span>
                     </Button>
                 </div>
             </section>
