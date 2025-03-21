@@ -32,7 +32,7 @@ export const ActivitySection = () => {
                 </h3>
             </header>
             <ActivityFilterForm
-                className="mb-3"
+                className="mb-5"
             />
             { isLoading ? (
                 <div className="text-center">

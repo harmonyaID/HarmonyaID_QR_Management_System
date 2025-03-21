@@ -21,7 +21,7 @@ export const AuthLayout = ({
 const FormSection = ({
     children
 }) => (
-    <section className="form-panel">
+    <section className="form-panel gap-3">
         <div className="wrapper">
             <Logo size={60}/>
         </div>

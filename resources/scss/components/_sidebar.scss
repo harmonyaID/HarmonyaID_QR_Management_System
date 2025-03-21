@@ -152,7 +152,7 @@
         }
     }
 
-    &.active, &:hover {
+    &.active {
         width: 240px;
         padding: .625rem 1rem;
 
@@ -185,6 +185,47 @@
                     padding-right: inherit;
                     .menu-icon {
                         font-size: .875rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        &:hover {
+            width: 240px;
+            padding: .625rem 1rem;
+
+            .logo-container {
+                margin-bottom: 0;
+            }
+
+            .menu-name {
+                max-width: 240px;
+                height: auto;
+                padding: .625rem 0;
+                line-height: 2;
+            }
+
+            .menu-list li {
+                padding: .75rem .5rem;
+                .menu-icon {
+                    margin-right: .875rem;
+                }
+                
+                .menu-label {
+                    max-width: 158px;
+                    height: auto;
+                }
+
+                ul {
+                    margin: 0;
+                    li {
+                        padding-left: 2.375rem;
+                        padding-right: inherit;
+                        .menu-icon {
+                            font-size: .875rem;
+                        }
                     }
                 }
             }

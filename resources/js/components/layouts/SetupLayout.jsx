@@ -72,10 +72,12 @@ export const SetupLayout = ({
                         </Button>
                     </div>
                 </header>
-                <section className="container py-5">
-                    <h2>Welcome to { props.app_name }!</h2>
-                    <p className="mb-5">Please help us tailor our service to your needs.</p>
-                    { children }
+                <section className="px-3">
+                    <div className="container py-5">
+                        <h2>Welcome to { props.app_name }!</h2>
+                        <p className="mb-5">Please help us tailor our service to your needs.</p>
+                        { children }
+                    </div>
                 </section>
             </section>
             <ConfirmModal

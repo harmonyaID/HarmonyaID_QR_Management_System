@@ -13,12 +13,18 @@ import { ACCOUNT_SETTING_GROUP, FAQ_GROUP_ALL, QR_GROUP_ALL, QR_SETTING_GROUP, S
 import { Chat } from "@/icons/Chat"
 import { Operation } from "@/icons/Operation"
 import { Monitor } from "@/icons/Monitor"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export const Sidebar = () => {
     const [open, setOpen] = useContext(SidebarContext)
     const [hover, setHover] = useState(false)
+    const isLg = useMediaQuery('(min-width: 992px)')
 
     const handleMouseEnter = (event) => {
+        if (!isLg) {
+            return
+        }
+
         const target = event.currentTarget
         if (target.classList.contains('active')) {
             return
@@ -28,6 +34,10 @@ export const Sidebar = () => {
     }
 
     const handleMouseLeave = (event) => {
+        if (!isLg) {
+            return
+        }
+        
         const target = event.currentTarget
         if (target.classList.contains('active')) {
             return

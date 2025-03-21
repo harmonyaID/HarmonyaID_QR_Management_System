@@ -63,7 +63,7 @@ export const Button = ({
             download={download}
             {...props}
         >
-            <span className="d-inline-block">
+            <span className="d-inline-flex align-items-center justify-content-center gap-2">
                 { children }
             </span>
         </Component>
