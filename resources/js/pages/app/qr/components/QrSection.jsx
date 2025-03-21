@@ -26,6 +26,7 @@ import { Table } from "@/components/tables/Table"
 import { DataDisplay } from "@/components/misc/DataDisplay"
 import { Delete } from "@/icons/Delete"
 import { Edit } from "@/icons/Edit"
+import { useMediaQuery } from "@/hooks/useMediaQuery"
 
 export const QrSection = () => {
     const canCreate = useHasAnyPermissions(QR_GROUP_CREATE)
@@ -38,6 +39,8 @@ export const QrSection = () => {
     const { committedFilter, setCommittedFilter }   = useContext(SearchFormContext)
     const { setSelected, setOpen } = useContext(QrDetailContext)
     const {data, isLoading, mutate} = useGetQrCodes( canRead ? committedFilter : false )
+
+    const isMd = useMediaQuery('(min-width:768px)')
 
     const handleShowDetail = (selected) => {
         if (!canRead) {
@@ -150,7 +153,7 @@ export const QrSection = () => {
                     ) : (<></>) }
                 </header>
                 <SearchForm
-                    className="mb-3"
+                    className="mb-5"
                     withCreatedAt
                 />
                 { isLoading ? (
@@ -184,8 +187,8 @@ export const QrSection = () => {
                                         <td>
                                             <img 
                                                 src={`${route(QrImageRoute, qrCode.id)}?v=${qrCode.version}`}
-                                                height={120}
-                                                width={120}
+                                                height={ isMd ? 120 : 64 }
+                                                width={ isMd ? 120 : 64 }
                                                 alt={`${qrCode.name} QR code`}
                                             />
                                         </td>
@@ -225,7 +228,7 @@ export const QrSection = () => {
                                             { formatDate(qrCode.createdAt) }
                                         </td>
                                         <td>
-                                            <div className="d-flex justify-content-end align-items-center gap-2">
+                                            <div className="d-flex flex-wrap justify-content-end align-items-center gap-2 px-3 ">
                                                 { canDelete ? (
                                                     <div>
                                                         <Button

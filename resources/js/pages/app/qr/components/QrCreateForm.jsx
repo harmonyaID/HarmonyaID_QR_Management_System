@@ -1,5 +1,5 @@
 import { QrTypeSelectForm, QrTypeSelectFormContext, QrTypeSelectFormProvider } from "./QrTypeSelectForm"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { QrForm, QrFormContext, QrFormProvider } from "./QrForm"
 import { QrModal, QrModalContext, QrModalProvider } from "./QrModal"
 import { toggleModal } from "@/helpers/toggleModal"
@@ -27,6 +27,8 @@ export const QrCreateForm = () => {
     const { setQr }     = useContext(QrModalContext)
     const { setForm }   = useContext(QrFormContext)
 
+    const formRef = useRef()
+
     const canCreate = useHasAnyPermissions(QR_GROUP_CREATE)
 
     const handleSuccess = (result) => {
@@ -53,6 +55,14 @@ export const QrCreateForm = () => {
         }
     }, [canCreate])
 
+    useEffect(() => {
+        if (!selectedType) {
+            return
+        }
+
+        formRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [selectedType])
+
     return (
         <>
             <div className="text-end mb-3">
@@ -73,6 +83,7 @@ export const QrCreateForm = () => {
                     </section>
                 ) : (
                     <QrForm
+                        ref={formRef}
                         onSuccess={handleSuccess}
                     />
                 ) }

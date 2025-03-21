@@ -10,7 +10,7 @@ import { validatePassword, validatePasswordConfirm } from "@/helpers/validation"
 import { LoginRoute } from "@/routes/auth"
 import { SetupUsageCategory } from "@/routes/setup"
 import { authRegister } from "@/services/api/auth"
-import { usePage } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import { useState } from "react"
 import { route } from "ziggy-js"
 
@@ -142,7 +142,7 @@ export const RegisterForm = () => {
                     Sign Up with Google
                 </GoogleButton>
             </div>
-            <DividerText className="my-4 text-neutral-600">
+            <DividerText className="my-5 text-neutral-600">
                 or Sign Up With Email
             </DividerText>
             <section className="d-grid grid-cols-2 gap-2">
@@ -199,9 +199,9 @@ export const RegisterForm = () => {
                     onChange={handleChange}
                     errorMsg={formRequest.passwordConfirmation.error}
                     placeholder="••••••"
-                    className="grid-span-2 pb-1"
+                    className="grid-span-2 pb-3"
                 />
-                <div className="pb-3">
+                <div className="grid-span-2 pb-3">
                     <Checkbox
                         name="agreement"
                         label="I agree to the term & conditions"
@@ -211,20 +211,22 @@ export const RegisterForm = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="d-grid gap-1 grid-span-2">
+                <div className="d-grid gap-3 grid-span-2">
                     <Button disabled={isLoading}>
                         { isLoading ? (
                             <Loader small className="me-2"/>
                         ) : (<></>) }
                         <span>Sign Up</span>
                     </Button>
-                    <Button
-                        link
-                        href={route(LoginRoute)}
-                        type="button"
-                    >
-                        Sign In
-                    </Button>
+                    <div className="text-center py-3">
+                        Already have an account?{' '}
+                        <Link
+                            href={route(LoginRoute)}
+                            className="text-primary text-decoration-none fw-medium"
+                        >
+                            Login Here
+                        </Link>
+                    </div>
                 </div>
             </section>
         </Form>

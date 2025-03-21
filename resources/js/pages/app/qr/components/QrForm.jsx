@@ -48,6 +48,7 @@ export const QrFormProvider = ({children}) => {
 }
 
 export const QrForm = ({
+    ref,
     onSuccess,
 }) => {
     
@@ -178,7 +179,7 @@ export const QrForm = ({
     }, [form.style.qr_style])
 
     return (
-        <Card noBorder>
+        <Card ref={ref} noBorder>
             <div className="d-flex flex-column justify-content-between gap-3 h-100">
                 <Input
                     name="name"

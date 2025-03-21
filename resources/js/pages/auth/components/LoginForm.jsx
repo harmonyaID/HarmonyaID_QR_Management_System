@@ -105,20 +105,22 @@ export const LoginForm = () => {
                     Forgot password?
                 </Link>
             </div>
-            <div className="d-grid gap-1">
+            <div className="d-grid gap-3">
                 <Button disabled={isLoading}>
                     { isLoading ? (
                         <Loader small className="me-2"/>
                     ) : (<></>) }
                     <span>Sign In</span>
                 </Button>
-                <Button
-                    link
-                    href={route(RegisterRoute)}
-                    type="button"
-                >
-                    Sign Up
-                </Button>
+                <div className="text-center py-3">
+                    Don{"'"}t have an account?{' '}
+                    <Link 
+                        href={route(RegisterRoute)}
+                        className="text-primary text-decoration-none fw-medium"
+                    >
+                        Register Here
+                    </Link>
+                </div>
             </div>
         </Form>
     )

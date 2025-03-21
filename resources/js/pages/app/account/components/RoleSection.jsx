@@ -120,7 +120,7 @@ export const RoleSection = () => {
                     ) : (<></>) }
                 </header>
                 <SearchForm
-                    className="mb-3"
+                    className="mb-5"
                 />
                 { isLoading ? (
                     <div className="text-center">
