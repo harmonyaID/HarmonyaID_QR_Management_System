@@ -23,6 +23,6 @@
         "react-toastify": "^11.0.3",
         "swr": "^2.3.2",
         "vanillajs-datepicker": "^1.3.4",
-        "ziggy-js": "^2.5.0"
+        "ziggy-js": "^2.6.0"
     }
 }
